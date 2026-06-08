@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IIH UK Resource Library</title>
+  <meta name="description" content="Patient information, clinical resources, and research for Idiopathic Intracranial Hypertension (IIH). Produced by IIH UK charity.">
+  <style>
+    :root {
+      --teal:      #3CBBBA;
+      --teal-dark: #2A9998;
+      --navy:      #1A2B4A;
+      --grey:      #F5F5F5;
+      --border:    #D1D5DB;
+      --font:      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 100%; scroll-behavior: smooth; }
+    body { font-family: var(--font); font-size: 1.0625rem; line-height: 1.65; color: var(--navy); background: #fff; }
+
+    .skip-link { position: absolute; top: -100%; left: 1rem; background: var(--navy); color: #fff; padding: 0.5rem 1rem; border-radius: 0 0 6px 6px; font-weight: 600; z-index: 999; text-decoration: none; }
+    .skip-link:focus { top: 0; }
+    :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+
+    /* HEADER */
+    .site-header { background: var(--navy); color: #fff; padding: 1.5rem 0; border-bottom: 4px solid var(--teal); }
+    .container { width: 100%; max-width: 960px; margin: 0 auto; padding: 0 1.25rem; }
+    .header-inner { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+    .site-logo { width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0; }
+    .site-title { font-size: 1.75rem; font-weight: 700; color: #fff; line-height: 1.2; }
+    .site-sub { font-size: 0.9375rem; color: var(--teal); margin-top: 0.25rem; }
+
+    /* HERO */
+    .hero { background: var(--teal); padding: 2.5rem 0; }
+    .hero h1 { font-size: 2rem; font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 0.75rem; }
+    .hero p { font-size: 1.0625rem; color: var(--navy); max-width: 60ch; }
+
+    /* CATEGORY SECTIONS */
+    .resources { padding: 3rem 0; }
+    .category { margin-bottom: 3rem; }
+    .category-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 3px solid var(--teal); }
+    .category-icon { font-size: 1.5rem; }
+    .category-title { font-size: 1.375rem; font-weight: 700; color: var(--navy); }
+    .category-desc { font-size: 0.9375rem; color: #4A5568; margin-bottom: 1.25rem; }
+
+    /* RESOURCE GRID */
+    .resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+
+    .resource-card { display: flex; flex-direction: column; border: 1px solid var(--border); border-top: 3px solid var(--teal); border-radius: 6px; padding: 1.25rem; text-decoration: none; color: var(--navy); transition: box-shadow 0.2s, border-top-color 0.2s; background: #fff; }
+    .resource-card:hover { box-shadow: 0 4px 12px rgba(26,43,74,0.12); border-top-color: var(--teal-dark); }
+
+    .resource-id { font-size: 0.8125rem; font-weight: 700; color: var(--teal-dark); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.4rem; }
+    .resource-title { font-size: 1rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.5rem; }
+    .resource-meta { font-size: 0.875rem; color: #4A5568; margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+    .resource-format { display: inline-block; background: var(--grey); border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.8125rem; font-weight: 600; margin-right: 0.5rem; }
+    .resource-format.html { background: #EBF8F8; color: var(--teal-dark); }
+
+    /* ABOUT SECTION */
+    .about { background: var(--grey); padding: 2.5rem 0; }
+    .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+    .about-block h2 { font-size: 1rem; font-weight: 700; color: var(--teal-dark); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.75rem; }
+    .about-block p, .about-block li { font-size: 0.9375rem; margin-bottom: 0.4rem; }
+    .about-block ul { list-style: none; }
+    .about-block a { color: var(--teal-dark); }
+
+    /* FOOTER */
+    .site-footer { background: var(--navy); color: #fff; padding: 2rem 0; text-align: center; font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+    .site-footer a { color: var(--teal); }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.5rem; }
+      .resource-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="header-inner">
+        <img class="site-logo"
+          src="data:image/jpeg;base64,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"
+          alt="IIH UK charity logo"
+          width="64" height="64"
+        >
+        <div>
+          <div class="site-title">IIH UK Resource Library</div>
+          <div class="site-sub">Evidence-based resources for patients, families, and clinicians</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="About this library">
+    <div class="container">
+      <h1>IIH UK Resource Library</h1>
+      <p>Patient information leaflets, clinical resources, and research documents produced by IIH UK charity for people living with Idiopathic Intracranial Hypertension, their families and carers, and the healthcare professionals who support them.</p>
+    </div>
+  </section>
+
+  <main id="main-content" class="resources">
+    <div class="container">
+
+      <!-- PATIENT AND FAMILY -->
+      <section class="category" aria-labelledby="cat-pt">
+        <div class="category-header">
+          <span class="category-icon" aria-hidden="true">📋</span>
+          <h2 class="category-title" id="cat-pt">Patient and Family Resources</h2>
+        </div>
+        <p class="category-desc">Plain English information for people living with IIH, their families, friends, and carers. Written at an accessible reading level.</p>
+        <div class="resource-grid">
+
+          <a href="01 Patient and Family/20241030 IIHPT001 Acetazolamide Drug Information v3.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT001</div>
+            <div class="resource-title">Acetazolamide Drug Information</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v3.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241001 IIHPT002 Disability Benefits Guide v1.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT002</div>
+            <div class="resource-title">Disability Benefits Guide</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v1.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT003 Headaches in IIH v3.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT003</div>
+            <div class="resource-title">Headaches in IIH</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v3.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT004 Information for Family Friends and Carers v3.2.pdf" class="resource-card">
+            <div class="resource-id">IIHPT004</div>
+            <div class="resource-title">Information for Family, Friends and Carers</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v3.2 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT005 IIHWOP Patient Information Booklet v4.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT005</div>
+            <div class="resource-title">IIHWOP Patient Information Booklet</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v4.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT006 What is IIH Patient Information Booklet v4.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT006</div>
+            <div class="resource-title">What is IIH? Patient Information Booklet</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v4.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT007 IIH and Weight Management v5.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT007</div>
+            <div class="resource-title">IIH and Weight Management</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v5.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT008 Medication Overuse Headache in IIH v3.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT008</div>
+            <div class="resource-title">Medication Overuse Headache in IIH</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v3.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT009 Shunts and IIH v5.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT009</div>
+            <div class="resource-title">Shunts and IIH</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v5.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT010 Venous Sinus Stenting for IIH v4.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT010</div>
+            <div class="resource-title">Venous Sinus Stenting for IIH</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v4.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT011 Optic Nerve Sheath Fenestration for IIH v3.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT011</div>
+            <div class="resource-title">Optic Nerve Sheath Fenestration for IIH</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v3.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT012 Intracranial Pressure Monitoring v2.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT012</div>
+            <div class="resource-title">Intracranial Pressure Monitoring</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v2.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241029 IIHPT013 IIH and Education v3.2.pdf" class="resource-card">
+            <div class="resource-id">IIHPT013</div>
+            <div class="resource-title">IIH and Education</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v3.2 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT014 Employment with IIH v1.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT014</div>
+            <div class="resource-title">Employment with IIH</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v1.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT015 Visual Problems in IIH v3.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT015</div>
+            <div class="resource-title">Visual Problems in IIH</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v3.0 &middot; Oct 2024</div>
+          </a>
+
+          <a href="01 Patient and Family/20241030 IIHPT016 When I Go to the Eye Clinic v2.0.pdf" class="resource-card">
+            <div class="resource-id">IIHPT016</div>
+            <div class="resource-title">When I Go to the Eye Clinic</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v2.0 &middot; Oct 2024</div>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- CLINICAL HCP -->
+      <section class="category" aria-labelledby="cat-hcp">
+        <div class="category-header">
+          <span class="category-icon" aria-hidden="true">🏥</span>
+          <h2 class="category-title" id="cat-hcp">Clinical and Healthcare Professional Resources</h2>
+        </div>
+        <p class="category-desc">Resources for orthoptists, neuro-ophthalmologists, neurologists, and allied health clinicians.</p>
+        <div class="resource-grid">
+
+          <a href="02 Clinical HCP/20250319 IIHHCP001 BIOS Orthoptic Led IIH Service Presentation v1.0.pdf" class="resource-card">
+            <div class="resource-id">IIHHCP001</div>
+            <div class="resource-title">BIOS Orthoptic Led IIH Service Presentation</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v1.0 &middot; Mar 2025</div>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- REFERENCE AND RESEARCH -->
+      <section class="category" aria-labelledby="cat-ref">
+        <div class="category-header">
+          <span class="category-icon" aria-hidden="true">📚</span>
+          <h2 class="category-title" id="cat-ref">Reference and Research</h2>
+        </div>
+        <p class="category-desc">Open access academic papers and clinical guidelines. All papers are CC BY 4.0 unless otherwise stated.</p>
+        <div class="resource-grid">
+
+          <a href="03 Reference and Research/20180614 IIHREF001 2018 Consensus Guidelines IIH v1.0.pdf" class="resource-card">
+            <div class="resource-id">IIHREF001</div>
+            <div class="resource-title">2018 Consensus Guidelines IIH</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v1.0 &middot; Mollan et al. JNNP 2018</div>
+          </a>
+
+          <a href="03 Reference and Research/20190315 IIHREF002 2018 JLA Research Priorities IIH v1.0.pdf" class="resource-card">
+            <div class="resource-id">IIHREF002</div>
+            <div class="resource-title">2018 JLA Research Priorities IIH</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v1.0 &middot; Mollan et al. BMJ Open 2019</div>
+          </a>
+
+          <a href="03 Reference and Research/20260407 IIHREF003 2026 RISE IIH Standards Call v1.0.pdf" class="resource-card">
+            <div class="resource-id">IIHREF003</div>
+            <div class="resource-title">2026 RISE IIH Standards Call</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v1.0 &middot; MacKeith et al. Eye 2026</div>
+          </a>
+
+          <a href="03 Reference and Research/20190315 IIHREF004 2018 JLA PSP Contributing Uncertainties v1.0.pdf" class="resource-card">
+            <div class="resource-id">IIHREF004</div>
+            <div class="resource-title">2018 JLA PSP Contributing Uncertainties</div>
+            <div class="resource-meta"><span class="resource-format">PDF</span> v1.0 &middot; JLA PSP 2019</div>
+          </a>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <section class="about" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-block">
+          <h2 id="about-heading">About IIH UK</h2>
+          <p>IIH UK is a registered charity supporting people living with Idiopathic Intracranial Hypertension and the clinical teams who care for them.</p>
+          <p><a href="https://www.iih.org.uk">www.iih.org.uk</a></p>
+        </div>
+        <div class="about-block">
+          <h2>Accessibility</h2>
+          <p>All digital resources meet WCAG 2.2 Level AA and EN 301 549 standards. HTML assets work fully offline with no external dependencies.</p>
+        </div>
+        <div class="about-block">
+          <h2>Licence</h2>
+          <p>IIH UK resources are published under <strong>CC BY-NC 4.0</strong> — free to share with attribution, not for commercial use.</p>
+          <p>Academic papers retain their original open access licences.</p>
+        </div>
+        <div class="about-block">
+          <h2>Charity registration</h2>
+          <ul>
+            <li>England &amp; Wales: 1143522</li>
+            <li>Scotland: SC043294</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>
+        &copy; IIH UK &mdash; Registered charity England &amp; Wales 1143522 | Scotland SC043294 &mdash;
+        <a href="https://www.iih.org.uk">www.iih.org.uk</a>
+      </p>
+      <p style="margin-top:0.5rem; font-size:0.85rem;">
+        Content licensed under CC BY-NC 4.0. The information on this site does not replace advice from your healthcare team.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

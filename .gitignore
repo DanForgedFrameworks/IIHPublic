@@ -1,0 +1,42 @@
+# IIH UK Resource Library — .gitignore
+# Local master stays in OneDrive. GitHub receives published output only.
+
+# Internal document control — stays local, never push
+_Admin/
+
+# Working session screenshots — not publishable assets
+Screens/
+
+# Video files — too large for GitHub (host on YouTube/embed externally)
+Videos/
+
+# Superseded versions — local archive only
+00 Archive/
+
+# Claude AI project files — internal AI session management, stays local
+.claude/
+CLAUDE.md
+
+# Windows system files
+Thumbs.db
+Thumbs.db:encryptable
+desktop.ini
+*.lnk
+$RECYCLE.BIN/
+
+# Office temporary files
+~$*
+*.tmp
+
+# Mac system files (in case contributors use Macs)
+.DS_Store
+.AppleDouble
+.LSOverride
+__MACOSX/
+
+# OneDrive conflict files
+* (1).*
+* (2).*
+
+# Temp base64 working files
+logo_base64.txt
