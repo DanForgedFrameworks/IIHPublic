@@ -26,6 +26,7 @@ Available in `01 Patient and Family/`:
 | IIHPT002 | Disability Benefits Guide | v1.0 |
 | IIHPT003 | Headaches in IIH | v3.0 |
 | IIHPT004 | Information for Family, Friends and Carers | v3.2 |
+| IIHPT004 | Information for Family, Friends and Carers (Digital — Cards &amp; List) | v3.3 HTML |
 | IIHPT005 | IIHWOP Patient Information Booklet | v4.0 |
 | IIHPT006 | What is IIH Patient Information Booklet | v4.0 |
 | IIHPT007 | IIH and Weight Management | v5.0 |
@@ -68,18 +69,18 @@ All digital resources in this library are produced to meet:
 - **WCAG 2.2 Level AA** (Web Content Accessibility Guidelines)
 - **EN 301 549** (European accessibility standard for ICT products)
 
-Interactive HTML assets are fully self-contained single files with no external dependencies â€” they work offline and on any device.
+Interactive HTML assets are fully self-contained single files with no external dependencies — they work offline and on any device.
 
 ---
 
 ## Licence
 
 Patient and clinical resources produced by IIH UK are published under  
-**Creative Commons Attribution â€” Non-Commercial 4.0 International (CC BY-NC 4.0)**.
+**Creative Commons Attribution — Non-Commercial 4.0 International (CC BY-NC 4.0)**.
 
 You are free to share and adapt these materials for non-commercial purposes, provided you give appropriate credit to IIH UK and indicate if changes were made.
 
-Academic reference papers in `03 Reference and Research/` retain their original open access licences (CC BY 4.0 â€” see individual documents).
+Academic reference papers in `03 Reference and Research/` retain their original open access licences (CC BY 4.0 — see individual documents).
 
 ---
 
@@ -89,4 +90,4 @@ This repository is maintained by IIH UK volunteers. If you have found an error o
 
 ---
 
-*IIH UK â€” Registered Charity England & Wales 1143522 | Scotland SC043294*
+*IIH UK — Registered Charity England &amp; Wales 1143522 | Scotland SC043294*
