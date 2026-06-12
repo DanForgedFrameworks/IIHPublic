@@ -172,7 +172,6 @@ window.IFC_TOPICS = [
     letter: "G",
     title: "Keeping a positive focus",
     teaser: "Appointments and forms can feel relentless — small, fun moments help more than you'd think.",
-    featured: true,
     html: `
       <p>Many people with IIH have told us that the constant hospital appointments, the side effects of treatments, not being able to work, and filling in benefit forms can all feel negative and wearing. They will need your support to keep a <strong>positive focus</strong>.</p>
       <h3>One simple thing that really helps</h3>
