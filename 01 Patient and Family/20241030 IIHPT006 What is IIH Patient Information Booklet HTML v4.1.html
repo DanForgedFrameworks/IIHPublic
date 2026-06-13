@@ -101,19 +101,21 @@
     .site-header-text { flex: 1; min-width: 200px; }
     .site-title { font-size: var(--font-size-xl); font-weight: 700; line-height: 1.2; color: #fff; }
     .site-subtitle { font-size: var(--font-size-sm); color: var(--color-primary); margin-top: var(--space-xs); }
-    .header-print {
-      display: inline-flex; align-items: center; gap: var(--space-xs);
-      margin-left: auto; flex-shrink: 0;
-      background: var(--color-primary); color: var(--color-text);
-      font-weight: 700; font-size: var(--font-size-sm); text-decoration: none;
-      padding: 0 var(--space-md); min-height: var(--touch-target);
-      border-radius: 999px; border: 2px solid var(--color-primary);
-      white-space: nowrap; transition: background .15s, color .15s, border-color .15s;
-    }
-    .header-print:hover { background: #fff; color: var(--color-text); border-color: #fff; }
-
     .asset-banner { background: var(--color-primary); padding: var(--space-lg) 0; }
+    .asset-banner-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-md); flex-wrap: wrap;
+    }
     .asset-banner h1 { font-size: var(--font-size-2xl); font-weight: 700; color: var(--color-text); line-height: 1.2; }
+    .print-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: #FFFFFF; color: var(--color-text);
+      border: 2px solid #FFFFFF; border-radius: 999px;
+      padding: 0.5rem 1.1rem; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; white-space: nowrap; min-height: var(--touch-target); cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .print-pill:hover, .print-pill:focus { background: transparent; color: #FFFFFF; outline: 3px solid #FFFFFF; outline-offset: 2px; }
     .asset-meta { font-size: var(--font-size-sm); color: var(--color-text); margin-top: var(--space-xs); opacity: .82; }
 
     /* =========================================================
@@ -447,16 +449,15 @@
         <div class="site-title">IIH UK</div>
         <div class="site-subtitle">Supporting people with Idiopathic Intracranial Hypertension</div>
       </div>
-      <a class="header-print" href="https://iih.org.uk/patient-leaflets/" target="_blank" rel="noopener noreferrer">
-        <span aria-hidden="true">🖨️</span>
-        <span>Want a printed copy?</span>
-      </a>
     </div>
   </header>
 
   <div class="asset-banner" role="region" aria-label="Document title">
     <div class="container">
-      <h1>What is IIH?</h1>
+      <div class="asset-banner-inner">
+        <h1>What is IIH?</h1>
+        <a class="print-pill" href="https://iih.org.uk/patient-leaflets/" target="_blank" rel="noopener noreferrer">🖨️ Want a printed copy?</a>
+      </div>
     </div>
   </div>
 
