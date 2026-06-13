@@ -1,0 +1,2246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2018 Consensus Guidelines on IIH — Interactive Tool — IIH UK</title>
+  <meta name="description" content="A clinical triage and signposting tool for healthcare professionals based on the 2018 UK consensus guidelines on the management of idiopathic intracranial hypertension (Mollan et al., JNNP 2018). Identify what the patient presents with, then what to address immediately, short-term and long-term.">
+  <meta name="keywords" content="IIH, idiopathic intracranial hypertension, consensus guidelines, Mollan 2018, clinical reference, triage, neurology, ophthalmology, neurosurgery, IIH UK">
+  <meta name="author" content="IIH UK">
+
+  <style>
+    :root {
+      --ink:#16202a; --muted:#5a6b78; --faint:#8696a2;
+      --bg:#ffffff; --surface:#f5f8fa; --surface-2:#eaeff3;
+      --border:#e4eaef; --border-2:#cdd7df;
+      --accent:#0f6e56; --accent-2:#0b5644; --accent-tint:#e6f5ef;
+      --link:#15639e;
+      --imm:#c2392f; --imm-bg:#fdeeec; --imm-tx:#7e2019; --imm-bd:#f1b4ad;
+      --sht:#a06a05; --sht-bg:#fcf3e1; --sht-tx:#6e4a04; --sht-bd:#ecce93;
+      --lng:#0f6e56; --lng-bg:#e6f5ef; --lng-tx:#08443a; --lng-bd:#a9d8c9;
+      --font:'Oxygen',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Ubuntu,Cantarell,sans-serif;
+      --radius:10px; --radius-sm:7px; --touch:44px;
+      --shadow-1:0 1px 2px rgba(22,32,42,.05);
+      --shadow-2:0 2px 4px rgba(22,32,42,.06),0 6px 16px rgba(22,32,42,.08);
+      --shadow-3:0 8px 28px rgba(22,32,42,.14);
+      --ease:cubic-bezier(.22,.61,.36,1);
+    }
+    /* Standalone build: 'Oxygen' falls back to the system font stack. */
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{font-size:100%;scroll-behavior:smooth;background:var(--surface);}
+    body{font-family:var(--font);font-size:1rem;line-height:1.55;color:var(--ink);background:transparent;}
+
+    /* animated background: gradient wash + visible dot grid + drifting orbs */
+    html{background:linear-gradient(160deg,#eef6f4 0%,#f3f7f9 45%,#eaf3f5 100%);}
+    .bg-field{position:fixed;inset:0;z-index:-1;overflow:hidden;
+      background:
+        radial-gradient(rgba(15,110,86,.11) 2px,transparent 2px),
+        radial-gradient(rgba(22,32,42,.07) 2px,transparent 2px);
+      background-size:54px 54px,54px 54px;
+      background-position:0 0,27px 27px;}
+    .orb{position:absolute;border-radius:50%;filter:blur(75px);opacity:.6;animation:drift 24s infinite alternate ease-in-out;}
+    .orb-1{width:48vw;height:48vw;max-width:580px;max-height:580px;background:rgba(60,187,186,.42);top:-12%;left:-8%;}
+    .orb-2{width:54vw;height:54vw;max-width:640px;max-height:640px;background:rgba(15,110,86,.30);bottom:-18%;right:-12%;animation-delay:-6s;}
+    .orb-3{width:40vw;height:40vw;max-width:470px;max-height:470px;background:rgba(105,150,210,.22);top:36%;left:54%;animation-delay:-13s;}
+    @keyframes drift{0%{transform:translate(0,0) scale(1);}50%{transform:translate(9%,13%) scale(1.1);}100%{transform:translate(-9%,5%) scale(.92);}}
+    a{color:var(--link);text-underline-offset:2px;}
+    .link-btn{appearance:none;background:none;border:none;color:var(--link);font:inherit;cursor:pointer;text-decoration:underline;padding:0;display:inline-flex;align-items:center;gap:3px;}
+    .skip-link{position:absolute;top:-100%;left:1rem;background:var(--ink);color:#fff;padding:.5rem 1rem;border-radius:0 0 var(--radius-sm) var(--radius-sm);font-weight:700;z-index:1000;text-decoration:none;}
+    .skip-link:focus{top:0;}
+    :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:3px;}
+    button{font-family:var(--font);}
+
+    /* icons */
+    .ico{width:20px;height:20px;flex-shrink:0;vertical-align:-4px;}
+    .ico-sm{width:15px;height:15px;vertical-align:-2px;}
+    .chev{width:14px;height:14px;transition:transform .28s var(--ease);}
+
+    /* ---------- header ---------- */
+    .app-header{background:var(--ink);color:#fff;}
+    .app-header .bar{display:flex;align-items:center;gap:.75rem;max-width:1180px;margin:0 auto;padding:.7rem 1rem;}
+    .app-logo{width:42px;height:42px;border-radius:50%;flex-shrink:0;background:#fff;}
+    .app-titles{flex:1;min-width:0;}
+    .app-title{font-size:1.08rem;font-weight:700;line-height:1.2;}
+    .app-sub{font-size:.78rem;color:#a9b6bf;}
+    .app-ref{font-size:.72rem;color:#809099;white-space:nowrap;}
+
+    /* ---------- draft banner ---------- */
+    .draft-banner{background:var(--sht-bg);color:var(--sht-tx);border-bottom:1px solid var(--sht-bd);font-size:.82rem;}
+    .draft-banner .inner{max-width:1180px;margin:0 auto;padding:.45rem 1rem;display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;}
+    .draft-banner .ico{color:var(--sht);}
+    .draft-banner a{color:var(--sht-tx);font-weight:700;margin-left:.2rem;}
+
+    /* ---------- tab bar (sticky, elevates on scroll) ---------- */
+    .tabbar{background:rgba(255,255,255,.86);backdrop-filter:saturate(1.6) blur(8px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;transition:box-shadow .25s var(--ease),background .25s;}
+    .tabbar.scrolled{box-shadow:var(--shadow-2);background:rgba(255,255,255,.96);}
+    .tabbar .inner{display:flex;align-items:center;gap:.5rem;max-width:1180px;margin:0 auto;padding:.45rem 1rem;flex-wrap:wrap;}
+    .drawer-toggle{display:none;align-items:center;justify-content:center;width:var(--touch);height:var(--touch);border:1px solid var(--border-2);border-radius:var(--radius-sm);background:var(--bg);cursor:pointer;color:var(--ink);}
+    .tabs{display:inline-flex;gap:.2rem;background:var(--surface-2);border-radius:999px;padding:3px;}
+    .tab{appearance:none;border:none;background:none;cursor:pointer;font-size:.9rem;font-weight:700;color:var(--muted);padding:0 .9rem;min-height:38px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;transition:color .2s,background .2s,box-shadow .2s;}
+    .tab .ico{width:17px;height:17px;}
+    .tab[aria-selected="true"]{background:var(--bg);color:var(--accent-2);box-shadow:var(--shadow-1);}
+    .tab:hover:not([aria-selected="true"]){color:var(--ink);}
+    .search-wrap{position:relative;flex:1 1 220px;min-width:170px;margin-left:auto;}
+    .search-input{width:100%;font:inherit;font-size:.9rem;padding:0 2.2rem;min-height:40px;border:1.5px solid var(--border-2);border-radius:999px;background:var(--bg);color:var(--ink);transition:border-color .2s,box-shadow .2s;}
+    .search-input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-tint);}
+    .search-ico{position:absolute;left:.65rem;top:50%;transform:translateY(-50%);color:var(--faint);pointer-events:none;}
+    .search-clear{position:absolute;right:.4rem;top:50%;transform:translateY(-50%);width:26px;height:26px;border:none;border-radius:50%;background:var(--border-2);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;}
+    .search-clear:hover{background:var(--accent);color:#fff;}
+
+    /* ---------- layout ---------- */
+    .layout{display:grid;grid-template-columns:248px minmax(0,1fr);gap:1.5rem;max-width:1180px;margin:0 auto;padding:1.5rem 1rem 3rem;align-items:start;}
+    .sidebar{position:sticky;top:70px;}
+    .main{background:rgba(255,255,255,.60);backdrop-filter:blur(8px) saturate(1.2);-webkit-backdrop-filter:blur(8px) saturate(1.2);border:1px solid rgba(255,255,255,.8);border-radius:var(--radius);padding:1.4rem 1.5rem;box-shadow:0 8px 30px rgba(22,32,42,.07);}
+    @media(max-width:840px){.main{padding:1.1rem;}}
+    /* sidebar (route jump list) only on the Routes view */
+    body:not([data-view="route"]) .sidebar{display:none;}
+    body:not([data-view="route"]) .layout{grid-template-columns:minmax(0,1fr);}
+    .sidebar-title{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);padding:0 .25rem .55rem;}
+    .route-nav{display:flex;flex-direction:column;gap:4px;}
+    .route-link{display:flex;align-items:center;gap:.6rem;text-align:left;width:100%;background:var(--bg);border:1px solid var(--border);border-left:3px solid transparent;border-radius:var(--radius-sm);padding:.5rem .65rem;cursor:pointer;min-height:var(--touch);transition:background .18s,border-color .18s,transform .18s;}
+    .route-link:hover{background:var(--accent-tint);border-left-color:var(--accent);transform:translateX(2px);}
+    .route-link[aria-current="true"]{background:var(--accent-tint);border-color:var(--accent);border-left-color:var(--accent-2);}
+    .route-ico{flex-shrink:0;width:30px;height:30px;border-radius:8px;background:var(--surface-2);color:var(--accent-2);display:inline-flex;align-items:center;justify-content:center;transition:background .18s,color .18s;}
+    .route-link[aria-current="true"] .route-ico,.route-link:hover .route-ico{background:var(--accent);color:#fff;}
+    .route-ico .ico{width:17px;height:17px;vertical-align:0;}
+    .route-link-text{min-width:0;}
+    .route-link-title{display:block;font-size:.9rem;font-weight:700;line-height:1.2;}
+    .route-link-sub{display:block;font-size:.74rem;color:var(--muted);}
+
+    /* entrance animation */
+    .vin .route-head,.vin .redflag,.vin .picker-intro{animation:fadeUp .45s var(--ease) both;}
+    .vin .picker-card{animation:fadeUp .5s var(--ease) both;animation-delay:calc(var(--i,0) * 45ms + 60ms);}
+    .vin .band{animation:fadeUp .5s var(--ease) both;animation-delay:calc(var(--i,0) * 110ms + 120ms);}
+    .vin .action{animation:fadeUp .4s var(--ease) both;animation-delay:calc(var(--i,0) * 50ms + 60ms);}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+    /* ---------- main heads ---------- */
+    .route-head{margin-bottom:1.1rem;}
+    .route-head h2{font-size:1.5rem;line-height:1.2;display:flex;align-items:center;gap:.5rem;}
+    .route-head-ico{width:40px;height:40px;border-radius:10px;background:var(--accent-tint);color:var(--accent-2);display:inline-flex;align-items:center;justify-content:center;}
+    .route-head-ico .ico{width:22px;height:22px;vertical-align:0;}
+    .route-head-sub{font-size:.85rem;color:var(--muted);margin-top:.3rem;}
+    .back-btn{appearance:none;background:none;border:none;color:var(--link);font:inherit;font-size:.85rem;font-weight:700;cursor:pointer;padding:.25rem 0;margin-bottom:.5rem;display:inline-flex;align-items:center;gap:4px;transition:gap .18s;}
+    .back-btn:hover{gap:8px;}
+
+    /* picker (landing) */
+    .picker-intro{margin-bottom:1.25rem;}
+    .picker-intro h2{font-size:1.6rem;}
+    .picker-intro p{color:var(--muted);font-size:.96rem;margin-top:.4rem;max-width:62ch;}
+    .picker-stats{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem;}
+    .stat{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:700;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:5px 12px;}
+    .stat .ico{color:var(--accent-2);}
+    .stat-link{cursor:pointer;color:var(--accent-2);transition:background .18s,border-color .18s;}
+    .stat-link:hover{background:var(--accent-tint);border-color:var(--accent);}
+    .picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:.85rem;}
+    .picker-card{position:relative;display:flex;flex-direction:column;gap:.35rem;text-align:left;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;cursor:pointer;min-height:148px;box-shadow:var(--shadow-1);overflow:hidden;transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s;}
+    .picker-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease);}
+    .picker-card.has-immediate::before{background:var(--imm);transform:scaleX(1);height:4px;}
+    .picker-card.has-advisory::before{background:var(--sht);transform:scaleX(1);height:4px;}
+    .picker-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-3);border-color:var(--border-2);}
+    .picker-card:hover::before{transform:scaleX(1);}
+    .picker-ico{width:40px;height:40px;border-radius:10px;background:var(--surface-2);color:var(--accent-2);display:inline-flex;align-items:center;justify-content:center;transition:background .2s,color .2s,transform .2s;}
+    .picker-card:hover .picker-ico{transform:scale(1.06) rotate(-3deg);}
+    .picker-card.has-immediate .picker-ico{background:var(--imm-bg);color:var(--imm-tx);}
+    .picker-card.has-advisory .picker-ico{background:var(--sht-bg);color:var(--sht-tx);}
+    .picker-ico .ico{width:22px;height:22px;vertical-align:0;}
+    .picker-title{font-size:1.04rem;font-weight:700;line-height:1.2;}
+    .picker-sub{font-size:.82rem;color:var(--muted);}
+    .picker-meta{margin-top:auto;display:flex;flex-direction:column;gap:3px;font-size:.74rem;color:var(--faint);padding-top:.3rem;}
+    .picker-flag{display:inline-flex;align-items:center;gap:4px;color:var(--imm);font-weight:700;}
+    .picker-flag-amber{color:var(--sht-tx);}
+    .picker-go{position:absolute;right:.9rem;bottom:.9rem;color:var(--faint);opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s,color .2s;}
+    .picker-card:hover .picker-go{opacity:1;transform:none;color:var(--accent-2);}
+
+    /* symptom / finding selection matrix */
+    .sym-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin:1rem 0 1.25rem;}
+    .sym-block{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-1);}
+    .sym-block-find{border-top:3px solid var(--accent);}
+    .sym-block-title{font-size:.95rem;font-weight:700;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+    .sym-chip{display:flex;align-items:center;gap:.55rem;width:100%;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.5rem .6rem;margin-bottom:.45rem;cursor:pointer;min-height:42px;transition:background .18s,border-color .18s,transform .12s;}
+    .sym-block .sym-chip:last-child{margin-bottom:0;}
+    .sym-chip:hover{border-color:var(--accent);background:var(--accent-tint);transform:translateX(2px);}
+    .sym-check{flex-shrink:0;width:18px;height:18px;border-radius:5px;border:2px solid var(--border-2);display:inline-flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s;}
+    .sym-chip[aria-pressed="true"]{background:var(--accent-tint);border-color:var(--accent);}
+    .sym-chip[aria-pressed="true"] .sym-check{background:var(--accent);border-color:var(--accent);}
+    .sym-chip[aria-pressed="true"] .sym-check::after{content:"";width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translateY(-1px);}
+    .sym-label{flex:1;font-size:.9rem;font-weight:600;}
+    .sym-freq{font-size:.72rem;color:var(--faint);font-weight:700;}
+    .sym-emflag{color:var(--imm);display:inline-flex;}
+    .sym-chip.sym-emergency{border-left:3px solid var(--imm);}
+    .sym-chip.sym-emergency .sym-label{color:var(--imm-tx);}
+    .sym-chip.sym-emergency:hover{background:var(--imm-bg);border-color:var(--imm);}
+    .sym-chip.sym-emergency[aria-pressed="true"]{background:var(--imm-bg);border-color:var(--imm);}
+    .sym-chip.sym-emergency[aria-pressed="true"] .sym-check{background:var(--imm);border-color:var(--imm);}
+
+    /* with/without papilloedema fork */
+    .suggest-fork{border:1px dashed var(--border-2);border-radius:var(--radius);padding:.75rem;margin-bottom:.6rem;background:rgba(255,255,255,.5);}
+    .fork-head{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:.84rem;font-weight:700;color:var(--muted);margin-bottom:.55rem;}
+    .fork-head .ico{color:var(--accent-2);}
+    .fork-shared{font-weight:400;color:var(--faint);font-size:.76rem;}
+    .fork-hint{font-weight:400;color:var(--faint);font-size:.76rem;margin-left:auto;font-style:italic;}
+    .fork-branches{display:flex;flex-direction:column;gap:.5rem;}
+    .fork-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.6rem;align-items:stretch;}
+    .fork-cols .suggest-card{height:100%;}
+    @media(max-width:600px){.fork-cols{grid-template-columns:minmax(0,1fr);}}
+    .suggest-prefix{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--accent-2);margin-bottom:3px;}
+
+    /* suggested routes output */
+    .suggest{margin-top:.5rem;}
+    .suggest-empty{display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center;color:var(--faint);padding:1.6rem;border:1px dashed var(--border-2);border-radius:var(--radius);background:rgba(255,255,255,.55);}
+    .suggest-empty .ico{width:28px;height:28px;color:var(--faint);}
+    .suggest-head{font-size:1.05rem;margin:.5rem 0 .7rem;}
+    .suggest-cards{display:flex;flex-direction:column;gap:.6rem;}
+    .suggest-card{display:flex;align-items:center;gap:.8rem;width:100%;text-align:left;background:var(--bg);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:var(--radius);padding:.8rem .9rem;cursor:pointer;box-shadow:var(--shadow-1);transition:transform .15s var(--ease),box-shadow .15s,border-color .15s;animation:fadeUp .4s var(--ease) both;}
+    .suggest-card:hover{transform:translateX(4px);box-shadow:var(--shadow-2);}
+    .suggest-card.is-emergency{border-left-color:var(--imm);background:var(--imm-bg);}
+    .suggest-ico{flex-shrink:0;width:40px;height:40px;border-radius:10px;background:var(--accent-tint);color:var(--accent-2);display:inline-flex;align-items:center;justify-content:center;}
+    .suggest-ico .ico{width:21px;height:21px;vertical-align:0;}
+    .suggest-card.is-emergency .suggest-ico{background:#fff;color:var(--imm);}
+    .suggest-body{flex:1;min-width:0;}
+    .suggest-title{display:block;font-weight:700;}
+    .suggest-sub{display:block;font-size:.8rem;color:var(--muted);}
+    .suggest-whys{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+    .suggest-why{font-size:.7rem;background:var(--surface-2);color:var(--muted);border-radius:999px;padding:1px 8px;}
+    .suggest-go{flex-shrink:0;color:var(--faint);}
+    .suggest-card:hover .suggest-go{color:var(--accent-2);}
+    .suggest-titlerow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+    .suggest-flag{display:inline-flex;align-items:center;gap:4px;font-size:.7rem;font-weight:700;color:var(--imm-tx);background:var(--imm-bg);border:1px solid var(--imm-bd);border-radius:999px;padding:1px 8px;}
+    .suggest-flag-amber{color:var(--sht-tx);background:var(--sht-bg);border-color:var(--sht-bd);}
+    .suggest-card.is-immediate{border-left-color:var(--imm);}
+    .suggest-card.is-immediate .suggest-ico{background:var(--imm-bg);color:var(--imm-tx);}
+
+    /* symptoms toolbar + frequency note */
+    .sym-freq-note{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:6px;margin-top:.55rem;}
+    .sym-freq-note .ico{color:var(--accent-2);}
+    .sym-toolbar{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin:.95rem 0 .25rem;flex-wrap:wrap;}
+    .sym-count{font-size:.82rem;font-weight:700;color:var(--muted);}
+    .btn-reset{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:700;color:var(--accent-2);background:var(--bg);border:1px solid var(--border-2);border-radius:999px;padding:.4rem .9rem;min-height:38px;cursor:pointer;transition:background .15s,border-color .15s;}
+    .btn-reset:hover{background:var(--accent-tint);border-color:var(--accent);}
+
+    /* pulse for immediate / flagged items (frozen under reduced-motion) */
+    @keyframes pulseRing{0%,100%{box-shadow:var(--shadow-1);}50%{box-shadow:0 0 0 3px rgba(194,57,47,.22),var(--shadow-2);}}
+    .suggest-card.pulse{animation:pulseRing 2s ease-in-out infinite;}
+    @keyframes pulseBar{0%,100%{opacity:.45;}50%{opacity:1;}}
+    .action-immediate .action-trigger::before{transform:scaleY(1);background:var(--imm);animation:pulseBar 2.2s ease-in-out infinite;}
+    @keyframes pulseNode{0%,100%{box-shadow:0 0 0 0 rgba(194,57,47,0);}50%{box-shadow:0 0 0 5px rgba(194,57,47,.14);}}
+    .band-immediate .band-node{animation:pulseNode 2.4s ease-in-out infinite;}
+
+    /* red-flag strip */
+    .redflag{display:flex;gap:.65rem;align-items:flex-start;background:var(--imm-bg);border:1px solid var(--imm-bd);border-left:4px solid var(--imm);border-radius:var(--radius-sm);padding:.75rem .95rem;margin-bottom:1.25rem;}
+    .redflag-ico{color:var(--imm);flex-shrink:0;}
+    .redflag-ico .ico{width:22px;height:22px;vertical-align:0;}
+    .redflag-text{font-size:.9rem;color:var(--imm-tx);}
+    .redflag-label{display:inline-block;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:.78rem;margin-right:.2rem;}
+    .redflag .link-btn{color:var(--imm-tx);font-weight:700;}
+
+    /* ---------- pathway rail ---------- */
+    .pathway{position:relative;padding-left:42px;}
+    .pathway::before{content:"";position:absolute;left:17px;top:14px;bottom:14px;width:2px;background:linear-gradient(var(--imm),var(--sht) 50%,var(--lng));border-radius:2px;}
+    .band{position:relative;margin-bottom:1.4rem;}
+    .band:last-child{margin-bottom:0;}
+    .band-node{position:absolute;left:-42px;top:-2px;width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--bg);border:2px solid var(--border-2);z-index:1;}
+    .band-node .ico{width:18px;height:18px;vertical-align:0;}
+    .band-immediate .band-node{border-color:var(--imm);color:var(--imm);}
+    .band-short .band-node{border-color:var(--sht);color:var(--sht);}
+    .band-long .band-node{border-color:var(--lng);color:var(--lng);}
+    .band-head{font-size:.95rem;font-weight:700;display:flex;align-items:center;gap:.45rem;min-height:36px;padding:0 0 .15rem;}
+    .band-count{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--surface-2);border-radius:999px;padding:1px 9px;}
+    .band-immediate .band-head{color:var(--imm-tx);}
+    .band-short .band-head{color:var(--sht-tx);}
+    .band-long .band-head{color:var(--lng-tx);}
+    .band-empty{font-size:.85rem;color:var(--faint);padding:.4rem 0;}
+
+    /* action rows */
+    .actions{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-1);overflow:hidden;margin-top:.45rem;}
+    .action{border-bottom:1px solid var(--border);}
+    .action:last-child{border-bottom:none;}
+    .action-trigger{display:flex;gap:.75rem;align-items:flex-start;justify-content:space-between;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:.7rem .85rem;transition:background .15s;position:relative;}
+    .action-trigger::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);transform:scaleY(0);transition:transform .2s var(--ease);}
+    .action-trigger:hover{background:var(--surface);}
+    .action-trigger:hover::before,.action-trigger[aria-expanded="true"]::before{transform:scaleY(1);}
+    .action-main{min-width:0;flex:1;}
+    .action-title{display:block;font-size:.98rem;font-weight:700;line-height:1.3;}
+    .action-summary{display:block;font-size:.84rem;color:var(--muted);margin-top:2px;}
+    .action-badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;}
+    .action-ctx{display:block;font-size:.76rem;color:var(--muted);margin-top:6px;}
+    .ctx-time{font-weight:700;display:inline-flex;align-items:center;gap:3px;}
+    .ctx-immediate{color:var(--imm-tx);} .ctx-short{color:var(--sht-tx);} .ctx-long{color:var(--lng-tx);}
+    .action-toggle{flex-shrink:0;font-size:.74rem;font-weight:700;color:var(--accent-2);border:1px solid var(--border-2);border-radius:999px;padding:4px 10px;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;align-self:center;}
+    .action-trigger[aria-expanded="true"] .chev{transform:rotate(180deg);}
+    /* grid-rows animated expand/collapse */
+    .action-panel-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s var(--ease);}
+    .action-panel-wrap.open{grid-template-rows:1fr;}
+    .action-panel-inner{overflow:hidden;}
+    .action-panel{padding:.1rem .85rem .95rem 1rem;max-width:76ch;}
+
+    /* badges */
+    .badge{display:inline-flex;align-items:center;font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid transparent;line-height:1.35;}
+    .badge-q{background:var(--surface-2);color:var(--muted);border-color:var(--border);font-weight:600;}
+    .badge-primary,.badge-teal{background:var(--accent-tint);color:var(--accent-2);border-color:var(--lng-bd);}
+    .badge-green{background:#e7f5ec;color:#1e6b3a;border-color:#9cd0ad;}
+    .badge-indigo{background:#ececfb;color:#3b3b8f;border-color:#bdbdee;}
+    .badge-alert{background:var(--imm-bg);color:var(--imm-tx);border-color:var(--imm-bd);}
+    .badge-warning{background:var(--sht-bg);color:var(--sht-tx);border-color:var(--sht-bd);}
+    .badge-muted{background:var(--surface);color:var(--muted);border-color:var(--border-2);}
+
+    /* rich text */
+    .rich ul,.rich ol{margin:.2rem 0 .8rem 1.3rem;}
+    .rich li{margin-bottom:.32rem;}
+    .rich p{margin-bottom:.7rem;}
+    .rich p:last-child{margin-bottom:0;}
+    .rec-evidence{font-size:.85rem;color:var(--muted);}
+    .rec-evidence-label{font-weight:700;color:var(--ink);}
+    .callout{border-radius:var(--radius-sm);padding:.6rem .85rem;margin:.7rem 0 0;border-left:4px solid;font-size:.85rem;}
+    .callout-warning{background:var(--sht-bg);border-color:var(--sht);color:var(--sht-tx);}
+
+    /* source traceability block (verbatim from guideline) */
+    .src{margin-top:.9rem;border-top:1px dashed var(--border-2);padding-top:.7rem;}
+    .src-head{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-bottom:.45rem;}
+    .src-label{font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);}
+    .src-page{font-size:.74rem;color:var(--muted);margin-left:auto;}
+    .src-quote{font-size:.85rem;color:var(--ink);background:var(--surface);border-left:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.5rem .75rem;margin:.35rem 0;font-style:italic;}
+
+    /* review pack: self-audit */
+    .audit-summary{display:flex;flex-wrap:wrap;gap:.6rem;margin:.6rem 0 .4rem;}
+    .audit-pill{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:700;border-radius:999px;padding:.3rem .8rem;border:1px solid;}
+    .audit-pill .audit-n{font-size:1rem;}
+    .audit-teal{background:var(--accent-tint);color:var(--accent-2);border-color:var(--lng-bd);}
+    .audit-warning{background:var(--sht-bg);color:var(--sht-tx);border-color:var(--sht-bd);}
+    .audit-alert{background:var(--imm-bg);color:var(--imm-tx);border-color:var(--imm-bd);}
+    .review-verbatim{font-size:.82rem;color:var(--muted);background:var(--surface);border-left:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:.4rem .65rem;margin:.3rem 0 .5rem;}
+    .review-verbatim-label{font-weight:700;color:var(--ink);}
+
+    /* matrix */
+    .matrix-legend{display:flex;flex-wrap:wrap;gap:1rem;font-size:.8rem;color:var(--muted);margin-bottom:.8rem;}
+    .leg{display:inline-flex;align-items:center;gap:5px;}
+    .leg-immediate{color:var(--imm-tx);} .leg-short{color:var(--sht-tx);} .leg-long{color:var(--lng-tx);}
+    .matrix-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg);box-shadow:var(--shadow-1);}
+    .matrix{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;min-width:720px;font-size:.82rem;}
+    .matrix th,.matrix td{border-right:1px solid var(--border);border-bottom:1px solid var(--border);vertical-align:top;padding:.55rem .65rem;}
+    .matrix tr td:last-child,.matrix tr th:last-child{border-right:none;}
+    .matrix tbody tr:last-child td,.matrix tbody tr:last-child th{border-bottom:none;}
+    .matrix thead th{position:sticky;top:0;background:var(--ink);color:#fff;font-weight:700;font-size:.78rem;z-index:2;}
+    .matrix thead th .ico{color:#fff;}
+    .m-rowh{width:21%;background:var(--surface);}
+    .matrix thead .m-rowh{background:var(--ink);}
+    .m-col-immediate{box-shadow:inset 0 -3px 0 var(--imm);} .m-col-short{box-shadow:inset 0 -3px 0 var(--sht);} .m-col-long{box-shadow:inset 0 -3px 0 var(--lng);}
+    .m-routebtn{display:flex;gap:.45rem;align-items:flex-start;text-align:left;background:none;border:none;cursor:pointer;width:100%;}
+    .m-routeico{flex-shrink:0;width:26px;height:26px;border-radius:6px;background:var(--surface-2);color:var(--accent-2);display:inline-flex;align-items:center;justify-content:center;}
+    .m-routeico .ico{width:15px;height:15px;vertical-align:0;}
+    .m-routetitle{display:block;font-weight:700;line-height:1.2;}
+    .m-routesub{display:block;font-size:.72rem;color:var(--muted);}
+    .m-item{display:flex;gap:.35rem;align-items:flex-start;text-align:left;width:100%;background:none;border:none;cursor:pointer;padding:.3rem .35rem;color:var(--ink);line-height:1.3;border-radius:6px;transition:background .15s;}
+    .m-item:hover{background:var(--surface);}
+    .m-item-ico{flex-shrink:0;}
+    .m-cell-immediate .m-item-ico{color:var(--imm);} .m-cell-short .m-item-ico{color:var(--sht);} .m-cell-long .m-item-ico{color:var(--lng);}
+    .m-none{color:var(--faint);}
+
+    /* review pack */
+    .review{max-width:80ch;}
+    .review-h{font-size:1.08rem;margin:1.5rem 0 .55rem;padding-bottom:.3rem;border-bottom:2px solid var(--border);}
+    .review-qs{margin:.3rem 0 .5rem 1.3rem;} .review-qs li{margin-bottom:.4rem;}
+    .review-route{margin:.6rem 0 1.1rem;padding-left:.85rem;border-left:3px solid var(--accent);}
+    .review-route h4{font-size:.98rem;}
+    .review-src{font-weight:400;font-size:.78rem;color:var(--muted);}
+    .review-flag{font-size:.84rem;color:var(--imm-tx);background:var(--imm-bg);border-radius:var(--radius-sm);padding:.35rem .65rem;margin:.35rem 0;}
+    .review-band{font-size:.82rem;margin:.55rem 0 .15rem;}
+    .review-list{margin:0 0 .4rem 1.3rem;font-size:.86rem;}
+    .review-list li{margin-bottom:.32rem;}
+    .review-tags{color:var(--faint);font-size:.76rem;}
+    .review-method{font-size:.85rem;color:var(--muted);}
+
+    .scrim{display:none;position:fixed;inset:0;background:rgba(22,32,42,.45);z-index:60;animation:fade .2s ease both;}
+    @keyframes fade{from{opacity:0;}to{opacity:1;}}
+
+    /* footer */
+    .site-footer{background:var(--ink);color:#fff;padding:1.75rem 0;}
+    .site-footer .inner{max-width:1180px;margin:0 auto;padding:0 1rem;}
+    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-bottom:1.2rem;}
+    .footer-section h2{font-size:.8rem;font-weight:700;color:#8fc7ba;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem;}
+    .footer-section p,.footer-section li{font-size:.82rem;color:rgba(255,255,255,.82);margin-bottom:.3rem;}
+    .footer-section ul{list-style:none;}
+    .footer-section a{color:#8fc7ba;}
+    .footer-disclaimer{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-sm);padding:.8rem;margin-bottom:1rem;font-size:.82rem;color:rgba(255,255,255,.85);}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.15);padding-top:1rem;font-size:.78rem;color:rgba(255,255,255,.6);}
+
+    /* responsive: sidebar -> drawer */
+    @media (max-width:840px){
+      .layout{grid-template-columns:minmax(0,1fr);}
+      body[data-view="route"] .drawer-toggle{display:inline-flex;}
+      .sidebar{position:fixed;top:0;left:0;bottom:0;width:288px;max-width:86vw;background:var(--bg);z-index:70;padding:1.1rem;overflow-y:auto;transform:translateX(-100%);transition:transform .28s var(--ease);box-shadow:var(--shadow-3);}
+      body.drawer-open .sidebar{transform:translateX(0);}
+      body.drawer-open .scrim{display:block;}
+      .search-wrap{order:3;flex-basis:100%;margin-left:0;}
+    }
+    @media (max-width:480px){
+      .app-ref{display:none;}
+      .tabs{flex:1;}
+      .tab{flex:1;justify-content:center;padding:0 .4rem;}
+      .tab span.tablabel{display:none;}
+      .pathway{padding-left:38px;}
+      .pathway::before{left:15px;}
+      .band-node{left:-38px;}
+    }
+
+    /* print: review pack */
+    @media print{
+      .tabbar,.sidebar,.scrim,.drawer-toggle,.search-wrap,.back-btn,.action-toggle,.app-ref,.picker-go{display:none !important;}
+      .app-header{background:#fff;color:#000;border-bottom:1px solid #000;}
+      .app-title{color:#000;} .app-sub{color:#333;}
+      .layout{display:block;padding:0;}
+      .draft-banner{background:#fff;color:#000;border-bottom:1px solid #000;}
+      .action-panel-wrap{grid-template-rows:1fr !important;}
+      a{color:#000;text-decoration:none;}
+      .site-footer{background:#fff;color:#000;}
+      .footer-section h2{color:#000;} .footer-section p,.footer-section li{color:#333;}
+      body{font-size:11pt;background:#fff;}
+      .review{max-width:none;}
+    }
+
+    /* respect reduced motion */
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none !important;transition:none !important;scroll-behavior:auto !important;}
+      .action-panel-wrap{transition:none;}
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#view-main" class="skip-link">Skip to main content</a>
+
+  <div class="bg-field" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </div>
+
+  <header class="app-header" role="banner">
+    <div class="bar">
+      <img class="app-logo" src="data:image/jpeg;base64,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" alt="IIH UK charity logo" width="42" height="42">
+      <div class="app-titles">
+        <div class="app-title">2018 Consensus Guidelines on IIH</div>
+        <div class="app-sub">Clinical triage &amp; signposting tool for healthcare professionals · IIH UK</div>
+      </div>
+      <div class="app-ref">IIHHCP002 · v1.0 · source Mollan et al., JNNP 2018</div>
+    </div>
+  </header>
+
+  <div class="draft-banner" id="draft-banner" role="note" hidden></div>
+
+  <nav class="tabbar" aria-label="Tool views">
+    <div class="inner">
+      <button class="drawer-toggle" id="drawer-toggle" type="button" aria-expanded="false" aria-controls="sidebar" aria-label="Open presentation routes">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="tabs" role="tablist" aria-label="View">
+        <button class="tab" id="tab-symptoms" role="tab" type="button" aria-selected="false"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2h6a1 1 0 0 1 1 1v2H8V3a1 1 0 0 1 1-1z"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg><span class="tablabel">Symptoms</span></button>
+        <button class="tab" id="tab-route"  role="tab" type="button" aria-selected="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg><span class="tablabel">Routes</span></button>
+        <button class="tab" id="tab-matrix" role="tab" type="button" aria-selected="false"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="tablabel">Matrix</span></button>
+        <button class="tab" id="tab-review" role="tab" type="button" aria-selected="false"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg><span class="tablabel">Review pack</span></button>
+      </div>
+      <div class="search-wrap">
+        <span class="search-ico" aria-hidden="true"><svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+        <label for="search-input" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search recommendations</label>
+        <input type="search" id="search-input" class="search-input" placeholder="Search all recommendations…" autocomplete="off">
+        <button type="button" id="search-clear" class="search-clear" hidden aria-label="Clear search"><svg class="ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="app" data-view="route">
+    <div class="layout">
+      <aside class="sidebar" id="sidebar" aria-label="Presentation routes">
+        <p class="sidebar-title">Patient presents with</p>
+        <nav class="route-nav" id="route-nav"></nav>
+      </aside>
+      <main class="main" id="view-main" tabindex="-1"></main>
+    </div>
+  </div>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="inner">
+      <div class="footer-disclaimer" role="note">
+        A clinical reference and triage aid reproducing guidance from the 2018 UK consensus guidelines on IIH for healthcare professionals.
+        It is not a substitute for clinical judgement, local protocols, or the full source publication. Always consult the original paper and current guidance before making management decisions.
+      </div>
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h2>About this resource</h2>
+          <ul>
+            <li>Reference: IIHHCP002</li>
+            <li>Version: v1.0 (draft — pending clinical review)</li>
+            <li>Source published: June 2018</li>
+            <li>Audience: Healthcare professionals</li>
+            <li>Source: Mollan et al., JNNP 2018</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h2>IIH UK</h2>
+          <p>Registered charity</p>
+          <p>England &amp; Wales: 1143522</p>
+          <p>Scotland: SC043294</p>
+          <p><a href="https://www.iih.org.uk">www.iih.org.uk</a></p>
+        </div>
+        <div class="footer-section">
+          <h2>Licence</h2>
+          <p>Source paper: CC BY 4.0 (Mollan et al. 2018).</p>
+          <p>This interactive tool wrapper: CC BY-NC 4.0, IIH UK.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; IIH UK. Registered charity England &amp; Wales 1143522 | Scotland SC043294. Source content © the authors, CC BY 4.0. Tool wrapper licensed CC BY-NC 4.0.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+/* =========================================================
+   IIHHCP002 — 2018 Consensus Guidelines Interactive Tool
+   SINGLE SOURCE OF CONTENT
+   ---------------------------------------------------------
+   Authoritative source (verbatim meaning preserved):
+   Mollan SP, Davies B, Silver NC, et al. Idiopathic
+   intracranial hypertension: consensus guidelines on
+   management. J Neurol Neurosurg Psychiatry 2018;89:1088–1100.
+   doi:10.1136/jnnp-2017-317440  (Open access, CC BY 4.0)
+
+   IMPORTANT METHODOLOGY NOTE (read CG_META.gradingNote):
+   The 2018 guideline is a DELPHI CONSENSUS document. Every
+   statement reached ≥75% agreement from the specialist
+   interest group and wider Delphi panel. The authors did NOT
+   assign formal evidence grades (no A/B/C/GPP scheme appears
+   in the paper). To avoid fabricating an evidence hierarchy
+   the original authors never published, each recommendation
+   here carries a STRENGTH label derived from the guideline's
+   own directive language (must / should / could-may / not
+   recommended), plus an EVIDENCE note describing the actual
+   underlying evidence base. This is faithful to the source.
+   ========================================================= */
+
+window.CG_META = {
+  title: "2018 Consensus Guidelines on the Management of IIH",
+  citation: "Mollan SP, Davies B, Silver NC, et al. J Neurol Neurosurg Psychiatry 2018;89:1088–1100.",
+  doi: "10.1136/jnnp-2017-317440",
+  sourceUrl: "https://jnnp.bmj.com/content/89/10/1088",
+  audience: "Neurologists, ophthalmologists, neurosurgeons, neuroradiologists, orthoptists, emergency and primary care clinicians, and allied health professionals who investigate and manage adult IIH.",
+
+  /* Strength scheme — derived from the guideline's modal language */
+  strengths: {
+    must:   { label: "Must / Mandatory",   short: "Must",  tone: "alert",   note: "Directive (“must” / “mandatory”) — the guideline states this as a requirement." },
+    should: { label: "Should / Recommended", short: "Should", tone: "primary", note: "Recommended (“should”) — the consensus position for usual practice." },
+    may:    { label: "May / Could (option)", short: "May",  tone: "muted",   note: "An option (“may” / “could”) — reasonable in selected patients; clinician judgement applies." },
+    against:{ label: "Not recommended",     short: "Against", tone: "warning", note: "The guideline advises against this, generally or routinely." }
+  },
+
+  gradingNote:
+    "The 2018 guideline is a UK Delphi consensus statement: all statements obtained ≥75% agreement from the specialist interest group and wider Delphi panel, with international expert and professional-body review (ABN, BASH, RCOphth, SBNS). It is NOT an evidence-graded guideline — the authors did not publish an A/B/C/GPP scheme, and explicitly note that high-quality evidence is lacking for most statements. The “strength” labels in this tool reflect the guideline’s own wording (must / should / could / not recommended), not a formal grade. Where genuine trial evidence exists (e.g. the IIH Treatment Trial for acetazolamide), it is named in the Evidence line. Always read the full paper for the complete rationale and the “Uncertainty” caveats reproduced here.",
+
+  categories: [
+    { id: "diagnosis",  label: "Diagnosis & investigation", color: "primary" },
+    { id: "treatment",  label: "Treatment & management",     color: "teal"    },
+    { id: "monitoring", label: "Follow-up & monitoring",     color: "green"   },
+    { id: "referral",   label: "Referral & escalation",      color: "indigo"  }
+  ]
+};
+
+/* ---------------------------------------------------------
+   Each recommendation:
+     id        unique slug
+     q         source question / section in the paper
+     category  diagnosis | treatment | monitoring | referral
+     principle optional grouping (the 3 management principles)
+     strength  must | should | may | against
+     title     short scannable headline
+     summary   the recommendation in brief (quick-reference)
+     points[]  the consensus statements (HTML allowed)
+     evidence  one line on the underlying evidence base
+     uncertainty  the guideline's own "Uncertainty" caveat (optional)
+   --------------------------------------------------------- */
+window.CG_RECS = [
+
+  /* ===================== DIAGNOSIS ===================== */
+  {
+    id: "dx-blood-pressure",
+    q: "Q1 — Investigating papilloedema",
+    category: "diagnosis",
+    strength: "must",
+    title: "Measure blood pressure to exclude malignant hypertension",
+    summary: "Blood pressure must be measured in every patient with papilloedema to exclude malignant hypertension.",
+    points: [
+      "Blood pressure <strong>must</strong> be measured to exclude malignant hypertension.",
+      "Malignant hypertension is defined here as diastolic BP ≥120 mmHg or systolic BP ≥180 mmHg."
+    ],
+    evidence: "Consensus statement; BP threshold per 2017 ACC/AHA guidance."
+  },
+  {
+    id: "dx-ophthalmology",
+    q: "Q1 — Investigating papilloedema",
+    category: "diagnosis",
+    strength: "should",
+    title: "Confirm papilloedema and assess imminent visual risk",
+    summary: "All patients should have papilloedema confirmed and the imminent risk to vision assessed, recording a defined set of ophthalmic measures.",
+    points: [
+      "Record in the presence of papilloedema: <strong>visual acuity</strong>, <strong>pupil examination</strong>, <strong>intraocular pressure</strong> (to exclude hypotony, a rare cause of disc swelling), <strong>formal visual field test (perimetry)</strong>, and <strong>dilated fundal examination</strong> to grade severity and exclude ocular causes of disc swelling.",
+      "Document the fundus with drawings and record optic nerve head findings (hyperaemia, haemorrhages, cotton-wool spots, vessel obscuration).",
+      "Photographs and/or OCT imaging are useful.",
+      "Where visual function is threatened, regular ophthalmic examination must occur as it will influence timely management."
+    ],
+    evidence: "Consensus statement (good-practice diagnostic standard).",
+    uncertainty: "Where there is diagnostic uncertainty about papilloedema vs pseudopapilloedema, an experienced clinician should be consulted early before invasive tests are performed."
+  },
+  {
+    id: "dx-neuro-exam",
+    q: "Q1 — Investigating papilloedema",
+    category: "diagnosis",
+    strength: "should",
+    title: "Perform neurological examination including cranial nerves",
+    summary: "Record a cranial nerve examination. In IIH there should typically be no cranial nerve involvement other than a sixth nerve palsy.",
+    points: [
+      "Record cranial nerve examination.",
+      "Where IIH is suspected, typically there should be <strong>no cranial nerve involvement other than sixth cranial nerve palsy/palsies</strong>.",
+      "If other cranial nerves or other pathological findings are involved, an alternative diagnosis should be considered."
+    ],
+    evidence: "Consensus statement."
+  },
+  {
+    id: "dx-neuroimaging",
+    q: "Q1 — Investigating papilloedema",
+    category: "diagnosis",
+    strength: "must",
+    title: "Urgent neuroimaging with venography within 24 hours",
+    summary: "Urgent MRI brain within 24 hours (CT if MRI unavailable), with CT or MR venography mandatory to exclude cerebral venous sinus thrombosis.",
+    points: [
+      "<strong>Urgent MRI brain within 24 hours.</strong> If MRI is unavailable within 24 hours, urgent CT brain with subsequent MRI if no lesion is identified.",
+      "There should be no evidence of hydrocephalus, mass, structural or vascular lesion, and no abnormal meningeal enhancement.",
+      "<strong>CT or MR venography is mandatory</strong> to exclude cerebral venous sinus thrombosis within 24 hours.",
+      "Features of raised ICP may be seen on neuroimaging (see the raised-ICP imaging features) but are not pathognomonic of IIH."
+    ],
+    evidence: "Consensus statement; raised-ICP imaging features per Degnan, Hoffmann, Farb, Kelly et al.",
+    uncertainty: "Interpretation of cerebral venography can be difficult; where there is uncertainty, an experienced radiologist should be consulted."
+  },
+  {
+    id: "dx-imaging-features",
+    q: "Box 1 — Neuroimaging features of raised ICP",
+    category: "diagnosis",
+    strength: "may",
+    title: "Recognise (but do not rely on) imaging features of raised ICP",
+    summary: "Typical neuroimaging features of raised ICP support but do not confirm IIH — none are pathognomonic.",
+    points: [
+      "Empty sella, or partially empty sella / decreased pituitary height.",
+      "Increased tortuosity of the optic nerve.",
+      "Enlarged optic nerve sheath (perioptic subarachnoid space).",
+      "Flattened posterior globe / sclera.",
+      "Intraocular protrusion of the optic nerve head.",
+      "Attenuation of the cerebral venous sinuses, including bilateral transverse sinus stenosis or stenosis of a dominant transverse sinus."
+    ],
+    evidence: "Descriptive; features are supportive only and not diagnostic.",
+    uncertainty: "Optic nerve sheath enhancement with IV contrast has been reported. Ventricle size is typically normal, though some reports describe slit-like ventricles."
+  },
+  {
+    id: "dx-lumbar-puncture",
+    q: "Q1 — Investigating papilloedema",
+    category: "diagnosis",
+    strength: "must",
+    title: "Lumbar puncture: opening pressure and CSF contents",
+    summary: "After normal imaging, all patients with papilloedema should have an LP measuring opening pressure (lateral decubitus) with a diagnostic cut-off of >25 cm CSF; do not interpret opening pressure in isolation.",
+    points: [
+      "Following normal imaging, <strong>all patients with papilloedema should have a lumbar puncture</strong> to check opening pressure and ensure contents are normal.",
+      "Measure opening pressure in the <strong>lateral decubitus position</strong>, with the patient relaxed and legs extended; allow the CSF level to settle before reading.",
+      "CSF analysis should at minimum include protein, glucose and cell count.",
+      "Give a clear explanation of the LP to reduce fear and anxiety.",
+      "If the LP is unsuccessful, a guided LP (ultrasound or X-ray) may be considered.",
+      "The diagnostic criteria mandate an opening pressure <strong>&gt;25 cm CSF</strong>.",
+      "The opening pressure should <strong>not</strong> be interpreted in isolation when diagnosing IIH."
+    ],
+    evidence: "Consensus statement; diagnostic cut-off per Friedman et al. 2013 revised criteria.",
+    uncertainty: "There is debate about the absolute 25 cm CSF value. The opening pressure is a single measurement with diurnal and wide variation. Where it does not fit the clinical picture, interpret with caution; a repeat LP or ICP monitoring may be considered. There is no evidence to dictate how much CSF to drain or what the closing pressure should be."
+  },
+  {
+    id: "dx-secondary-causes",
+    q: "Q1 — Investigating papilloedema",
+    category: "diagnosis",
+    strength: "should",
+    title: "Exclude secondary causes of raised ICP",
+    summary: "Take a careful history for secondary causes, perform a full blood count to exclude anaemia, and consider further tests/imaging in atypical patients.",
+    points: [
+      "Take a careful history to exclude possible secondary causes previously linked to raised ICP (haematological, venous obstruction, medications, systemic, endocrine and syndromic associations).",
+      "All patients should have a <strong>full blood count</strong> to exclude anaemia.",
+      "In atypical patients, consider additional blood tests and additional neuroimaging (e.g. more proximal neck vasculature imaging to exclude internal jugular obstruction)."
+    ],
+    evidence: "Consensus statement; associations per Friedman, Sodhi et al.",
+    uncertainty: "There is no clear evidence of a contraindication to medications (including the oral contraceptive) previously reported as associated with secondary pseudotumour. Atypical patients could be referred to an experienced clinician familiar with IIH."
+  },
+  {
+    id: "dx-iihwop-criteria",
+    q: "Definitions / Q22 — IIHWOP",
+    category: "diagnosis",
+    strength: "should",
+    title: "Diagnose IIH without papilloedema (IIHWOP) cautiously",
+    summary: "IIHWOP requires all criteria for definite IIH except papilloedema, plus supportive features such as a sixth nerve palsy and MRI signs of raised ICP.",
+    points: [
+      "IIHWOP is a rare subtype: patients meet all criteria for definite IIH but have no papilloedema.",
+      "Requires criteria B–E for IIH <strong>plus</strong> a unilateral or bilateral sixth cranial nerve palsy.",
+      "IIHWOP is suggested where, with criteria B–E, there are ≥3 neuroimaging features of raised ICP (empty sella, flattening of the posterior globe, distension of the perioptic subarachnoid space ± a tortuous optic nerve, transverse venous sinus stenosis).",
+      "Emphasis on an opening pressure &gt;25 cm CSF and the necessity of additional features suggesting pathologically raised ICP."
+    ],
+    evidence: "Consensus / Friedman 2013 criteria; IIHWOP is uncommon (<6% of IIH)."
+  },
+
+  /* ===================== TREATMENT — Principle 1: treat the disease ===================== */
+  {
+    id: "tx-weight-loss",
+    q: "Q2 — Modify the underlying disease",
+    category: "treatment",
+    principle: "Principle 1 — Treat the underlying disease",
+    strength: "should",
+    title: "Weight management as primary disease-modifying therapy",
+    summary: "Weight loss is the only disease-modifying therapy in typical IIH. Counsel all patients with BMI >30 about weight management, sensitively, at the earliest opportunity, and refer to a weight programme.",
+    points: [
+      "Weight loss is the <strong>only disease-modifying therapy</strong> in typical IIH.",
+      "Once definite IIH is diagnosed, all patients with <strong>BMI &gt;30 kg/m²</strong> should be counselled about weight management at the earliest opportunity, done with sensitivity.",
+      "Refer patients to a community or hospital-based weight management programme.",
+      "The amount of weight loss needed for remission is not known; up to ~15% weight loss achieved remission in one cohort, and 5–15% weight gain often precedes diagnosis."
+    ],
+    evidence: "Prospective cohort evidence (Sinclair et al. 2010); strongest disease-modifying evidence in IIH.",
+    uncertainty: "Maintained weight loss is difficult and the optimal long-term approach is not established. There is an increasing role for bariatric surgery, but more prospective controlled evidence is needed. For non-obese patients, revisit secondary causes."
+  },
+
+  /* ===================== TREATMENT — Principle 2: protect the vision ===================== */
+  {
+    id: "tx-imminent-vision-loss",
+    q: "Q3 — Imminent risk of visual loss",
+    category: "treatment",
+    principle: "Principle 2 — Protect the vision",
+    strength: "should",
+    title: "Acute management of imminent visual loss is surgical",
+    summary: "Where visual function is declining, acute management to preserve vision is surgical; a lumbar drain can temporise while urgent surgery is planned.",
+    points: [
+      "Where there is evidence of <strong>declining visual function, acute management to preserve vision is surgical</strong>.",
+      "A temporising <strong>lumbar drain</strong> can protect vision while planning urgent surgical treatment.",
+      "Surgical procedures (CSF diversion and ONSF) work well in the short term; while they work, modify the underlying disease with weight loss."
+    ],
+    evidence: "Observational; surgical short-term efficacy per Uretsky et al.",
+    uncertainty: "In the absence of high-class evidence, corticosteroids are NOT recommended for fulminant IIH; a prolonged corticosteroid course would also cause weight gain."
+  },
+  {
+    id: "tx-csf-diversion",
+    q: "Q4 — Best surgical procedure for visual loss",
+    category: "treatment",
+    principle: "Principle 2 — Protect the vision",
+    strength: "should",
+    title: "CSF diversion (VP preferred) for visual deterioration",
+    summary: "In the UK the preferred surgical procedure is neurosurgical CSF diversion; ventriculoperitoneal shunting is preferred over LP shunt due to fewer revisions. Use neuronavigation and counsel re DVLA.",
+    points: [
+      "In the UK, the preferred procedure is <strong>neurosurgical CSF diversion</strong>, performed where possible by an experienced clinician with an interest in CSF disorders.",
+      "<strong>Ventriculoperitoneal (VP) shunting is the preferred CSF diversion</strong> for visual deterioration, due to lower reported revisions per patient. An LP shunt could also be used.",
+      "It is best practice to use <strong>neuronavigation</strong> to place VP shunts.",
+      "All UK patients should be counselled to inform the <strong>DVLA</strong> following VP shunt placement.",
+      "Adjustable valves with antigravity / antisiphon devices should be considered to reduce low-pressure headaches."
+    ],
+    evidence: "Observational, mainly case series (Kalyvas, Sinclair, Abubaker et al.).",
+    uncertainty: "Shunt-type literature is observational. Complications include abdominal pain, obstruction, migration, infection, low-pressure headache, subdural haematoma and tonsillar herniation; there is a low but present mortality with CSF diversion."
+  },
+  {
+    id: "tx-onsf",
+    q: "Q5 — Other surgical procedures for visual loss",
+    category: "treatment",
+    principle: "Principle 2 — Protect the vision",
+    strength: "may",
+    title: "Optic nerve sheath fenestration (ONSF)",
+    summary: "ONSF is used rarely in the UK but has fewer reported complications; some consider it first-line for malignant fulminant cases or asymmetric papilloedema causing unilateral visual loss.",
+    points: [
+      "ONSF is performed more often in Europe/USA and rarely in the UK; it has fewer complications than CSF diversion and no reported mortalities.",
+      "Some consider ONSF the first treatment step in malignant fulminant cases, and for asymmetric papilloedema causing visual loss in one eye; if it fails, CSF diversion can follow.",
+      "ONSF should be performed by an <strong>experienced clinician trained in the technique</strong>.",
+      "Temporary adverse effects include diplopia, anisocoria and optic nerve head haemorrhages; rarely, retinal artery occlusions."
+    ],
+    evidence: "Observational, mainly case series (Spitze, Banta et al.).",
+    uncertainty: "Vision worsens after a period of stabilisation in 34% at 1 year and 45% at 3 years, with failure to improve headache in one-third to one-half."
+  },
+  {
+    id: "tx-stenting-vision",
+    q: "Q6 — Neurovascular stenting in acute IIH",
+    category: "treatment",
+    principle: "Principle 2 — Protect the vision",
+    strength: "against",
+    title: "Neurovascular stenting for acute visual loss — role not established",
+    summary: "The role of venous sinus stenting to prevent visual loss in acute IIH is not yet established; long-term antithrombotic therapy is required afterwards.",
+    points: [
+      "The <strong>role of neurovascular stenting in IIH is not yet established</strong>.",
+      "Long-term antithrombotic therapy is required for longer than 6 months following stenting.",
+      "May be useful for highly selected patients with venous sinus stenosis, an elevated pressure gradient and elevated ICP in whom traditional therapies have failed."
+    ],
+    evidence: "Observational, mainly case series; no long-term efficacy/safety data (Riggeal, Liu et al.).",
+    uncertainty: "Complications include short-lived ipsilateral headache, stent-adjacent stenosis requiring retreatment in a third, and rarely vessel perforation, stent migration and thrombosis."
+  },
+  {
+    id: "tx-serial-lp",
+    q: "Q7 — Serial lumbar punctures",
+    category: "treatment",
+    strength: "against",
+    title: "Serial lumbar punctures are not recommended",
+    summary: "Serial LPs are not recommended for management; relief is short-lived and they cause significant anxiety and back pain in some patients.",
+    points: [
+      "<strong>Serial lumbar punctures are not recommended</strong> for the management of IIH.",
+      "Relief is typically short-lived: CSF is secreted at ~25 mL/hour, so the volume removed in a therapeutic tap is rapidly replaced.",
+      "Despite headache relief in nearly three-quarters of patients, LPs cause significant anxiety and can lead to acute and chronic back pain."
+    ],
+    evidence: "Physiological + observational (Wright, Duits et al.)."
+  },
+
+  /* ===================== TREATMENT — Medical therapy ===================== */
+  {
+    id: "tx-acetazolamide-use",
+    q: "Q8 — Best drug treatment for IIH symptoms",
+    category: "treatment",
+    strength: "may",
+    title: "Acetazolamide for IIH symptoms",
+    summary: "Acetazolamide could be prescribed for IIH symptoms. Counsel all women about side effects and teratogenic risk before starting. Not all UK clinicians prescribe it.",
+    points: [
+      "Acetazolamide <strong>could be prescribed</strong> for those with IIH symptoms.",
+      "All women starting any new medical therapy (IIH-specific or headache-related) <strong>must be counselled</strong> regarding side effects and potential teratogenic risks.",
+      "Drug therapy may need to be altered for adverse effects, lack of efficacy, potential teratogenicity, or patient preference."
+    ],
+    evidence: "RCT evidence: IIH Treatment Trial (Wall et al. 2014) showed modest visual-field benefit in mild visual loss; Ball et al. showed no effect with high discontinuation. 2015 Cochrane: insufficient evidence to recommend or reject.",
+    uncertainty: "Given limited evidence and the side-effect profile, not all UK clinicians prescribe acetazolamide for IIH."
+  },
+  {
+    id: "tx-acetazolamide-dose",
+    q: "Q9 — How to prescribe acetazolamide",
+    category: "treatment",
+    strength: "should",
+    title: "Acetazolamide prescribing and counselling",
+    summary: "A popular starting dose is 250–500 mg twice daily, titrated up. Warn patients about the recognised side-effect profile.",
+    points: [
+      "A popular <strong>starting dose is 250–500 mg twice daily</strong>, with most clinicians titrating the daily dose up.",
+      "In the IIHTT a maximal dose of 4 g/day was used (44% achieved 4 g/day; most tolerated 1 g/day); Ball et al. reported 48% discontinuation at a mean 1.5 g due to side effects.",
+      "Warn patients about side effects: diarrhoea, dysgeusia, fatigue, nausea, paraesthesia, tinnitus, vomiting, depression, and rarely renal stones.",
+      "There is no consensus on normal-release vs modified-release acetazolamide."
+    ],
+    evidence: "IIHTT tolerability data (ten Hove et al.).",
+    uncertainty: "The optimal dose is not established. Licensing recommends periodic serum electrolyte monitoring, but there is no consensus on timing."
+  },
+  {
+    id: "tx-topiramate-other",
+    q: "Q10 — Other helpful drugs",
+    category: "treatment",
+    strength: "may",
+    title: "Topiramate and other drug options",
+    summary: "Topiramate may have a role (carbonic anhydrase activity, appetite suppression). Counsel women about reduced contraceptive efficacy, side effects and teratogenicity.",
+    points: [
+      "There may be a role for <strong>topiramate</strong> in IIH, with weekly dose escalation from 25 mg to 50 mg twice daily.",
+      "Women <strong>must be informed</strong> that topiramate can reduce the efficacy of the contraceptive pill and other hormonal contraceptives.",
+      "Women <strong>must be counselled</strong> about side effects (including depression and cognitive slowing) and potential teratogenic risks."
+    ],
+    evidence: "Open-label comparison vs acetazolamide (Celebisoy et al.); migraine-prevention efficacy (Silberstein).",
+    uncertainty: "The roles of other diuretics (furosemide, amiloride, co-amilofruse) are uncertain but used by some as alternatives."
+  },
+
+  /* ===================== TREATMENT — Principle 3: reduce headache ===================== */
+  {
+    id: "tx-headache-new",
+    q: "Q11 — Headache in newly diagnosed IIH",
+    category: "treatment",
+    principle: "Principle 3 — Reduce headache disability",
+    strength: "should",
+    title: "Manage headache in newly diagnosed IIH",
+    summary: "Warn about medication-overuse headache early. Short-term simple analgesics may help; opioids should not be prescribed; acetazolamide is not effective for headache alone.",
+    points: [
+      "Inform patients at the earliest opportunity about <strong>medication-overuse headache (MOH)</strong>: simple analgesics on &gt;15 days/month, or opioids / combined preparations / triptans on &gt;10 days/month for &gt;3 months.",
+      "Short-term painkillers (NSAIDs or paracetamol) may help in the first few weeks; <strong>indomethacin</strong> may have an advantage by reducing ICP (use NSAIDs cautiously; consider gastric protection).",
+      "<strong>Opioids should not be prescribed</strong> for headache.",
+      "Greater occipital nerve blocks are considered helpful by some, but evidence and consensus are lacking.",
+      "Acetazolamide has not been shown to be effective for headache alone.",
+      "Lumbar punctures are not typically recommended for treating headache."
+    ],
+    evidence: "Consensus; ICHD-3 definitions; indomethacin ICP effect (Sader et al.).",
+    uncertainty: "There is no evidence to support the optimal management of headache in acute IIH."
+  },
+  {
+    id: "tx-headache-longterm",
+    q: "Q12 — Long-term headache management",
+    category: "treatment",
+    principle: "Principle 3 — Reduce headache disability",
+    strength: "should",
+    title: "Long-term headache: assess phenotype and tailor therapy",
+    summary: "The headache phenotype changes over time and is often mixed. Assess phenotype, tailor therapy, explain the changing pattern, and consider early preventatives.",
+    points: [
+      "A multidisciplinary approach should be considered, ideally including an experienced clinician with an interest in headache.",
+      "Assess the <strong>headache phenotype</strong> and tailor therapies to it (often a mix: headache attributed to IIH, migraine, MOH, tension-type, low-CSF-pressure, or iatrogenic Chiari).",
+      "Give patients a clear explanation of how headaches change over time and how to minimise MOH risk.",
+      "Consider <strong>early introduction of preventatives</strong> (migraine preventatives), which can take 3–4 months to reach maximal efficacy."
+    ],
+    evidence: "Consensus.",
+    uncertainty: "There is no evidence to support the optimal management of headache in established IIH."
+  },
+  {
+    id: "tx-headache-strategies",
+    q: "Q13 — Therapeutic strategies for headache",
+    category: "treatment",
+    principle: "Principle 3 — Reduce headache disability",
+    strength: "may",
+    title: "Specific headache therapeutic strategies",
+    summary: "A migrainous phenotype occurs in ~68%. Migraine acute and preventative strategies may help; avoid weight-increasing and depression-exacerbating drugs; add lifestyle advice.",
+    points: [
+      "Migraine attacks may benefit from a <strong>triptan with an NSAID or paracetamol and an antiemetic</strong>; limit to ≤2 days/week or ≤10 days/month.",
+      "Migraine preventatives may be tried, most effective once ICP is settling or papilloedema has resolved (ocular remission); NICE migraine-prevention guidance is useful.",
+      "<strong>Avoid drugs that increase weight</strong> (beta-blockers, tricyclics, sodium valproate, pizotifen, flunarizine) or exacerbate depression (beta-blockers, topiramate, flunarizine).",
+      "Topiramate may help via appetite suppression and ICP reduction; zonisamide is an alternative if side effects are excessive.",
+      "Candesartan or venlafaxine are weight-neutral alternatives helpful with coexisting depression; botulinum toxin A may help coexisting chronic migraine.",
+      "Give lifestyle advice: limit caffeine, regular meals, hydration, exercise, sleep hygiene, and behavioural/stress techniques (yoga, CBT, mindfulness)."
+    ],
+    evidence: "Largely extrapolated from migraine evidence; many drugs used off-label in IIH.",
+    uncertainty: "There are no clinical trials yet for the treatment of headache alone in IIH."
+  },
+  {
+    id: "tx-moh",
+    q: "Q14 — Medication overuse headache",
+    category: "treatment",
+    principle: "Principle 3 — Reduce headache disability",
+    strength: "should",
+    title: "Address medication overuse headache (MOH)",
+    summary: "MOH is common in IIH and, if unaddressed, blocks preventative effectiveness. Non-opioids/triptans can be stopped abruptly or weaned within a month; opioids gradually withdrawn.",
+    points: [
+      "MOH is a common issue in IIH; removing excessive analgesic use significantly improves headaches and is needed for preventatives to work.",
+      "Non-opioid and triptan medications may be <strong>stopped abruptly or weaned within a month</strong>.",
+      "Opioid medications should be <strong>gradually removed</strong>, with at least 1 month painkiller-free to determine effectiveness."
+    ],
+    evidence: "Observational (deSouza, Zeeberg et al.).",
+    uncertainty: "The most effective strategies to facilitate analgesic withdrawal are not fully established."
+  },
+  {
+    id: "tx-csf-diversion-headache",
+    q: "Q15 — CSF diversion for headache alone",
+    category: "treatment",
+    principle: "Principle 3 — Reduce headache disability",
+    strength: "against",
+    title: "CSF diversion for headache alone — generally not recommended",
+    summary: "CSF diversion is generally not recommended for headache alone; if considered, only in a multidisciplinary setting after a period of ICP monitoring.",
+    points: [
+      "Where papilloedema has resolved, ICP is usually normalising and conservative strategies should be used.",
+      "<strong>CSF diversion is generally not recommended</strong> as a treatment for headache alone.",
+      "If considered, CSF diversion for headache should only be carried out in a <strong>multidisciplinary setting and after a period of ICP monitoring</strong>.",
+      "After CSF diversion, 68% still have headaches at 6 months and 79% by 2 years; ~28% develop iatrogenic low-pressure headaches."
+    ],
+    evidence: "Observational (Sinclair et al.).",
+    uncertainty: "Coexisting migrainous headache superimposed on raised-ICP headache complicates outcomes; failure to optimise ICP may render migrainous headache hard to treat."
+  },
+  {
+    id: "tx-stenting-headache",
+    q: "Q16 — Neurovascular stenting for headache alone",
+    category: "treatment",
+    principle: "Principle 3 — Reduce headache disability",
+    strength: "against",
+    title: "Neurovascular stenting for headache alone — not a treatment",
+    summary: "Neurovascular stenting is not currently a treatment for headache in IIH.",
+    points: [
+      "<strong>Neurovascular stenting is not currently a treatment for headache in IIH.</strong>",
+      "The stenting literature does not clearly separate visual-loss, headache-only and combined cohorts, nor acute vs chronic vs ocular-remission IIH; series are small, non-randomised, with selection bias and short follow-up."
+    ],
+    evidence: "Observational, low quality (Teleb et al.)."
+  },
+  {
+    id: "tx-shunted-exacerbation-ix",
+    q: "Q17 — Acute headache exacerbation in shunted patients (investigation)",
+    category: "treatment",
+    strength: "must",
+    title: "Investigating acute headache in a shunted patient",
+    summary: "Funduscopy is mandatory in any shunted IIH patient with acute headache. Obtain CSF if infection is suspected; avoid routine diagnostic LP, CT and shunt series without papilloedema.",
+    points: [
+      "For any shunted IIH patient with acute headache exacerbation, <strong>funduscopy is mandatory</strong> to establish whether papilloedema exists; if visual function (including formal fields) is worsening, surgical intervention may be required.",
+      "Where infection is suspected, obtain CSF for microbiological evaluation and treat any infection.",
+      "A diagnostic LP should not be routinely performed in the absence of papilloedema (unless infection is suspected).",
+      "In those with papilloedema, some may perform a diagnostic LP to establish ICP level.",
+      "CT imaging and shunt X-ray series should not routinely be performed without papilloedema, as they do not alter management.",
+      "ICP monitoring may sometimes be useful."
+    ],
+    evidence: "Consensus + observational (Liu et al. on shunt series/CT utility)."
+  },
+  {
+    id: "tx-shunted-exacerbation-rx",
+    q: "Q18 — Acute headache exacerbation in shunted patients (treatment)",
+    category: "treatment",
+    strength: "should",
+    title: "Treating acute headache in a shunted patient",
+    summary: "Without papilloedema or vision risk, shunt revision is not recommended. Consider overdrainage / low-pressure headache, adjust valve settings, and otherwise manage as per headache strategies.",
+    points: [
+      "For patients without current papilloedema or imminent vision risk, <strong>shunt revision is not recommended</strong>.",
+      "In deteriorating headache, consider low-pressure headache and shunt overdrainage.",
+      "In established overdrainage / low CSF pressure, consider valve setting adjustment or tying off the shunt.",
+      "Absent overdrainage, follow the standard headache strategies (Q13).",
+      "Consider MOH as a cause of acute exacerbation in shunted patients."
+    ],
+    evidence: "Consensus + observational (Willer et al.)."
+  },
+
+  /* ===================== TREATMENT — Pregnancy & special situations ===================== */
+  {
+    id: "tx-pregnancy-drugs",
+    q: "Q20 — Drug treatment in pregnancy",
+    category: "treatment",
+    strength: "should",
+    title: "Drug treatment in the pregnant patient with IIH",
+    summary: "Discuss a clear risk–benefit assessment for acetazolamide in pregnancy. Topiramate should not be used in pregnancy and should be discontinued if the patient becomes pregnant.",
+    points: [
+      "Discuss a clear <strong>risk–benefit assessment</strong> for acetazolamide; rodent data show teratogenic effects and manufacturers do not recommend its use in pregnancy.",
+      "<strong>Topiramate should not be used in pregnancy</strong> — there is clear evidence of higher fetal abnormality rates.",
+      "If a patient on topiramate becomes pregnant, reduce and discontinue it as soon as possible per manufacturer recommendations.",
+      "Discuss a clear risk–benefit assessment for headache treatment, as many commonly used headache medications are not recommended in pregnancy."
+    ],
+    evidence: "Teratology / observational (Holmes, Weston, Falardeau et al.)."
+  },
+  {
+    id: "tx-pregnancy-management",
+    q: "Q21 — Management considerations in pregnancy",
+    category: "treatment",
+    strength: "should",
+    title: "Managing IIH in pregnancy",
+    summary: "Use multidisciplinary communication throughout pregnancy. Mode of delivery is not dictated by IIH. If vision is at imminent risk, manage in a specialist centre, with serial LP as a temporising measure.",
+    points: [
+      "Multidisciplinary communication among experienced clinicians should occur throughout pregnancy, peri-delivery and postpartum.",
+      "<strong>No specific mode of delivery</strong> should be suggested based on a prior IIH diagnosis.",
+      "Consider weight-service referral so gestational weight gain is appropriate (per ACOG 2013).",
+      "Increased outpatient observation may reassure during this period.",
+      "If IIH is active with imminent vision-loss risk, some would consider <strong>serial LPs as a temporising measure</strong> until CSF diversion or ONSF can be implemented.",
+      "Those with imminent vision-loss risk at delivery should be managed in a <strong>specialist centre</strong>."
+    ],
+    evidence: "Consensus."
+  },
+  {
+    id: "tx-iihwop-management",
+    q: "Q22 — Managing IIHWOP",
+    category: "treatment",
+    strength: "should",
+    title: "Manage IIHWOP as typical IIH (headache is the main morbidity)",
+    summary: "In IIHWOP, vision-loss risk has not been identified; headache is the principal morbidity. Manage as typical IIH; surgical pressure control is not routine.",
+    points: [
+      "In IIHWOP, the risk of vision loss has not been identified and does not seem to develop over the disease course; headache is the principal morbidity.",
+      "Once IIHWOP is diagnosed, manage as typical IIH and counsel about weight management.",
+      "Manage headache the same as in typical IIH.",
+      "<strong>Surgical management to control ICP in IIHWOP should not routinely be considered</strong> unless advised by experienced clinicians within the MDT."
+    ],
+    evidence: "Consensus; IIHWOP visual phenomena per Digre et al."
+  },
+
+  /* ===================== MONITORING ===================== */
+  {
+    id: "mon-chronic-problems",
+    q: "Q19 — Other chronic problems",
+    category: "monitoring",
+    strength: "should",
+    title: "Address the chronic burden and comorbidities",
+    summary: "Recognise the psychological burden of a chronic rare disease; screen for and manage anxiety, depression, sleep apnoea, PCOS and cognitive dysfunction.",
+    points: [
+      "Recognise that these patients have a rare chronic disease and need support for its psychological burden.",
+      "Patients may have higher anxiety and depression and lower quality of life (often a response to chronic pain) — this needs recognition and management.",
+      "<strong>Sleep apnoea</strong> is frequently reported; consider respiratory referral.",
+      "<strong>Polycystic ovary syndrome</strong> may coexist.",
+      "<strong>Cognitive dysfunction</strong> may coexist."
+    ],
+    evidence: "Observational (Kleinschmidt, Thurtell, Glueck, Yri et al.)."
+  },
+  {
+    id: "mon-followup",
+    q: "Q23 — Follow-up and monitoring",
+    category: "monitoring",
+    strength: "should",
+    title: "What to document at follow-up",
+    summary: "At each review of a patient with papilloedema, document visual acuity, pupils, formal visual fields, dilated fundal grading and BMI, plus a structured headache assessment. Use Table 4 intervals.",
+    points: [
+      "Document for any patient with papilloedema: <strong>visual acuity, pupil examination, formal visual field assessment, dilated fundal examination to grade papilloedema, and BMI</strong>.",
+      "Formal optic nerve head documentation (serial photographs or OCT) is useful; transorbital ultrasound of optic nerve sheath diameter has reported utility but variable cut-offs.",
+      "All patients (with or without papilloedema) should have a headache assessment: features, frequency, severity and analgesic use; a validated score such as <strong>HIT-6</strong> may be useful.",
+      "Follow follow-up intervals by papilloedema grade and visual-field status (see Table 4); expedite review if visual fields or papilloedema worsen."
+    ],
+    evidence: "Consensus; OCT/ultrasound utility per Chacko et al."
+  },
+  {
+    id: "mon-followup-intervals",
+    q: "Table 4 — Follow-up intervals",
+    category: "monitoring",
+    strength: "should",
+    title: "Follow-up intervals by papilloedema grade and visual fields",
+    summary: "Consensus follow-up intervals scale with papilloedema grade and visual-field status — from 6-monthly for mild/normal fields to within 1 week for severe grade with worsening fields.",
+    points: [
+      "<strong>Atrophic discs:</strong> normal/stable fields 4–6 months; worsening fields within 4 weeks.",
+      "<strong>Mild papilloedema:</strong> normal 6 months; improving 3–6 months; stable 3–4 months; worsening within 4 weeks.",
+      "<strong>Moderate papilloedema:</strong> normal 3–4 months; improving 1–3 months; stable 1–3 months; worsening within 2 weeks.",
+      "<strong>Severe papilloedema:</strong> normal/improving 1–3 months; stable within 4 weeks; worsening within 1 week.",
+      "Once papilloedema resolves, hospital visual monitoring may no longer be required — but use caution in patients who were asymptomatic at presentation, as recurrence may also be asymptomatic."
+    ],
+    evidence: "Consensus (Table 4)."
+  },
+
+  /* ===================== REFERRAL & ESCALATION ===================== */
+  {
+    id: "ref-experienced-clinician",
+    q: "Diagnostic principles — uncertainty",
+    category: "referral",
+    strength: "should",
+    title: "Involve an experienced clinician early when uncertain",
+    summary: "Where there is diagnostic uncertainty about papilloedema, or venogram interpretation, consult an experienced clinician/radiologist early — before invasive tests.",
+    points: [
+      "Where there is uncertainty about papilloedema vs pseudopapilloedema, consult an <strong>experienced clinician early, before invasive tests</strong>.",
+      "Where venogram interpretation is uncertain, consult an <strong>experienced radiologist</strong>.",
+      "Atypical patients (not female, not of childbearing age, or BMI &lt;30) warrant more in-depth investigation and may be referred to an experienced clinician familiar with IIH.",
+      "An “experienced clinician” is any clinician confident in their own experience of managing IIH."
+    ],
+    evidence: "Consensus."
+  },
+  {
+    id: "ref-surgical-expertise",
+    q: "Q4–Q6 — Surgical care",
+    category: "referral",
+    strength: "should",
+    title: "Refer surgical decisions to appropriately experienced teams",
+    summary: "CSF diversion, ONSF and stenting should be performed by experienced clinicians; surgical management for vision and headache belongs in a multidisciplinary setting.",
+    points: [
+      "CSF diversion should, where possible, be performed by an experienced clinician with an interest in CSF disorders.",
+      "ONSF should be performed by an experienced clinician trained in the technique.",
+      "Surgery for headache (CSF diversion) should only be carried out in a <strong>multidisciplinary setting after ICP monitoring</strong>.",
+      "Surgical management in IIHWOP should not be considered unless advised by experienced clinicians within the MDT."
+    ],
+    evidence: "Consensus."
+  },
+  {
+    id: "ref-mdt-headache",
+    q: "Q12 / Q18 — Headache services",
+    category: "referral",
+    strength: "should",
+    title: "Use multidisciplinary and specialist headache services",
+    summary: "Long-term and refractory headache benefit from a multidisciplinary approach and an experienced headache clinician; medication-refractory patients belong in a specialist headache service.",
+    points: [
+      "Long-term headache management should consider a multidisciplinary approach including an experienced headache clinician.",
+      "Shunted patients with significant headache morbidity may need assessment by an experienced clinician who routinely manages headache.",
+      "Medication-refractory patients should be managed in a <strong>specialist headache service</strong> and discussed in an MDT for consideration of ICP monitoring."
+    ],
+    evidence: "Consensus."
+  },
+  {
+    id: "ref-pregnancy-specialist",
+    q: "Q21 — Pregnancy",
+    category: "referral",
+    strength: "should",
+    title: "Specialist-centre care for at-risk pregnancy",
+    summary: "Coordinate pregnancy care through multidisciplinary communication; patients with imminent vision-loss risk at delivery should be managed in a specialist centre.",
+    points: [
+      "Multidisciplinary communication among experienced clinicians should occur throughout pregnancy, peri-delivery and postpartum.",
+      "Patients with imminent vision-loss risk at delivery should be managed in a <strong>specialist centre</strong>.",
+      "Consider referral to a weight-management service during pregnancy."
+    ],
+    evidence: "Consensus."
+  }
+];
+
+/* =========================================================
+   PRESENTATION ROUTES — "What is the patient presenting with?"
+   ---------------------------------------------------------
+   DRAFT — pending clinical review team sign-off (see
+   _Admin/20260612 IIHHCP002 Evidence Grading Decision
+   Rationale v1.0.html and the Outstanding Issues Log).
+   The route list, red-flag wording and the timeframe mapping
+   below were derived editorially from the question groupings
+   in the 2018 paper; they are NOT part of the published
+   guideline and must be validated clinically.
+   ========================================================= */
+window.CG_DRAFT = {
+  isDraft: true,
+  label: "Draft — pending clinical review",
+  note: "The presentation routes, red-flag wording and immediate / short-term / long-term mapping are an editorial layer over the 2018 guideline and await clinical review team sign-off. Strength labels follow the guideline’s own wording, not formal grades.",
+  rationaleHref: "20260612 IIHHCP002 Evidence Grading Decision Rationale HTML v1.0.html",
+  rationaleTitle: "IIHHCP002 Evidence Grading Decision Rationale (v1.0)"
+};
+
+window.CG_ROUTES = [
+  {
+    id: "suspected",
+    title: "Papilloedema / suspected IIH",
+    sub: "Diagnostic work-up",
+    icon: "eye",
+    source: "Q1, Box 1",
+    redflag: "Malignant hypertension and cerebral venous sinus thrombosis must be excluded — measure BP now; urgent brain imaging AND venography within 24 hours."
+  },
+  {
+    id: "fulminant",
+    title: "Sight-threatening / fulminant IIH",
+    sub: "Declining visual function",
+    icon: "alert",
+    source: "Q3–Q6",
+    redflag: "Declining visual function is a surgical emergency — a lumbar drain can temporise; refer for urgent surgical treatment now."
+  },
+  {
+    id: "confirmed",
+    title: "Confirmed IIH — disease & therapy",
+    sub: "Vision not at imminent risk",
+    icon: "pill",
+    source: "Q2, Q7–Q10",
+    redflag: "Any new visual deterioration → re-examine urgently. If vision becomes threatened, switch to the sight-threatening route.",
+    redflagRoute: "fulminant"
+  },
+  {
+    id: "headache",
+    title: "Headache in IIH",
+    sub: "Principal long-term morbidity",
+    icon: "activity",
+    source: "Q11–Q16",
+    redflag: "If papilloedema is worsening or vision is threatened, manage as sight-threatening IIH first — headache strategies come second to sight.",
+    redflagRoute: "fulminant"
+  },
+  {
+    id: "shunted",
+    title: "Shunted patient — acute headache",
+    sub: "Known CSF shunt in situ",
+    icon: "device",
+    source: "Q17–Q18",
+    redflag: "Funduscopy is mandatory in every shunted patient with acute headache. If CNS infection is suspected, obtain CSF for microbiology now."
+  },
+  {
+    id: "pregnancy",
+    title: "IIH in pregnancy",
+    sub: "Drugs and peri-delivery care",
+    icon: "heart",
+    source: "Q20–Q21",
+    redflag: "Imminent risk to vision in pregnancy → manage in a specialist centre; serial lumbar punctures may temporise until CSF diversion or ONSF."
+  },
+  {
+    id: "iihwop",
+    title: "IIH without papilloedema (IIHWOP)",
+    sub: "Sixth nerve palsy / imaging features",
+    icon: "search",
+    source: "Q22, definitions",
+    redflag: "If papilloedema appears at any point, this is no longer IIHWOP — re-examine and manage as IIH with the vision-protection pathways."
+  },
+  {
+    id: "monitoring",
+    title: "Follow-up, monitoring & chronic care",
+    sub: "Intervals, documentation, comorbidity",
+    icon: "calendar",
+    source: "Q19, Q23, Table 4",
+    redflag: "Worsening visual fields or papilloedema → expedite review: within 1–4 weeks by grade; severe grade with worsening fields within 1 week."
+  }
+];
+
+/* Placement of each recommendation on the routes × timeframe grid.
+   time: "immediate" | "short" | "long". A recommendation may appear
+   on more than one route. DRAFT mapping — clinical sign-off required. */
+window.CG_PLACEMENTS = {
+  "dx-blood-pressure":        [{ route: "suspected",  time: "immediate" }],
+  "dx-ophthalmology":         [{ route: "suspected",  time: "immediate" }],
+  "dx-neuro-exam":            [{ route: "suspected",  time: "immediate" }],
+  "dx-neuroimaging":          [{ route: "suspected",  time: "immediate" }],
+  "dx-imaging-features":      [{ route: "suspected",  time: "short" }],
+  "dx-lumbar-puncture":       [{ route: "suspected",  time: "short" }],
+  "dx-secondary-causes":      [{ route: "suspected",  time: "short" }],
+  "ref-experienced-clinician":[{ route: "suspected",  time: "short" }],
+
+  "tx-imminent-vision-loss":  [{ route: "fulminant",  time: "immediate" }],
+  "tx-csf-diversion":         [{ route: "fulminant",  time: "short" }],
+  "tx-onsf":                  [{ route: "fulminant",  time: "short" }],
+  "tx-stenting-vision":       [{ route: "fulminant",  time: "short" }],
+  "ref-surgical-expertise":   [{ route: "fulminant",  time: "short" }],
+
+  "tx-weight-loss":           [{ route: "confirmed",  time: "short" }, { route: "fulminant", time: "long" }],
+  "tx-acetazolamide-use":     [{ route: "confirmed",  time: "short" }],
+  "tx-acetazolamide-dose":    [{ route: "confirmed",  time: "short" }],
+  "tx-serial-lp":             [{ route: "confirmed",  time: "short" }],
+  "tx-topiramate-other":      [{ route: "confirmed",  time: "long" }],
+
+  "tx-headache-new":          [{ route: "headache",   time: "short" }],
+  "tx-moh":                   [{ route: "headache",   time: "short" }],
+  "tx-headache-longterm":     [{ route: "headache",   time: "long" }],
+  "tx-headache-strategies":   [{ route: "headache",   time: "long" }],
+  "tx-csf-diversion-headache":[{ route: "headache",   time: "long" }],
+  "tx-stenting-headache":     [{ route: "headache",   time: "long" }],
+  "ref-mdt-headache":         [{ route: "headache",   time: "long" }],
+
+  "tx-shunted-exacerbation-ix":[{ route: "shunted",   time: "immediate" }],
+  "tx-shunted-exacerbation-rx":[{ route: "shunted",   time: "short" }],
+
+  "ref-pregnancy-specialist": [{ route: "pregnancy",  time: "immediate" }],
+  "tx-pregnancy-drugs":       [{ route: "pregnancy",  time: "short" }],
+  "tx-pregnancy-management":  [{ route: "pregnancy",  time: "long" }],
+
+  "dx-iihwop-criteria":       [{ route: "iihwop",     time: "short" }],
+  "tx-iihwop-management":     [{ route: "iihwop",     time: "short" }],
+
+  "mon-followup":             [{ route: "monitoring", time: "long" }],
+  "mon-followup-intervals":   [{ route: "monitoring", time: "long" }],
+  "mon-chronic-problems":     [{ route: "monitoring", time: "long" }]
+};
+
+window.CG_TIMEFRAMES = [
+  { id: "immediate", label: "Immediate — act now",   short: "Immediate" },
+  { id: "short",     label: "Short-term — weeks",    short: "Short-term" },
+  { id: "long",      label: "Long-term — ongoing",   short: "Long-term" }
+];
+
+/* Review questions for the clinical review pack (from the
+   Evidence Grading Decision Rationale, plus the new editorial layer) */
+/* =========================================================
+   SOURCE TRACEABILITY + EDITORIAL FIDELITY SELF-AUDIT
+   ---------------------------------------------------------
+   For each recommendation: the verbatim consensus statement(s)
+   from Mollan et al. 2018 (JNNP), a page reference, and an
+   honest confidence flag for the SUMMARY/TITLE wording:
+     faithful  = reproduces the guideline's own wording closely
+     condensed = several statements compressed; check wording/emphasis
+     editorial = grouping / framing is the author's judgement; confirm
+   Light spacing normalisation only (e.g. "24 hours", "25 cm CSF");
+   wording is verbatim. Quotes joined with “ … ” show elision.
+   NOTE: route assignment and the immediate/short/long-term timing
+   are a separate editorial layer and are clinical judgements that
+   require expert sign-off regardless of these per-text flags.
+   ========================================================= */
+window.CG_AUDIT_LEGEND = {
+  faithful:  { label: "Faithful to source wording", tone: "teal" },
+  condensed: { label: "Condensed — check wording", tone: "warning" },
+  editorial: { label: "Editorial grouping — confirm", tone: "alert" }
+};
+
+window.CG_SOURCES = {
+  "dx-blood-pressure": { page: "1089–1090", confidence: "faithful", quotes: [
+    "Blood pressure must be measured to exclude malignant hypertension, as defined as a diastolic blood pressure greater than or equal to 120 mm Hg or systolic blood pressure greater than or equal to 180 mm Hg." ] },
+  "dx-ophthalmology": { page: "1090", confidence: "faithful", quotes: [
+    "All patients should have papilloedema confirmed and an assessment made of the imminent risk to their visual function. The following should be recorded in the presence of papilloedema: visual acuity; pupil examination; intraocular pressure (to exclude hypotony, a rare cause for disc swelling); formal visual field test (perimetry); dilated fundal examination to grade the severity of the papilloedema and exclude ocular causes for disc swelling." ] },
+  "dx-neuro-exam": { page: "1090", confidence: "faithful", quotes: [
+    "Record cranial nerve examination. Where IIH is suspected, typically there should be no cranial nerve involvement other than sixth cranial nerve palsy/palsies. Should other cranial nerves and/or other pathological findings be involved, an alternative diagnosis should be considered." ] },
+  "dx-neuroimaging": { page: "1090–1091", confidence: "faithful", quotes: [
+    "Urgent MRI brain within 24 hours; if unavailable within 24 hours, then urgent CT brain with subsequent MRI brain if no lesion identified.",
+    "CT or MR venography is mandatory to exclude cerebral sinus thrombosis within 24 hours." ] },
+  "dx-imaging-features": { page: "1093 (Box 1)", confidence: "faithful", quotes: [
+    "Neuroimaging features of raised ICP: empty sella; partially empty sella/decreased pituitary height; increased tortuosity of optic nerve; enlarged optic nerve sheath (perioptic subarachnoid space); flattened posterior globe/sclera; intraocular protrusion of optic nerve head; attenuation of the cerebrovenous sinuses including bilateral transverse sinus stenosis or stenosis of a dominant transverse sinus." ] },
+  "dx-lumbar-puncture": { page: "1091–1092", confidence: "faithful", quotes: [
+    "Following normal imaging, all patients with papilloedema should have a lumbar puncture to check opening pressure and ensure contents are normal.",
+    "The diagnostic criteria mandate a cut-off opening pressure of >25 cm CSF for diagnosing IIH.",
+    "The LP opening pressure should not be interpreted in isolation when diagnosing IIH." ] },
+  "dx-secondary-causes": { page: "1092", confidence: "faithful", quotes: [
+    "All should have a careful history taken to exclude any possible secondary causes that have previously been linked to raised intracranial hypertension.",
+    "All patients should have a full blood count performed to exclude anaemia." ] },
+  "dx-iihwop-criteria": { page: "1089 (Fig 1C), 1090 (Table 2)", confidence: "condensed", quotes: [
+    "IIH without papilloedema (IIHWOP) diagnostic criteria: presence of criteria B–E for IIH plus unilateral or bilateral sixth cranial nerve palsy.",
+    "Suggestion of possible IIHWOP if: presence of criteria B–E for IIH plus 3 neuroimaging findings suggestive of raised intracranial pressure (empty sella, flattening of posterior aspect of the globe, distention of the perioptic subarachnoid space ± a tortuous optic nerve, transverse venous sinus stenosis)." ] },
+  "ref-experienced-clinician": { page: "1090–1092", confidence: "editorial", quotes: [
+    "Where there is diagnostic uncertainty regarding papilloedema … an experienced clinician should be consulted early before invasive tests are performed.",
+    "Where there is diagnostic uncertainty regarding interpretation of the venogram findings, an experienced radiologist should be consulted." ] },
+
+  "tx-weight-loss": { page: "1092–1093", confidence: "faithful", quotes: [
+    "Weight loss is the only disease-modifying therapy in typical IIH.",
+    "Once definite IIH is diagnosed, all patients with a BMI >30 kg/m² should be counselled about weight management at the earliest opportunity. This should be done with sensitivity.",
+    "Patients should be referred to a community weight management programme or a hospital-based weight programme." ] },
+  "tx-imminent-vision-loss": { page: "1093", confidence: "faithful", quotes: [
+    "Where there is evidence of declining visual function, the acute management to preserve vision is surgical.",
+    "A temporising measure of a lumbar drain could be useful to protect the vision while planning urgent surgical treatment.",
+    "In the absence of high class evidence, we do not recommend the use of corticosteroids for fulminant IIH at this time." ] },
+  "tx-csf-diversion": { page: "1093–1094", confidence: "faithful", quotes: [
+    "In the UK, the preferred surgical procedure is neurosurgical CSF diversion.",
+    "Ventriculoperitoneal (VP) should be the preferred CSF diversion procedure for visual deterioration in IIH, due to lower reported revisions per patient.",
+    "All patients in the UK should be counselled that they should inform the Driver and Vehicle Licensing Agency following VP shunt placement." ] },
+  "tx-onsf": { page: "1094", confidence: "condensed", quotes: [
+    "ONSF is performed more frequently in Europe and the USA and rarely in the UK. ONSF is reported to have less complications than CSF diversion …",
+    "Some consider ONSF as the first treatment step in malignant fulminant cases and eventually also for those with asymmetric papilloedema causing visual loss in one eye.",
+    "ONSF should be performed by an experienced clinician trained in this technique." ] },
+  "tx-stenting-vision": { page: "1094", confidence: "faithful", quotes: [
+    "The role of neurovascular stenting in IIH is not yet established.",
+    "Long-term antithrombotic therapy is required for longer than 6 months following neurovascular stenting treatment." ] },
+  "tx-serial-lp": { page: "1095", confidence: "faithful", quotes: [
+    "Serial lumbar punctures are not recommended for management of IIH." ] },
+  "tx-acetazolamide-use": { page: "1095", confidence: "faithful", quotes: [
+    "Acetazolamide could be prescribed for those with IIH symptoms.",
+    "All females with IIH when commencing any new medical therapy … must be counselled regarding side effects and potential teratogenetic risks." ] },
+  "tx-acetazolamide-dose": { page: "1095", confidence: "faithful", quotes: [
+    "A popular starting dose of acetazolamide is 250–500 mg twice a day, with the majority of clinicians titrating the daily dose up.",
+    "Patients should be warned of the adverse side effects of acetazolamide … increased risk of diarrhoea, dysgeusia, fatigue, nausea, paraesthesia, tinnitus, vomiting, depression and rarely renal stones." ] },
+  "tx-topiramate-other": { page: "1095", confidence: "faithful", quotes: [
+    "There may be a role for topiramate in IIH with weekly dose escalation from 25 mg to 50 mg bd.",
+    "Where topiramate is prescribed, women must be informed that it can reduce the efficacy of the contraceptive pill/oral contraceptives and other hormonal contraceptives." ] },
+  "tx-headache-new": { page: "1095–1096", confidence: "faithful", quotes: [
+    "Opioids should not be prescribed for headaches.",
+    "Acetazolamide has not been shown to be effective for the treatment of headache alone.",
+    "Patients must be informed, at the earliest opportunity, of the potential issues of painkiller overuse that can lead to medication overuse headache …" ] },
+  "tx-headache-longterm": { page: "1096", confidence: "condensed", quotes: [
+    "In patients with IIH, the headache phenotype should be assessed. Headache therapies should be tailored to the headache phenotype.",
+    "Early introduction of preventative medications (migraine preventatives) should be considered as these can take 3–4 months to reach maximal efficacy." ] },
+  "tx-headache-strategies": { page: "1096", confidence: "condensed", quotes: [
+    "Migraine attacks may benefit from triptan acute therapy used in combination with either a NSAID or paracetamol and an antiemetic … Their use should be limited to 2 days per week or a maximum of 10 days per month.",
+    "Caution must be observed before selecting drugs that could increase weight … or those that could exacerbate depression …",
+    "Lifestyle advice should be given with all headache disorders … limit caffeine intake. Ensure regular meals and adequate hydration, exercise programme and sleep hygiene." ] },
+  "tx-moh": { page: "1096", confidence: "faithful", quotes: [
+    "Non-opioids and triptan medications may be stopped abruptly or weaned down within a month.",
+    "Opioid medications should be gradually removed, with at least 1 month painkiller free to determine effectiveness." ] },
+  "tx-csf-diversion-headache": { page: "1096", confidence: "faithful", quotes: [
+    "CSF diversion is generally not recommended as a treatment for headache alone in IIH.",
+    "CSF diversion procedures for the management of headaches should only be carried out in a multidisciplinary setting and following a period of intracranial pressure monitoring." ] },
+  "tx-stenting-headache": { page: "1096", confidence: "faithful", quotes: [
+    "Neurovascular stenting is not currently a treatment for headache in IIH." ] },
+  "tx-shunted-exacerbation-ix": { page: "1097", confidence: "condensed", quotes: [
+    "For all shunted patient with IIH presenting with an acute exacerbation of headaches, funduscopy is mandatory to establish if papilloedema exists …",
+    "A diagnostic lumbar puncture should not be routinely performed in the absence of papilloedema (unless suspicion of infection …).",
+    "CT imaging and shunt X-ray series should not routinely be considered for those without evidence of papilloedema, as these investigations do not alter management." ] },
+  "tx-shunted-exacerbation-rx": { page: "1097", confidence: "faithful", quotes: [
+    "For patients without current papilloedema or imminent risk to vision, shunt revision is not recommended.",
+    "In shunted patients with deteriorating headaches, low pressure headache and shunt over drainage should be considered." ] },
+  "tx-pregnancy-drugs": { page: "1097", confidence: "faithful", quotes: [
+    "Topiramate should not be used in pregnancy. There is clear evidence of a higher rate of fetal abnormalities following its use.",
+    "A clear risk−benefit assessment regarding the necessity of acetazolamide treatment during pregnancy should be discussed with the patient …" ] },
+  "tx-pregnancy-management": { page: "1098", confidence: "condensed", quotes: [
+    "Multidisciplinary communication among relevant experienced clinicians should occur throughout pregnancy, peri-delivery and in the postpartum period.",
+    "No specific mode of delivery should be suggested based on the fact there is a previous diagnosis of IIH.",
+    "Those with imminent risk of vision loss at time of delivery should be managed in a specialist centre." ] },
+  "tx-iihwop-management": { page: "1098", confidence: "faithful", quotes: [
+    "Once definite IIHWOP is diagnosed, all patients should be managed as typical IIH and counselled about weight management.",
+    "Surgical management to control elevated intracranial pressures in IIHWOP should not routinely be considered unless advised by experienced clinicians within the multidisciplinary team setting." ] },
+
+  "mon-chronic-problems": { page: "1097", confidence: "condensed", quotes: [
+    "The patient with IIH may have significantly higher levels of anxiety and depression and a lower quality of life … This needs recognition and appropriate management.",
+    "Sleep apnoea is frequently reported in this group, and referral to respiratory service may be appropriate.",
+    "Polycystic ovary syndrome may coexist. Cognitive dysfunction may coexist." ] },
+  "mon-followup": { page: "1098", confidence: "condensed", quotes: [
+    "Any patient with papilloedema should have the following documented: visual acuity; pupil examination; formal visual field assessment; dilated fundal examination to grade the papilloedema; BMI calculation.",
+    "A validated headache disability score such as HIT 6 may be useful." ] },
+  "mon-followup-intervals": { page: "1097 (Table 4)", confidence: "faithful", quotes: [
+    "Consensus of follow-up intervals for patients with IIH based on their papilloedema grade and their visual field status (Table 4).",
+    "Should there be worsening of the visual fields or papilloedema, then outpatient review should be expedited." ] },
+
+  "ref-surgical-expertise": { page: "1093–1094, 1096, 1098", confidence: "editorial", quotes: [
+    "Where possible. it should be performed by a experienced clinician with an interest in CSF disorders.",
+    "ONSF should be performed by an experienced clinician trained in this technique.",
+    "CSF diversion procedures for the management of headaches should only be carried out in a multidisciplinary setting and following a period of intracranial pressure monitoring." ] },
+  "ref-mdt-headache": { page: "1096–1097", confidence: "editorial", quotes: [
+    "A multidisciplinary team approach could be considered including, ideally, an assessment by an experienced clinician with an interest in headache management.",
+    "Medication refractory patients should be managed in a specialist headache service and discussed within a multidisciplinary setting for consideration of ICP monitoring." ] },
+  "ref-pregnancy-specialist": { page: "1098", confidence: "faithful", quotes: [
+    "Multidisciplinary communication among relevant experienced clinicians should occur throughout pregnancy, peri-delivery and in the postpartum period.",
+    "Those with imminent risk of vision loss at time of delivery should be managed in a specialist centre." ] }
+};
+
+window.CG_REVIEW_QUESTIONS = [
+  "Do you agree that A/B/C/GPP grades should not be fabricated for a consensus source that does not contain them?",
+  "Is the strength-from-wording scheme (Must / Should / May / Not recommended) an acceptable and accurate representation of the 2018 statements?",
+  "Are the per-recommendation evidence-base descriptions accurate and appropriately cautious?",
+  "Are the eight presentation routes the right clinical entry points, correctly named and ordered?",
+  "Is each recommendation placed in the correct route and the correct timeframe (immediate / short-term / long-term)?",
+  "Is the red-flag wording for each route clinically correct and sufficiently prominent?",
+  "Does the symptom / finding picker map to the correct suggested route(s), and is the emergency (vision) logic safe?",
+  "Is the in-tool methodology disclosure sufficiently clear for a clinical audience?"
+];
+
+/* =========================================================
+   SYMPTOM / FINDING PICKER  ("What has the patient got?")
+   ---------------------------------------------------------
+   DRAFT triage aid — NOT diagnostic. The symptom list and
+   frequencies are from the 2018 paper (Figure 1A, Markey et al.).
+   The mapping from each item to a suggested route is an
+   EDITORIAL clinical-judgement layer and requires review-team
+   sign-off (see review question above). The vision-threat item
+   is treated as an emergency and always surfaces the
+   sight-threatening route.
+   ========================================================= */
+window.CG_SYMPTOMS = [
+  { id: "headache",   label: "Headache",                         freq: "76–94%", routes: ["suspected", "headache"] },
+  { id: "tvo",        label: "Transient visual obscurations",    freq: "68–72%", routes: ["suspected"] },
+  { id: "tinnitus",   label: "Pulsatile tinnitus",               freq: "52–61%", routes: ["suspected"] },
+  { id: "back",       label: "Back pain",                        freq: "53%",    routes: ["suspected"] },
+  { id: "dizzy",      label: "Dizziness",                        freq: "52%",    routes: ["suspected"] },
+  { id: "neck",       label: "Neck pain",                        freq: "42%",    routes: ["suspected"] },
+  { id: "blurred",    label: "Blurred vision",                   freq: "32%",    routes: ["suspected"] },
+  { id: "cognitive",  label: "Cognitive disturbance",           freq: "20%",    routes: ["suspected"] },
+  { id: "radicular",  label: "Radicular pain",                   freq: "19%",    routes: ["suspected"] },
+  { id: "diplopia",   label: "Diplopia (typically horizontal)",  freq: "18%",    routes: ["suspected", "iihwop"] }
+];
+
+/* Discriminating findings / context — these do the real routing */
+window.CG_FINDINGS = [
+  { id: "vision-threat",  label: "Declining or threatened vision (acuity or field loss)", emergency: true, routes: ["fulminant"] },
+  { id: "papilloedema",   label: "Papilloedema present",                                   routes: ["suspected"] },
+  { id: "sixth-nerve",    label: "Sixth cranial nerve palsy",                              routes: ["suspected", "iihwop"] },
+  { id: "no-papilloedema",label: "IIH features but NO papilloedema",                       routes: ["iihwop"] },
+  { id: "has-shunt",      label: "Existing CSF shunt in situ",                             routes: ["shunted"] },
+  { id: "pregnant",       label: "Pregnant",                                               routes: ["pregnancy"] },
+  { id: "confirmed",      label: "IIH already confirmed / in follow-up",                   routes: ["confirmed", "headache", "monitoring"] }
+];
+
+/* =========================================================
+   DIFFERENTIAL FORKS  (DRAFT — needs review-team validation)
+   ---------------------------------------------------------
+   Where two+ routes differ only by a single discriminator, the
+   picker shows them SIDE BY SIDE as a differential until the
+   clinician resolves it (by selecting the discriminator) — e.g.
+   a sixth nerve palsy occurs in IIH (with papilloedema) and in
+   IIHWOP (without). Add further differentials here and they will
+   render the same way automatically.
+     resolvedBy: maps a branch.key -> the finding id that resolves to it
+     branches:   key (matches resolvedBy), condition (column header), route
+   ========================================================= */
+window.CG_DIFFERENTIALS = [
+  {
+    id: "papilloedema",
+    question: "papilloedema present?",
+    hint: "fundoscopy decides",
+    resolvedBy: { present: "papilloedema", absent: "no-papilloedema" },
+    branches: [
+      { key: "present", condition: "With papilloedema",    route: "suspected" },
+      { key: "absent",  condition: "Without papilloedema", route: "iihwop" }
+    ]
+  }
+];
+
+</script>
+  <script>
+/* =========================================================
+   IIHHCP002 — 2018 Consensus Guidelines Interactive Tool
+   VIEW RENDERING + INTERACTION  (presentation-led, polished)
+   ---------------------------------------------------------
+   Register C (hybrid): calm shell, dense banded core, with a
+   contemporary finish: inline SVG icon system (no glyph
+   fallbacks), staggered entrance animation, animated
+   expand/collapse, and a pathway rail that guides the eye
+   Immediate -> Short-term -> Long-term. All motion is gated
+   by prefers-reduced-motion in CSS.
+   Urgency is encoded by ICON SHAPE + LABEL + POSITION, never
+   colour alone (WCAG 2.2 SC 1.4.1). No external dependencies.
+   ========================================================= */
+(function () {
+  'use strict';
+
+  var META   = window.CG_META || {};
+  var RECS   = window.CG_RECS || [];
+  var ROUTES = window.CG_ROUTES || [];
+  var PLACE  = window.CG_PLACEMENTS || {};
+  var TIMES  = window.CG_TIMEFRAMES || [];
+  var DRAFT  = window.CG_DRAFT || {};
+  var QS     = window.CG_REVIEW_QUESTIONS || [];
+  var SOURCES = window.CG_SOURCES || {};
+  var AUDIT   = window.CG_AUDIT_LEGEND || {};
+  var SYMPTOMS = window.CG_SYMPTOMS || [];
+  var FINDINGS = window.CG_FINDINGS || [];
+
+  /* display grouping for the symptom matrix (presentation only) */
+  var SYMPTOM_GROUPS = [
+    { title: 'Headache & pain',        ids: ['headache', 'back', 'neck', 'radicular'] },
+    { title: 'Vision & ear',           ids: ['vision-threat', 'papilloedema', 'tvo', 'blurred', 'diplopia', 'tinnitus'] },
+    { title: 'Neurological & other',   ids: ['sixth-nerve', 'has-shunt', 'dizzy', 'cognitive'] },
+    { title: 'Key findings & context', ids: ['no-papilloedema', 'pregnant', 'confirmed'], accent: true }
+  ];
+
+  var STORE_VIEW  = 'cg002.view';
+  var STORE_ROUTE = 'cg002.route';
+
+  /* =========================================================
+     INLINE SVG ICON SYSTEM (stroke icons, currentColor)
+     ========================================================= */
+  var PATHS = {
+    eye:      '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/>',
+    alert:    '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+    pill:     '<path d="M10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7z"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/>',
+    activity: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+    branch:   '<line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/>',
+    heart:    '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+    search:   '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+    clipboard:'<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>',
+    clock:    '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    grid:     '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    compass:  '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+    printer:  '<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8" rx="1"/>',
+    chevron:  '<polyline points="6 9 12 15 18 9"/>',
+    arrowL:   '<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>',
+    arrowR:   '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+    flag:     '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>',
+    refresh:  '<polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>',
+    info:     '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>'
+  };
+  function ico(name, cls) {
+    return '<svg class="ico' + (cls ? ' ' + cls : '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + (PATHS[name] || '') + '</svg>';
+  }
+
+  var TIME_SVG  = { immediate: 'alert', short: 'clock', long: 'calendar' };
+  var ROUTE_SVG = { eye: 'eye', alert: 'alert', pill: 'pill', activity: 'activity', device: 'branch', heart: 'heart', search: 'search', calendar: 'clipboard' };
+
+  /* ---------- helpers ---------- */
+  var byId = {};
+  RECS.forEach(function (r) { byId[r.id] = r; });
+
+  function el(tag, attrs, html) {
+    var n = document.createElement(tag);
+    if (attrs) { for (var k in attrs) { if (attrs[k] != null) n.setAttribute(k, attrs[k]); } }
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+  function stripTags(s) { return String(s || '').replace(/<[^>]*>/g, ' '); }
+  function strengthOf(id) { return (META.strengths && META.strengths[id]) || { label: id, short: id, tone: 'muted', note: '' }; }
+  function categoryOf(id) {
+    var cats = META.categories || [];
+    for (var i = 0; i < cats.length; i++) { if (cats[i].id === id) return cats[i]; }
+    return { id: id, label: id, color: 'muted' };
+  }
+  function routeOf(id) {
+    for (var i = 0; i < ROUTES.length; i++) { if (ROUTES[i].id === id) return ROUTES[i]; }
+    return null;
+  }
+  function timeLabel(id) {
+    for (var i = 0; i < TIMES.length; i++) { if (TIMES[i].id === id) return TIMES[i]; }
+    return { id: id, label: id, short: id };
+  }
+  function pointsHtml(rec) {
+    if (!rec.points || !rec.points.length) return '';
+    return '<ul>' + rec.points.map(function (p) { return '<li>' + p + '</li>'; }).join('') + '</ul>';
+  }
+  function recsForRoute(routeId) {
+    var out = { immediate: [], short: [], long: [] };
+    RECS.forEach(function (rec) {
+      (PLACE[rec.id] || []).forEach(function (p) {
+        if (p.route === routeId && out[p.time]) out[p.time].push(rec);
+      });
+    });
+    return out;
+  }
+  function badges(rec) {
+    var s = strengthOf(rec.strength);
+    var c = categoryOf(rec.category);
+    return '<span class="badge badge-str badge-' + s.tone + '">' + esc(s.short) + '</span>' +
+           '<span class="badge badge-cat badge-' + c.color + '">' + esc(c.label) + '</span>' +
+           '<span class="badge badge-q">' + esc(rec.q.split('—')[0].trim()) + '</span>';
+  }
+  function auditChip(conf) {
+    var a = AUDIT[conf] || { label: conf, tone: 'muted' };
+    return '<span class="badge badge-' + a.tone + '" title="Editorial fidelity self-audit">' + esc(a.label) + '</span>';
+  }
+
+  function sourceBlock(rec) {
+    var s = SOURCES[rec.id];
+    if (!s) return '';
+    var quotes = (s.quotes || []).map(function (q) {
+      return '<blockquote class="src-quote">' + esc(q) + '</blockquote>';
+    }).join('');
+    return '<div class="src">' +
+      '<div class="src-head">' +
+        '<span class="src-label">Source — verbatim from the guideline</span>' +
+        auditChip(s.confidence) +
+        '<span class="src-page">Mollan 2018, p ' + esc(s.page) + '</span>' +
+      '</div>' + quotes + '</div>';
+  }
+
+  function detailBody(rec) {
+    var html = '<div class="rec-points">' + pointsHtml(rec) + '</div>';
+    if (rec.evidence) {
+      html += '<p class="rec-evidence"><span class="rec-evidence-label">Evidence base:</span> ' + esc(rec.evidence) + '</p>';
+    }
+    if (rec.uncertainty) {
+      html += '<div class="callout callout-warning" role="note"><strong>Uncertainty (as stated in the guideline):</strong> ' + esc(rec.uncertainty) + '</div>';
+    }
+    html += sourceBlock(rec);
+    return html;
+  }
+
+  /* =========================================================
+     STATE
+     ========================================================= */
+  var state = { view: 'route', route: null, query: '' };
+
+  /* =========================================================
+     SIDEBAR — route navigation (desktop) / drawer (mobile)
+     ========================================================= */
+  var routeNav = document.getElementById('route-nav');
+  ROUTES.forEach(function (rt, i) {
+    var btn = el('button', { type: 'button', class: 'route-link', 'data-route': rt.id, style: '--i:' + i });
+    btn.innerHTML =
+      '<span class="route-ico">' + ico(ROUTE_SVG[rt.icon] || 'flag') + '</span>' +
+      '<span class="route-link-text"><span class="route-link-title">' + esc(rt.title) + '</span>' +
+      '<span class="route-link-sub">' + esc(rt.sub) + '</span></span>';
+    btn.addEventListener('click', function () { openRoute(rt.id, true); closeDrawer(); });
+    routeNav.appendChild(btn);
+  });
+
+  function setActiveRouteLink(id) {
+    routeNav.querySelectorAll('.route-link').forEach(function (b) {
+      if (b.getAttribute('data-route') === id) b.setAttribute('aria-current', 'true');
+      else b.removeAttribute('aria-current');
+    });
+  }
+
+  /* drawer (mobile) */
+  var drawerToggle = document.getElementById('drawer-toggle');
+  var scrim = document.getElementById('scrim');
+  function openDrawer() { document.body.classList.add('drawer-open'); drawerToggle.setAttribute('aria-expanded', 'true'); }
+  function closeDrawer() { document.body.classList.remove('drawer-open'); drawerToggle.setAttribute('aria-expanded', 'false'); }
+  drawerToggle.addEventListener('click', function () {
+    if (document.body.classList.contains('drawer-open')) closeDrawer(); else openDrawer();
+  });
+  scrim.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDrawer(); });
+
+  /* sticky tabbar elevation on scroll */
+  var tabbar = document.querySelector('.tabbar');
+  window.addEventListener('scroll', function () {
+    tabbar.classList.toggle('scrolled', window.scrollY > 4);
+  }, { passive: true });
+
+  /* =========================================================
+     TOP TABS
+     ========================================================= */
+  var tabSymptoms = document.getElementById('tab-symptoms');
+  var tabRoute  = document.getElementById('tab-route');
+  var tabMatrix = document.getElementById('tab-matrix');
+  var tabReview = document.getElementById('tab-review');
+
+  function setView(view, persist) {
+    state.view = view;
+    [['symptoms', tabSymptoms], ['route', tabRoute], ['matrix', tabMatrix], ['review', tabReview]].forEach(function (pair) {
+      pair[1].setAttribute('aria-selected', pair[0] === view ? 'true' : 'false');
+    });
+    document.getElementById('app').setAttribute('data-view', view);
+    document.body.setAttribute('data-view', view);
+    if (view !== 'route') closeDrawer();
+    if (persist) { try { localStorage.setItem(STORE_VIEW, view); } catch (e) {} }
+    render();
+  }
+  tabSymptoms.addEventListener('click', function () { state.query = ''; syncSearchBox(); setView('symptoms', true); });
+  tabRoute.addEventListener('click', function () { state.query = ''; syncSearchBox(); setView('route', true); });
+  tabMatrix.addEventListener('click', function () { setView('matrix', true); });
+  tabReview.addEventListener('click', function () { setView('review', true); });
+
+  /* =========================================================
+     SEARCH
+     ========================================================= */
+  var searchInput = document.getElementById('search-input');
+  var searchClear = document.getElementById('search-clear');
+  function syncSearchBox() { searchInput.value = state.query; searchClear.hidden = !state.query; }
+  searchInput.addEventListener('input', function () {
+    state.query = searchInput.value.trim();
+    searchClear.hidden = !state.query;
+    if (state.query) { setView('route', false); }
+    render();
+  });
+  searchClear.addEventListener('click', function () {
+    state.query = ''; syncSearchBox(); searchInput.focus(); render();
+  });
+  function matchesQuery(rec, q) {
+    var hay = (rec.title + ' ' + rec.summary + ' ' + rec.q + ' ' + (rec.principle || '') + ' ' +
+      (rec.evidence || '') + ' ' + (rec.uncertainty || '') + ' ' + stripTags((rec.points || []).join(' '))).toLowerCase();
+    return hay.indexOf(q.toLowerCase()) !== -1;
+  }
+
+  /* =========================================================
+     OPEN A ROUTE
+     ========================================================= */
+  function openRoute(routeId, persist) {
+    state.route = routeId;
+    state.query = ''; syncSearchBox();
+    setActiveRouteLink(routeId);
+    if (persist) { try { localStorage.setItem(STORE_ROUTE, routeId); } catch (e) {} }
+    if (state.view !== 'route') setView('route', true); else render();
+    var main = document.getElementById('view-main');
+    if (main) main.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+
+  /* =========================================================
+     RENDER
+     ========================================================= */
+  var main = document.getElementById('view-main');
+
+  function animateIn() {
+    main.classList.remove('vin');
+    void main.offsetWidth; /* restart entrance animation */
+    main.classList.add('vin');
+  }
+
+  function render() {
+    if (state.view === 'symptoms') { setActiveRouteLink(null); renderSymptoms(); animateIn(); return; }
+    if (state.view === 'matrix') { setActiveRouteLink(null); renderMatrix(); animateIn(); return; }
+    if (state.view === 'review') { setActiveRouteLink(null); renderReview(); animateIn(); return; }
+    if (state.query) { setActiveRouteLink(null); renderSearch(); animateIn(); return; }
+    if (!state.route) { setActiveRouteLink(null); renderRoutePicker(); animateIn(); return; }
+    renderRoute(state.route); animateIn();
+  }
+
+  /* ---------- route picker (landing) ---------- */
+  function renderRoutePicker() {
+    main.innerHTML = '';
+    var intro = el('div', { class: 'picker-intro' },
+      '<h2>What is the patient presenting with?</h2>' +
+      '<p>Choose a clinical route to see what to address <strong>now</strong>, in the <strong>short term</strong> and <strong>long term</strong> — from the 2018 UK consensus guidelines on adult IIH.</p>' +
+      '<div class="picker-stats">' +
+        '<span class="stat">' + ico('flag') + ' 8 routes</span>' +
+        '<span class="stat">' + ico('clipboard') + ' 35 recommendations</span>' +
+        '<span class="stat">' + ico('clock') + ' 3 timeframes</span>' +
+        '<button type="button" class="stat stat-link" id="go-matrix">' + ico('grid') + ' whole-guideline matrix ' + ico('arrowR', 'ico-sm') + '</button>' +
+      '</div>');
+    main.appendChild(intro);
+
+    var grid = el('div', { class: 'picker-grid' });
+    ROUTES.forEach(function (rt, i) {
+      var counts = recsForRoute(rt.id);
+      var n = counts.immediate.length + counts.short.length + counts.long.length;
+      var hasImmediate = counts.immediate.length > 0;
+      var advisory = !hasImmediate && !!rt.redflag;
+      var flagCls = hasImmediate ? ' has-immediate' : (advisory ? ' has-advisory' : '');
+      var card = el('button', { type: 'button', class: 'picker-card' + flagCls, 'data-route': rt.id, style: '--i:' + i });
+      var flag = hasImmediate
+        ? '<span class="picker-flag">' + ico('alert', 'ico-sm') + ' Immediate action</span>'
+        : (advisory ? '<span class="picker-flag picker-flag-amber">' + ico('flag', 'ico-sm') + ' Safety flag</span>' : '');
+      card.innerHTML =
+        '<span class="picker-ico">' + ico(ROUTE_SVG[rt.icon] || 'flag') + '</span>' +
+        '<span class="picker-title">' + esc(rt.title) + '</span>' +
+        '<span class="picker-sub">' + esc(rt.sub) + '</span>' +
+        '<span class="picker-meta"><span>' + n + ' recommendations · ' + esc(rt.source) + '</span>' + flag + '</span>' +
+        '<span class="picker-go">' + ico('arrowR') + '</span>';
+      card.addEventListener('click', function () { openRoute(rt.id, true); });
+      grid.appendChild(card);
+    });
+    main.appendChild(grid);
+    var gm = document.getElementById('go-matrix');
+    if (gm) gm.addEventListener('click', function () { setView('matrix', true); });
+  }
+
+  /* ---------- symptom / finding picker ---------- */
+  var symById = {};
+  SYMPTOMS.concat(FINDINGS).forEach(function (s) { symById[s.id] = s; });
+  state.picked = state.picked || {};
+
+  function renderSymptoms() {
+    main.innerHTML = '';
+    main.appendChild(el('div', { class: 'picker-intro' },
+      '<h2>What is the patient presenting with?</h2>' +
+      '<p>Select the symptoms and findings that apply. The tool suggests which clinical route(s) to follow — select a suggestion to open it.</p>' +
+      '<p class="sym-freq-note">' + ico('info', 'ico-sm') + ' Percentages show how often each symptom is reported in IIH (Mollan 2018, Fig 1A).</p>' +
+      '<div class="callout callout-warning" role="note"><strong>Triage aid, not a diagnosis.</strong> Suggested routes are an editorial mapping of the 2018 guideline and need clinical review-team sign-off. Use clinical judgement; if vision is threatened, treat as an emergency.</div>'));
+
+    var bar = el('div', { class: 'sym-toolbar' });
+    bar.innerHTML = '<span class="sym-count" id="sym-count" role="status" aria-live="polite"></span>' +
+      '<button type="button" class="btn-reset" id="sym-reset">' + ico('refresh', 'ico-sm') + ' Reset selections</button>';
+    main.appendChild(bar);
+
+    var grid = el('div', { class: 'sym-grid' });
+    SYMPTOM_GROUPS.forEach(function (g) {
+      var block = el('section', { class: 'sym-block' + (g.accent ? ' sym-block-find' : '') });
+      block.appendChild(el('h3', { class: 'sym-block-title' }, esc(g.title)));
+      g.ids.forEach(function (id) {
+        var s = symById[id]; if (!s) return;
+        block.appendChild(symChip(s));
+      });
+      grid.appendChild(block);
+    });
+    main.appendChild(grid);
+
+    var out = el('div', { class: 'suggest', id: 'suggest' });
+    main.appendChild(out);
+
+    main.querySelectorAll('.sym-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var id = chip.getAttribute('data-id');
+        var on = !state.picked[id];
+        state.picked[id] = on;
+        chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+        if (!on) delete state.picked[id];
+        updateSuggestions();
+      });
+    });
+    document.getElementById('sym-reset').addEventListener('click', function () {
+      state.picked = {};
+      main.querySelectorAll('.sym-chip').forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
+      updateSuggestions();
+    });
+    updateSuggestions();
+  }
+
+  function symChip(s) {
+    var on = !!state.picked[s.id];
+    var chip = el('button', {
+      type: 'button',
+      class: 'sym-chip' + (s.emergency ? ' sym-emergency' : ''),
+      'data-id': s.id, 'aria-pressed': on ? 'true' : 'false'
+    });
+    chip.innerHTML = '<span class="sym-check" aria-hidden="true"></span>' +
+      '<span class="sym-label">' + esc(s.label) + '</span>' +
+      (s.freq ? '<span class="sym-freq">' + esc(s.freq) + '</span>' : '') +
+      (s.emergency ? '<span class="sym-emflag">' + ico('alert', 'ico-sm') + '</span>' : '');
+    return chip;
+  }
+
+  function suggestCardHtml(rid, opts) {
+    opts = opts || {};
+    var rt = routeOf(rid); if (!rt) return '';
+    var hasImmediate = recsForRoute(rid).immediate.length > 0;
+    var isEmergency = !!opts.emergency && rid === 'fulminant';
+    var urgent = isEmergency || hasImmediate;
+    var cls = 'suggest-card' + (isEmergency ? ' is-emergency' : (hasImmediate ? ' is-immediate' : '')) + (opts.pulse && urgent ? ' pulse' : '');
+    var chips = (opts.why || []).map(function (w) { return '<span class="suggest-why">' + esc(w) + '</span>'; }).join('');
+    var flagTag = urgent
+      ? '<span class="suggest-flag">' + ico('alert', 'ico-sm') + ' Immediate action</span>'
+      : (rt.redflag ? '<span class="suggest-flag suggest-flag-amber">' + ico('flag', 'ico-sm') + ' Safety flag</span>' : '');
+    var prefix = opts.prefix ? '<span class="suggest-prefix">' + esc(opts.prefix) + '</span>' : '';
+    return '<button type="button" class="' + cls + '" data-goroute="' + esc(rid) + '">' +
+      '<span class="suggest-ico">' + ico(ROUTE_SVG[rt.icon] || 'flag') + '</span>' +
+      '<span class="suggest-body">' + prefix + '<span class="suggest-titlerow"><span class="suggest-title">' + esc(rt.title) + '</span>' + flagTag + '</span>' +
+      '<span class="suggest-sub">' + esc(rt.sub) + '</span>' +
+      '<span class="suggest-whys">' + chips + '</span></span>' +
+      '<span class="suggest-go">' + ico('arrowR') + '</span></button>';
+  }
+
+  function updateSuggestions() {
+    var out = document.getElementById('suggest');
+    if (!out) return;
+    var picked = Object.keys(state.picked).filter(function (k) { return state.picked[k]; });
+    var cnt = document.getElementById('sym-count');
+    if (cnt) cnt.textContent = picked.length ? (picked.length + ' selected') : 'Nothing selected yet';
+    if (!picked.length) {
+      out.innerHTML = '<div class="suggest-empty">' + ico('compass') +
+        '<p>Select what the patient has above and the suggested route(s) will appear here.</p></div>';
+      return;
+    }
+    var tally = {}, why = {};
+    picked.forEach(function (id) {
+      var s = symById[id]; if (!s) return;
+      (s.routes || []).forEach(function (rid) {
+        tally[rid] = (tally[rid] || 0) + 1;
+        (why[rid] = why[rid] || []).push(s.label);
+      });
+    });
+    var emergency = !!state.picked['vision-threat'];
+    var ranked = Object.keys(tally).sort(function (a, b) {
+      if (a === 'fulminant' && emergency) return -1;
+      if (b === 'fulminant' && emergency) return 1;
+      return tally[b] - tally[a];
+    });
+
+    /* Generic differential forks: where two+ routes differ only by a
+       discriminator (e.g. papilloedema), show them SIDE BY SIDE until the
+       clinician resolves it by selecting the discriminator. */
+    var DIFFS = window.CG_DIFFERENTIALS || [];
+    var routeFork = {};
+    DIFFS.forEach(function (d) {
+      var resolved = null;
+      if (d.resolvedBy) { for (var k in d.resolvedBy) { if (state.picked[d.resolvedBy[k]]) { resolved = k; break; } } }
+      if (resolved) {
+        ranked = ranked.filter(function (rid) {
+          var br = d.branches.filter(function (b) { return b.route === rid; })[0];
+          return !br || br.key === resolved;
+        });
+        return;
+      }
+      var inRanked = d.branches.filter(function (b) { return ranked.indexOf(b.route) >= 0; });
+      if (inRanked.length >= 2) { inRanked.forEach(function (b) { routeFork[b.route] = { diff: d, branches: inRanked }; }); }
+    });
+
+    var html = '';
+    if (emergency) {
+      html += '<div class="redflag" role="note"><span class="redflag-ico">' + ico('alert') + '</span>' +
+        '<span class="redflag-text"><span class="redflag-label">Emergency</span> Vision is declining or threatened — treat as sight-threatening / fulminant IIH and act now.</span></div>';
+    }
+    html += '<h3 class="suggest-head">Suggested route' + (ranked.length > 1 ? 's' : '') + '</h3>';
+    html += '<div class="suggest-cards">';
+    var renderedForks = {}, realIdx = 0;
+    ranked.forEach(function (rid) {
+      var fork = routeFork[rid];
+      if (fork) {
+        if (renderedForks[fork.diff.id]) return;
+        renderedForks[fork.diff.id] = true;
+        var brs = fork.branches.map(function (b) { return b.route; });
+        var shared = null;
+        brs.forEach(function (r) { var w = why[r] || []; shared = (shared === null) ? w.slice() : shared.filter(function (x) { return w.indexOf(x) >= 0; }); });
+        var cols = fork.branches.map(function (b) {
+          return suggestCardHtml(b.route, { why: why[b.route], prefix: b.condition, emergency: emergency });
+        }).join('');
+        html += '<div class="suggest-fork">' +
+          '<div class="fork-head">' + ico('branch', 'ico-sm') + ' Differential — ' + esc(fork.diff.question) +
+          (shared && shared.length ? '<span class="fork-shared">shared: ' + shared.map(esc).join(', ') + '</span>' : '') +
+          (fork.diff.hint ? '<span class="fork-hint">' + esc(fork.diff.hint) + '</span>' : '') + '</div>' +
+          '<div class="fork-branches fork-cols">' + cols + '</div></div>';
+        realIdx++;
+        return;
+      }
+      html += suggestCardHtml(rid, { why: why[rid], emergency: emergency, pulse: (realIdx === 0) });
+      realIdx++;
+    });
+    html += '</div>';
+    out.innerHTML = html;
+    out.querySelectorAll('[data-goroute]').forEach(function (b) {
+      b.addEventListener('click', function () { openRoute(b.getAttribute('data-goroute'), true); });
+    });
+  }
+
+  /* ---------- single route page ---------- */
+  function renderRoute(routeId) {
+    var rt = routeOf(routeId);
+    if (!rt) { renderRoutePicker(); return; }
+    var groups = recsForRoute(routeId);
+    var total = groups.immediate.length + groups.short.length + groups.long.length;
+    main.innerHTML = '';
+
+    var head = el('div', { class: 'route-head' });
+    head.innerHTML =
+      '<button type="button" class="back-btn" id="back-picker">' + ico('arrowL', 'ico-sm') + ' All presentations</button>' +
+      '<h2><span class="route-head-ico">' + ico(ROUTE_SVG[rt.icon] || 'flag') + '</span> ' + esc(rt.title) + '</h2>' +
+      '<p class="route-head-sub">' + esc(rt.sub) + ' · ' + esc(rt.source) + ' · ' + total + ' recommendations</p>';
+    main.appendChild(head);
+
+    if (rt.redflag) {
+      var flag = el('div', { class: 'redflag', role: 'note' });
+      flag.innerHTML =
+        '<span class="redflag-ico">' + ico('alert') + '</span>' +
+        '<span class="redflag-text"><span class="redflag-label">Red flag</span> ' + esc(rt.redflag) +
+        (rt.redflagRoute ? ' <button type="button" class="link-btn" data-goroute="' + esc(rt.redflagRoute) + '">Go to that route ' + ico('arrowR', 'ico-sm') + '</button>' : '') +
+        '</span>';
+      main.appendChild(flag);
+    }
+
+    var pathway = el('div', { class: 'pathway' });
+    var bandIdx = 0;
+    TIMES.forEach(function (tf) {
+      var list = groups[tf.id];
+      var band = el('section', { class: 'band band-' + tf.id, 'aria-label': tf.label, style: '--i:' + (bandIdx++) });
+      band.appendChild(el('div', { class: 'band-node', 'aria-hidden': 'true' }, ico(TIME_SVG[tf.id])));
+      band.appendChild(el('h3', { class: 'band-head' },
+        esc(tf.label) + ' <span class="band-count">' + list.length + '</span>'));
+      if (!list.length) {
+        band.appendChild(el('p', { class: 'band-empty' }, 'No specific actions in this timeframe for this presentation.'));
+      } else {
+        var tbl = el('div', { class: 'actions' });
+        list.forEach(function (rec, j) { tbl.appendChild(actionRow(rec, tf.id, j)); });
+        band.appendChild(tbl);
+      }
+      pathway.appendChild(band);
+    });
+    main.appendChild(pathway);
+
+    document.getElementById('back-picker').addEventListener('click', function () {
+      state.route = null;
+      try { localStorage.removeItem(STORE_ROUTE); } catch (e) {}
+      render();
+    });
+    main.querySelectorAll('[data-goroute]').forEach(function (b) {
+      b.addEventListener('click', function () { openRoute(b.getAttribute('data-goroute'), true); });
+    });
+  }
+
+  function actionRow(rec, tf, idx) {
+    var panelId = 'p-' + rec.id + '-' + tf;
+    var wrap = el('div', { class: 'action' + (tf === 'immediate' ? ' action-immediate' : ''), style: '--i:' + (idx || 0) });
+    var trig = el('button', {
+      type: 'button', class: 'action-trigger', 'aria-expanded': 'false', 'aria-controls': panelId
+    });
+    trig.innerHTML =
+      '<span class="action-main"><span class="action-title">' + esc(rec.title) + '</span>' +
+      '<span class="action-summary">' + esc(rec.summary) + '</span>' +
+      '<span class="action-badges">' + badges(rec) + '</span></span>' +
+      '<span class="action-toggle" aria-hidden="true">Detail ' + ico('chevron', 'chev') + '</span>';
+    var wrapPanel = el('div', { class: 'action-panel-wrap', id: panelId, role: 'region', 'aria-hidden': 'true' });
+    wrapPanel.appendChild(el('div', { class: 'action-panel-inner' }, '<div class="action-panel rich">' + detailBody(rec) + '</div>'));
+    trig.addEventListener('click', function () {
+      var open = trig.getAttribute('aria-expanded') === 'true';
+      trig.setAttribute('aria-expanded', open ? 'false' : 'true');
+      wrapPanel.classList.toggle('open', !open);
+      wrapPanel.setAttribute('aria-hidden', open ? 'true' : 'false');
+    });
+    wrap.appendChild(trig);
+    wrap.appendChild(wrapPanel);
+    return wrap;
+  }
+
+  /* ---------- search results ---------- */
+  function renderSearch() {
+    main.innerHTML = '';
+    var list = RECS.filter(function (r) { return matchesQuery(r, state.query); });
+    main.appendChild(el('div', { class: 'route-head' },
+      '<h2>Search results</h2><p class="route-head-sub">' + list.length + ' of ' + RECS.length +
+      ' recommendations match “' + esc(state.query) + '”</p>'));
+    if (!list.length) {
+      main.appendChild(el('div', { class: 'band-empty', role: 'status' }, 'No recommendations match. Try a different term or browse by presentation.'));
+      return;
+    }
+    var tbl = el('div', { class: 'actions' });
+    list.forEach(function (rec, i) {
+      var place = (PLACE[rec.id] || [])[0];
+      var rt = place ? routeOf(place.route) : null;
+      var tf = place ? timeLabel(place.time) : null;
+      var row = actionRow(rec, 'srch', i);
+      if (rt && tf) {
+        var ctx = el('span', { class: 'action-ctx' },
+          '<span class="ctx-time ctx-' + place.time + '">' + ico(TIME_SVG[place.time], 'ico-sm') + ' ' + esc(tf.short) + '</span> · ' +
+          '<button type="button" class="link-btn" data-goroute="' + esc(rt.id) + '">' + esc(rt.title) + '</button>');
+        row.querySelector('.action-main').appendChild(ctx);
+      }
+      tbl.appendChild(row);
+    });
+    main.appendChild(tbl);
+    main.querySelectorAll('[data-goroute]').forEach(function (b) {
+      b.addEventListener('click', function () { openRoute(b.getAttribute('data-goroute'), true); });
+    });
+  }
+
+  /* ---------- matrix (quick reference) ---------- */
+  function renderMatrix() {
+    main.innerHTML = '';
+    main.appendChild(el('div', { class: 'route-head' },
+      '<h2>Whole-guideline matrix</h2>' +
+      '<p class="route-head-sub">Rows are what the patient presents with; columns are when to act. ' +
+      'Each level is shown by icon and label, not colour alone. Select any action to open its detail.</p>'));
+
+    var legend = el('div', { class: 'matrix-legend' });
+    legend.innerHTML = TIMES.map(function (tf) {
+      return '<span class="leg leg-' + tf.id + '">' + ico(TIME_SVG[tf.id], 'ico-sm') + ' ' + esc(tf.label) + '</span>';
+    }).join('');
+    main.appendChild(legend);
+
+    var scroll = el('div', { class: 'matrix-scroll' });
+    var tbl = el('table', { class: 'matrix' });
+    var thead = el('thead');
+    thead.innerHTML = '<tr><th class="m-rowh">Patient presents with</th>' +
+      TIMES.map(function (tf) {
+        return '<th class="m-col m-col-' + tf.id + '">' + ico(TIME_SVG[tf.id], 'ico-sm') + ' ' + esc(tf.label) + '</th>';
+      }).join('') + '</tr>';
+    tbl.appendChild(thead);
+
+    var tbody = el('tbody');
+    ROUTES.forEach(function (rt) {
+      var groups = recsForRoute(rt.id);
+      var tr = el('tr');
+      var rowh = el('th', { class: 'm-rowh', scope: 'row' });
+      rowh.innerHTML = '<button type="button" class="m-routebtn" data-goroute="' + esc(rt.id) + '">' +
+        '<span class="m-routeico">' + ico(ROUTE_SVG[rt.icon] || 'flag') + '</span>' +
+        '<span><span class="m-routetitle">' + esc(rt.title) + '</span>' +
+        '<span class="m-routesub">' + esc(rt.sub) + '</span></span></button>';
+      tr.appendChild(rowh);
+      TIMES.forEach(function (tf) {
+        var cell = el('td', { class: 'm-cell m-cell-' + tf.id });
+        var list = groups[tf.id];
+        if (!list.length) { cell.innerHTML = '<span class="m-none">—</span>'; }
+        else {
+          cell.innerHTML = list.map(function (rec) {
+            return '<button type="button" class="m-item" data-rec="' + esc(rec.id) + '" data-route="' + esc(rt.id) + '" data-time="' + esc(tf.id) + '">' +
+              '<span class="m-item-ico">' + ico(TIME_SVG[tf.id], 'ico-sm') + '</span>' +
+              '<span>' + esc(rec.title) + '</span></button>';
+          }).join('');
+        }
+        tr.appendChild(cell);
+      });
+      tbody.appendChild(tr);
+    });
+    tbl.appendChild(tbody);
+    scroll.appendChild(tbl);
+    main.appendChild(scroll);
+
+    main.querySelectorAll('[data-goroute]').forEach(function (b) {
+      b.addEventListener('click', function () { openRoute(b.getAttribute('data-goroute'), true); });
+    });
+    main.querySelectorAll('.m-item').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var routeId = b.getAttribute('data-route');
+        var recId = b.getAttribute('data-rec');
+        openRoute(routeId, true);
+        setTimeout(function () {
+          var t = document.querySelector('#view-main .action-trigger[aria-controls="p-' + recId + '-' + b.getAttribute('data-time') + '"]');
+          if (t) { if (t.getAttribute('aria-expanded') !== 'true') t.click(); t.scrollIntoView({ block: 'center' }); t.focus(); }
+        }, 80);
+      });
+    });
+  }
+
+  /* ---------- review pack (printable) ---------- */
+  function renderReview() {
+    main.innerHTML = '';
+    var html = '<div class="review">';
+    html += '<div class="route-head"><h2>Clinical review pack</h2>' +
+      '<p class="route-head-sub">For the IIH UK clinical review team. Use your browser’s Print to produce a single PDF to mark up. ' +
+      'This pack reproduces the matrix mapping, the full route / timeframe placements, and the questions we need answered.</p></div>';
+
+    html += '<div class="callout callout-warning"><strong>' + esc(DRAFT.label || 'Draft') + '.</strong> ' + esc(DRAFT.note || '') +
+      (DRAFT.rationaleHref ? ' Full rationale: <a href="' + esc(DRAFT.rationaleHref) + '">' + esc(DRAFT.rationaleTitle || 'decision rationale') + '</a>.' : '') + '</div>';
+
+    html += '<h3 class="review-h">Questions for the review team</h3><ol class="review-qs">';
+    QS.forEach(function (q) { html += '<li>' + esc(q) + '</li>'; });
+    html += '</ol>';
+
+    /* ---- editorial fidelity self-audit ---- */
+    var counts = { faithful: [], condensed: [], editorial: [] };
+    RECS.forEach(function (rec) {
+      var s = SOURCES[rec.id];
+      var c = s ? s.confidence : 'editorial';
+      (counts[c] || (counts[c] = [])).push(rec);
+    });
+    html += '<h3 class="review-h">Editorial fidelity self-audit</h3>';
+    html += '<p class="review-method">Each summarised action below is paired with the verbatim guideline statement. The flag indicates how close the summary wording is to the source, to help you prioritise where to look. ' +
+      '<strong>Route assignment and the immediate / short-term / long-term timing are a separate editorial layer</strong> — these are clinical judgements that need your sign-off regardless of the text flags.</p>';
+    html += '<div class="audit-summary">';
+    ['faithful', 'condensed', 'editorial'].forEach(function (k) {
+      var a = AUDIT[k] || { label: k, tone: 'muted' };
+      html += '<div class="audit-pill audit-' + a.tone + '"><span class="audit-n">' + counts[k].length + '</span> ' + esc(a.label) + '</div>';
+    });
+    html += '</div>';
+    var flagged = counts.condensed.concat(counts.editorial);
+    if (flagged.length) {
+      html += '<p class="review-method">Items to look at most closely (' + flagged.length + '): ' +
+        flagged.map(function (r) { return esc(r.title); }).join('; ') + '.</p>';
+    }
+
+    html += '<h3 class="review-h">Route &amp; timeframe mapping with verbatim source (all recommendations)</h3>';
+    ROUTES.forEach(function (rt) {
+      var groups = recsForRoute(rt.id);
+      html += '<div class="review-route"><h4>' + esc(rt.title) + ' <span class="review-src">' + esc(rt.source) + '</span></h4>';
+      if (rt.redflag) html += '<p class="review-flag"><strong>Red flag:</strong> ' + esc(rt.redflag) + '</p>';
+      TIMES.forEach(function (tf) {
+        var list = groups[tf.id];
+        if (!list.length) return;
+        html += '<p class="review-band"><strong>' + esc(tf.label) + '</strong></p><ul class="review-list">';
+        list.forEach(function (rec) {
+          var s = strengthOf(rec.strength);
+          var src = SOURCES[rec.id];
+          html += '<li><strong>' + esc(rec.title) + '</strong> — ' + esc(rec.summary) +
+            ' <span class="review-tags">[' + esc(s.label) + ' · ' + esc(rec.q) + ' · evidence: ' + esc(rec.evidence || 'n/a') + ']</span>';
+          if (src) {
+            html += ' ' + auditChip(src.confidence) +
+              '<div class="review-verbatim"><span class="review-verbatim-label">Source (p ' + esc(src.page) + '):</span> ' +
+              (src.quotes || []).map(function (q) { return '“' + esc(q) + '”'; }).join(' ') + '</div>';
+          }
+          html += '</li>';
+        });
+        html += '</ul>';
+      });
+      html += '</div>';
+    });
+
+    html += '<h3 class="review-h">Methodology note</h3><p class="review-method">' + esc(META.gradingNote || '') + '</p>';
+    html += '</div>';
+    main.innerHTML = html;
+  }
+
+  /* =========================================================
+     DRAFT BANNER (persistent until clinical sign-off)
+     ========================================================= */
+  (function () {
+    var bn = document.getElementById('draft-banner');
+    if (bn && DRAFT.isDraft) {
+      bn.innerHTML = '<div class="inner">' +
+        ico('alert', 'ico-sm') + ' <strong>' + esc(DRAFT.label) + '</strong> — ' +
+        'recommendation strength, routes and timeframes are an editorial layer awaiting clinical review team approval. ' +
+        (DRAFT.rationaleHref ? '<a href="' + esc(DRAFT.rationaleHref) + '">Why / decision rationale ' + ico('arrowR', 'ico-sm') + '</a>' : '') +
+        '</div>';
+      bn.hidden = false;
+    }
+  }());
+
+  /* =========================================================
+     INIT
+     ========================================================= */
+  var savedView = 'symptoms', savedRoute = null;
+  try { savedView = localStorage.getItem(STORE_VIEW) || 'symptoms'; savedRoute = localStorage.getItem(STORE_ROUTE); } catch (e) {}
+  if (savedRoute && routeOf(savedRoute)) { state.route = savedRoute; }
+  syncSearchBox();
+  setView(['symptoms', 'route', 'matrix', 'review'].indexOf(savedView) >= 0 ? savedView : 'symptoms', false);
+  if (state.route) setActiveRouteLink(state.route);
+
+}());
+
+</script>
+
+</body>
+</html>
