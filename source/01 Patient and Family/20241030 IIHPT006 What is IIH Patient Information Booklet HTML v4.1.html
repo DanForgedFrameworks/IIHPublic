@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is IIH? — IIH UK</title>
+  <meta name="description" content="A plain-English guide to Idiopathic Intracranial Hypertension (IIH): what the condition is, who it affects, how it is diagnosed, its symptoms, and how it is treated. Produced by IIH UK.">
+  <meta name="keywords" content="IIH, idiopathic intracranial hypertension, what is IIH, papilloedema, CSF, pulsatile tinnitus, IIH UK">
+  <meta name="author" content="IIH UK">
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS — IIH UK brand
+       ========================================================= */
+    :root {
+      --color-primary:       #3CBBBA;
+      --color-primary-dark:  #2A9998;
+      --color-primary-tint:  #EBF8F8;
+      --color-text:          #1A2B4A;
+      --color-text-muted:    #4A5568;
+      --color-bg:            #FFFFFF;
+      --color-surface:       #F5F5F5;
+      --color-surface-alt:   #EEF1F4;
+      --color-border:        #D1D5DB;
+      --color-focus:         #3CBBBA;
+      --color-warning-bg:    #FFF8E1;
+      --color-warning-text:  #92520A;
+      --color-warning-border:#D4730A;
+      --color-alert-bg:      #FFF0EE;
+      --color-alert-text:    #922B21;
+      --color-alert-border:  #C0392B;
+
+      --font-family: 'Oxygen', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, Cantarell, sans-serif;
+      --font-size-sm:   1rem;
+      --font-size-base: 1.125rem;
+      --font-size-lg:   1.25rem;
+      --font-size-xl:   1.5rem;
+      --font-size-2xl:  1.875rem;
+
+      --line-height: 1.65;
+      --measure:     68ch;
+
+      --space-xs:  0.5rem;
+      --space-sm:  0.75rem;
+      --space-md:  1rem;
+      --space-lg:  1.5rem;
+      --space-xl:  2.5rem;
+      --space-2xl: 4rem;
+
+      --radius:       6px;
+      --radius-lg:    12px;
+      --touch-target: 44px;
+      --shadow:       0 2px 8px rgba(26, 43, 74, 0.10);
+      --shadow-lg:    0 8px 24px rgba(26, 43, 74, 0.14);
+    }
+
+    /* Self-hosted Oxygen (design-system webfont) */
+    @font-face { font-family:'Oxygen'; font-style:normal; font-weight:300; font-display:swap; src:url('../fonts/Oxygen-Light.ttf') format('truetype'); }
+    @font-face { font-family:'Oxygen'; font-style:normal; font-weight:400; font-display:swap; src:url('../fonts/Oxygen-Regular.ttf') format('truetype'); }
+    @font-face { font-family:'Oxygen'; font-style:normal; font-weight:700; font-display:swap; src:url('../fonts/Oxygen-Bold.ttf') format('truetype'); }
+
+    /* =========================================================
+       RESET + BASE
+       ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 100%; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height);
+      color: var(--color-text);
+      background: var(--color-bg);
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--color-primary-dark); text-underline-offset: 3px; }
+    a:hover { color: var(--color-text); }
+
+    .skip-link {
+      position: absolute; top: -100%; left: var(--space-md);
+      background: var(--color-text); color: #fff;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 0 0 var(--radius) var(--radius);
+      font-weight: 700; z-index: 999; text-decoration: none; transition: top .2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: 2px; }
+
+    .container { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 var(--space-md); }
+    .container--narrow { max-width: 860px; }
+
+    /* =========================================================
+       HEADER + BANNER
+       ========================================================= */
+    .site-header {
+      background: var(--color-text); color: #fff;
+      padding: var(--space-lg) 0; border-bottom: 4px solid var(--color-primary);
+    }
+    .site-header .container { display: flex; align-items: center; gap: var(--space-lg); flex-wrap: wrap; }
+    .site-logo { width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0; }
+    .site-header-text { flex: 1; min-width: 200px; }
+    .site-title { font-size: var(--font-size-xl); font-weight: 700; line-height: 1.2; color: #fff; }
+    .site-subtitle { font-size: var(--font-size-sm); color: var(--color-primary); margin-top: var(--space-xs); }
+    .header-print {
+      display: inline-flex; align-items: center; gap: var(--space-xs);
+      margin-left: auto; flex-shrink: 0;
+      background: var(--color-primary); color: var(--color-text);
+      font-weight: 700; font-size: var(--font-size-sm); text-decoration: none;
+      padding: 0 var(--space-md); min-height: var(--touch-target);
+      border-radius: 999px; border: 2px solid var(--color-primary);
+      white-space: nowrap; transition: background .15s, color .15s, border-color .15s;
+    }
+    .header-print:hover { background: #fff; color: var(--color-text); border-color: #fff; }
+
+    .asset-banner { background: var(--color-primary); padding: var(--space-lg) 0; }
+    .asset-banner h1 { font-size: var(--font-size-2xl); font-weight: 700; color: var(--color-text); line-height: 1.2; }
+    .asset-meta { font-size: var(--font-size-sm); color: var(--color-text); margin-top: var(--space-xs); opacity: .82; }
+
+    /* =========================================================
+       CONTROL BAR — view switch + in-page nav (sticky)
+       ========================================================= */
+    .controlbar {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .controlbar-inner {
+      display: flex; align-items: center; gap: var(--space-sm);
+      padding: var(--space-sm) 0; flex-wrap: wrap;
+    }
+    .controlbar-label {
+      font-size: .8rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .view-switch {
+      display: inline-flex; background: var(--color-bg);
+      border: 2px solid var(--color-primary); border-radius: 999px; padding: 3px; flex-shrink: 0;
+    }
+    .view-switch button {
+      appearance: none; border: none; cursor: pointer;
+      font-family: var(--font-family); font-size: .95rem; font-weight: 700;
+      color: var(--color-primary-dark); background: transparent;
+      padding: 0 var(--space-md); min-height: var(--touch-target); border-radius: 999px;
+      display: inline-flex; align-items: center; gap: 6px; transition: background .15s, color .15s;
+    }
+    .view-switch button[aria-pressed="true"] { background: var(--color-primary); color: #fff; }
+    .view-switch button:hover:not([aria-pressed="true"]) { background: var(--color-primary-tint); }
+
+    /* =========================================================
+       LAYOUT WITH SIDEBAR (vertical topic jumps)
+       ========================================================= */
+    .layout {
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .sidebar { position: sticky; top: 76px; }
+    .sidebar-title {
+      font-size: .8rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+      color: var(--color-text-muted); margin-bottom: var(--space-sm); padding-left: var(--space-xs);
+    }
+    .topic-nav ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .topic-nav button {
+      appearance: none; cursor: pointer; font-family: var(--font-family);
+      width: 100%; display: flex; align-items: center; gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-sm); font-size: .95rem; font-weight: 600; line-height: 1.25;
+      color: var(--color-text); background: var(--color-bg);
+      border: 1px solid var(--color-border); border-left: 3px solid transparent;
+      border-radius: var(--radius); text-align: left; min-height: 44px;
+      transition: background .15s, border-color .15s;
+    }
+    .topic-nav button:hover { background: var(--color-primary-tint); border-left-color: var(--color-primary); }
+    .topic-nav button[aria-current="true"] {
+      background: var(--color-primary-tint); border-color: var(--color-primary); border-left-color: var(--color-primary-dark);
+    }
+    .topic-nav .nav-letter {
+      flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700; color: var(--color-primary-dark); background: var(--color-primary-tint);
+    }
+    .topic-nav button[aria-current="true"] .nav-letter { background: var(--color-primary); color: #fff; }
+
+    /* =========================================================
+       MAIN + INTRO
+       ========================================================= */
+    .main-content { padding: var(--space-xl) 0 var(--space-2xl); }
+    .intro { margin-bottom: var(--space-xl); max-width: var(--measure); }
+    .intro .lead { font-size: var(--font-size-lg); margin-bottom: var(--space-md); }
+    .intro p { margin-bottom: var(--space-md); color: var(--color-text-muted); }
+    .intro p:last-child { margin-bottom: 0; }
+
+    /* =========================================================
+       SHARED RICH-TEXT (topic bodies)
+       ========================================================= */
+    .rich p { margin-bottom: var(--space-md); }
+    .rich p:last-child { margin-bottom: 0; }
+    .rich ul, .rich ol { margin: var(--space-sm) 0 var(--space-md) var(--space-lg); }
+    .rich li { margin-bottom: var(--space-xs); }
+    .rich h3 { font-size: var(--font-size-lg); margin: var(--space-lg) 0 var(--space-sm); color: var(--color-text); }
+    .rich h3:first-child { margin-top: 0; }
+    .rich strong { font-weight: 700; }
+
+    .symptom-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-md) var(--space-xl); margin: var(--space-sm) 0 var(--space-md); }
+    @media (min-width: 560px) { .symptom-cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+    .symptom-group h3 { margin-top: 0; }
+    .symptom-group ul { margin: var(--space-xs) 0 0 var(--space-lg); }
+
+    /* Callouts */
+    .callout { border-radius: var(--radius); padding: var(--space-md) var(--space-lg); margin: var(--space-md) 0; border-left: 4px solid; }
+    .callout:last-child { margin-bottom: 0; }
+    .callout-warning { background: var(--color-warning-bg); border-color: var(--color-warning-border); color: var(--color-warning-text); }
+    .callout-alert   { background: var(--color-alert-bg);   border-color: var(--color-alert-border);   color: var(--color-alert-text); }
+    .callout-info    { background: var(--color-primary-tint); border-color: var(--color-primary); color: var(--color-text); }
+    .callout-warning::before { content: "⚠ "; font-weight: 700; }
+    .callout-alert::before   { content: "⛔ "; font-weight: 700; }
+    .callout-info::before    { content: "ℹ "; font-weight: 700; }
+
+    /* Signposts */
+    .signpost {
+      display: flex; align-items: center; gap: var(--space-md);
+      padding: var(--space-md); background: var(--color-surface);
+      border: 1px solid var(--color-border); border-left: 4px solid var(--color-primary);
+      border-radius: var(--radius); margin: var(--space-sm) 0;
+      text-decoration: none; color: var(--color-text); font-weight: 600; min-height: var(--touch-target);
+    }
+    .signpost:last-child { margin-bottom: 0; }
+    .signpost:hover { background: var(--color-primary-tint); border-left-color: var(--color-primary-dark); }
+    .signpost-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+    /* Watch / video links (IIH UK YouTube) */
+    .watch { margin-top: var(--space-lg); }
+    .watch-label {
+      font-size: .8rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+      color: var(--color-text-muted); margin-bottom: var(--space-xs);
+    }
+    .video-link {
+      display: flex; align-items: center; gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md); margin-bottom: var(--space-xs);
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-left: 4px solid var(--color-alert-border); border-radius: var(--radius);
+      text-decoration: none; color: var(--color-text); font-weight: 600; min-height: var(--touch-target);
+    }
+    .video-link:last-child { margin-bottom: 0; }
+    .video-link:hover { background: var(--color-primary-tint); }
+    .video-ico {
+      flex-shrink: 0; width: 30px; height: 30px; border-radius: 6px;
+      background: var(--color-alert-border); color: #fff;
+      display: inline-flex; align-items: center; justify-content: center; font-size: .75rem;
+    }
+    .video-txt { flex: 1; }
+    .video-len {
+      font-size: .8rem; font-weight: 700; color: var(--color-text-muted);
+      white-space: nowrap; background: var(--color-bg);
+      border: 1px solid var(--color-border); border-radius: 999px; padding: 2px 8px;
+    }
+
+    /* =========================================================
+       VIEW: CARDS (grid + detail panel)
+       ========================================================= */
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md); margin-bottom: var(--space-lg);
+    }
+    @media (max-width: 860px) { .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 560px) { .cards-grid { grid-template-columns: minmax(0, 1fr); } }
+
+    .topic-card {
+      position: relative; display: flex; flex-direction: column; gap: var(--space-sm);
+      text-align: left; cursor: pointer; appearance: none;
+      font-family: var(--font-family);
+      background: var(--color-bg); color: var(--color-text);
+      border: 1px solid var(--color-border); border-top: 4px solid var(--color-primary);
+      border-radius: var(--radius-lg); padding: var(--space-lg);
+      min-height: 168px; transition: transform .15s, box-shadow .15s, border-color .15s, background .15s;
+    }
+    .topic-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .topic-card[aria-expanded="true"] {
+      border-color: var(--color-primary); background: var(--color-primary-tint);
+      box-shadow: var(--shadow);
+    }
+    .topic-card .card-letter {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--color-primary-tint); color: var(--color-primary-dark);
+      font-weight: 700; font-size: 1.05rem; flex-shrink: 0;
+    }
+    .topic-card[aria-expanded="true"] .card-letter { background: var(--color-primary); color: #fff; }
+    .topic-card .card-title { font-size: var(--font-size-lg); font-weight: 700; line-height: 1.25; }
+    .topic-card .card-teaser { font-size: var(--font-size-sm); color: var(--color-text-muted); }
+    .topic-card .card-cue {
+      margin-top: auto; font-size: .85rem; font-weight: 700; color: var(--color-primary-dark);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .topic-card[aria-expanded="true"] .card-cue::after { content: "▲"; font-size: .7em; }
+    .topic-card[aria-expanded="false"] .card-cue::after { content: "▼"; font-size: .7em; }
+
+
+    /* Accessed / "already read" cue — italic title */
+    .topic-card.is-accessed .card-title { font-style: italic; }
+    .topic-nav button.is-accessed { font-style: italic; }
+
+    /* Detail panel below the grid */
+    .detail-panel {
+      border: 1px solid var(--color-border); border-left: 5px solid var(--color-primary);
+      border-radius: var(--radius-lg); background: var(--color-bg);
+      box-shadow: var(--shadow); overflow: hidden; scroll-margin-top: 140px;
+    }
+    .detail-panel[hidden] { display: none; }
+    .detail-head {
+      display: flex; align-items: flex-start; gap: var(--space-md);
+      padding: var(--space-lg) var(--space-lg) 0;
+    }
+    .detail-head .card-letter {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--color-primary); color: #fff; font-weight: 700; font-size: 1.15rem; flex-shrink: 0;
+    }
+    .detail-head h2 { font-size: var(--font-size-xl); line-height: 1.2; flex: 1; }
+    .detail-close {
+      appearance: none; cursor: pointer; font-family: var(--font-family);
+      background: var(--color-bg); border: 1px solid var(--color-border);
+      border-radius: var(--radius); color: var(--color-text);
+      font-size: .85rem; font-weight: 600; padding: 0 var(--space-sm);
+      min-height: var(--touch-target); flex-shrink: 0;
+    }
+    .detail-close:hover { background: var(--color-surface); }
+    .detail-body { padding: var(--space-md) var(--space-lg) var(--space-lg); max-width: var(--measure); }
+    .detail-nav {
+      display: flex; justify-content: space-between; gap: var(--space-sm);
+      border-top: 1px solid var(--color-border); padding: var(--space-md) var(--space-lg);
+      background: var(--color-surface);
+    }
+    .detail-nav button {
+      appearance: none; cursor: pointer; font-family: var(--font-family);
+      background: var(--color-bg); border: 1px solid var(--color-border);
+      border-radius: var(--radius); color: var(--color-text);
+      font-size: .9rem; font-weight: 600; padding: var(--space-xs) var(--space-md); min-height: var(--touch-target);
+    }
+    .detail-nav button:hover:not(:disabled) { background: var(--color-primary-tint); border-color: var(--color-primary); }
+    .detail-nav button:disabled { opacity: .4; cursor: default; }
+
+    /* =========================================================
+       VIEW: ACCORDION (list)
+       ========================================================= */
+    .accordion-controls { display: flex; gap: var(--space-sm); margin-bottom: var(--space-md); flex-wrap: wrap; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: var(--space-xs) var(--space-md); min-height: var(--touch-target);
+      font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text);
+      background: var(--color-bg); border: 2px solid var(--color-primary);
+      border-radius: var(--radius); cursor: pointer; font-family: var(--font-family);
+    }
+    .btn-secondary:hover { background: var(--color-primary-tint); }
+
+    .accordion { border: 1px solid var(--color-border); border-radius: var(--radius); margin-bottom: var(--space-sm); overflow: hidden; }
+    .accordion-trigger {
+      width: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--space-md);
+      padding: var(--space-md) var(--space-lg); min-height: var(--touch-target);
+      background: var(--color-surface); border: none; border-left: 4px solid var(--color-primary);
+      cursor: pointer; text-align: left; font-family: var(--font-family);
+      font-size: var(--font-size-base); font-weight: 700; color: var(--color-text); transition: background .2s;
+    }
+    .accordion-trigger:hover { background: var(--color-primary-tint); }
+    .accordion-trigger[aria-expanded="true"] { background: var(--color-primary-tint); border-left-color: var(--color-primary-dark); }
+    .acc-titlewrap { display: flex; align-items: center; gap: var(--space-sm); }
+    .acc-letter {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--color-primary-tint); color: var(--color-primary-dark);
+      font-weight: 700; font-size: .9rem; flex-shrink: 0;
+    }
+    .accordion-trigger[aria-expanded="true"] .acc-letter { background: var(--color-primary); color: #fff; }
+    .accordion-icon { font-size: 1.1rem; flex-shrink: 0; transition: transform .3s ease; color: var(--color-primary-dark); }
+    .accordion-trigger[aria-expanded="true"] .accordion-icon { transform: rotate(180deg); }
+    .accordion-panel { overflow: hidden; max-height: 0; transition: max-height .35s ease; }
+    .accordion-content { padding: var(--space-lg); border-left: 4px solid var(--color-primary); max-width: var(--measure); }
+
+    /* =========================================================
+       HELP & SUPPORT BAND (shown in every view)
+       ========================================================= */
+    .help-band { margin-top: var(--space-xl); padding-top: var(--space-xl); border-top: 2px solid var(--color-border); }
+    .help-band h2 { font-size: var(--font-size-xl); margin-bottom: var(--space-sm); }
+    .help-band > p { color: var(--color-text-muted); margin-bottom: var(--space-md); max-width: var(--measure); }
+    .help-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm); }
+    .help-grid .signpost { flex: 1 1 calc(20% - var(--space-sm)); min-width: 200px; margin: 0; }
+    .signpost.sp-teal   { border-left-color: var(--color-primary); }
+    .signpost.sp-blue   { border-left-color: oklch(0.60 0.13 250); }
+    .signpost.sp-red    { border-left-color: var(--color-alert-border); }
+    .signpost.sp-green  { border-left-color: oklch(0.58 0.13 150); }
+    .signpost.sp-indigo { border-left-color: oklch(0.55 0.16 295); }
+    .signpost.sp-amber  { border-left-color: var(--color-warning-border); }
+    .signpost.sp-navy   { border-left-color: var(--color-text); }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+    .site-footer { background: var(--color-text); color: #fff; padding: var(--space-xl) 0; margin-top: var(--space-2xl); }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl); }
+    .footer-section h2 { font-size: var(--font-size-sm); font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: .05em; margin-bottom: var(--space-md); }
+    .footer-section p, .footer-section li { font-size: var(--font-size-sm); color: rgba(255,255,255,.85); margin-bottom: var(--space-xs); }
+    .footer-section ul { list-style: none; }
+    .footer-section a { color: var(--color-primary); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.15); padding-top: var(--space-lg); font-size: .875rem; color: rgba(255,255,255,.6); }
+    .footer-disclaimer { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); padding: var(--space-md); margin-bottom: var(--space-md); font-size: .875rem; color: rgba(255,255,255,.8); }
+
+    /* =========================================================
+       PRINT — show everything, hide controls
+       ========================================================= */
+    .print-only { display: none; }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
+      .sidebar { position: static; }
+      .topic-nav ul { flex-direction: row; flex-wrap: wrap; gap: var(--space-xs); }
+      .topic-nav button { width: auto; min-height: 40px; }
+      .help-grid .signpost { flex-basis: calc(50% - var(--space-sm)); }
+    }
+    @media (max-width: 600px) {
+      .site-header .container { flex-direction: column; align-items: flex-start; }
+      .site-logo { width: 56px; height: 56px; }
+      .asset-banner h1 { font-size: var(--font-size-xl); }
+      .help-grid .signpost { flex-basis: 100%; }
+    }
+    @media print {
+      .controlbar, .accordion-controls, .skip-link, .detail-nav, .detail-close, .card-cue { display: none !important; }
+      #view-cards, #view-list { display: none !important; }
+      .print-only { display: block !important; }
+      .print-topic { break-inside: avoid; margin-bottom: 1.5rem; border-left: 4px solid #3CBBBA; padding-left: 1rem; }
+      .site-footer { background: #fff; color: #000; }
+      .footer-section h2 { color: #1A2B4A; }
+      .footer-section p, .footer-section li { color: #333; }
+      a { color: #1A2B4A; text-decoration: none; }
+      body { font-size: 12pt; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container">
+      <img class="site-logo" src="../assets/iih-logo-circle.jpeg" alt="IIH UK charity logo" width="72" height="72">
+      <div class="site-header-text">
+        <div class="site-title">IIH UK</div>
+        <div class="site-subtitle">Supporting people with Idiopathic Intracranial Hypertension</div>
+      </div>
+      <a class="header-print" href="https://iih.org.uk/patient-leaflets/" target="_blank" rel="noopener noreferrer">
+        <span aria-hidden="true">🖨️</span>
+        <span>Want a printed copy?</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="asset-banner" role="region" aria-label="Document title">
+    <div class="container">
+      <h1>What is IIH?</h1>
+    </div>
+  </div>
+
+  <!-- CONTROL BAR: view switch (topic jumps live in the sidebar) -->
+  <div class="controlbar">
+    <div class="container">
+      <div class="controlbar-inner">
+        <span class="controlbar-label">View as</span>
+        <div class="view-switch" role="group" aria-label="Choose how to read this guide">
+          <button id="btn-view-cards" type="button" aria-pressed="true">▦ Cards</button>
+          <button id="btn-view-list" type="button" aria-pressed="false">☰ List</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main-content" class="main-content">
+    <div class="container layout">
+
+      <aside class="sidebar" aria-label="Jump to a topic">
+        <nav class="topic-nav">
+          <p class="sidebar-title">Jump to a topic</p>
+          <ul id="topic-nav"></ul>
+        </nav>
+      </aside>
+
+      <div class="content">
+
+      <div class="intro">
+        <p class="lead">If you, or someone close to you, has just been told they have IIH, you probably have a lot of questions. This guide explains what IIH is, in plain words.</p>
+        <p>It covers what the condition is, who it affects, how it is diagnosed, the symptoms, and how it is treated. You do not need to read it all at once. Open the topic you need — each one is short and stands on its own.</p>
+      </div>
+
+      <!-- CARDS VIEW -->
+      <section id="view-cards" aria-label="Topics as cards">
+        <div class="cards-grid" id="cards-grid"></div>
+        <div class="detail-panel" id="detail-panel" hidden>
+          <div class="detail-head">
+            <span class="card-letter" id="detail-letter" aria-hidden="true"></span>
+            <h2 id="detail-title" tabindex="-1"></h2>
+            <button class="detail-close" id="detail-close" type="button">✕ Close</button>
+          </div>
+          <div class="detail-body rich" id="detail-body"></div>
+          <div class="detail-nav">
+            <button id="detail-prev" type="button">← Previous</button>
+            <button id="detail-next" type="button">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- LIST (ACCORDION) VIEW -->
+      <section id="view-list" aria-label="Topics as a list" hidden>
+        <div class="accordion-controls">
+          <button class="btn-secondary" id="btn-open-all" type="button">Open all</button>
+          <button class="btn-secondary" id="btn-close-all" type="button">Close all</button>
+        </div>
+        <div class="accordion-list" id="accordion-list" role="list"></div>
+      </section>
+
+      </div><!-- /.content -->
+    </div><!-- /.layout -->
+
+    <div class="container">
+      <!-- HELP & SUPPORT (always visible) -->
+      <section class="help-band" id="help" aria-labelledby="help-heading">
+        <h2 id="help-heading">Where to get more help and support</h2>
+        <p>You do not have to manage on your own. These organisations can help with information, your health, benefits, work and local support.</p>
+        <div class="help-grid">
+          <a href="https://www.iih.org.uk" class="signpost sp-teal" target="_blank" rel="noopener noreferrer">
+            <span class="signpost-icon" aria-hidden="true">🔗</span>
+            <span>IIH UK — information, leaflets and support</span>
+          </a>
+          <a href="https://www.facebook.com/groups/432155240173972" class="signpost sp-blue" target="_blank" rel="noopener noreferrer">
+            <span class="signpost-icon" aria-hidden="true">💬</span>
+            <span>IIH UK Support Group on Facebook</span>
+          </a>
+          <a href="https://www.youtube.com/@IIHUKNationalCharity" class="signpost sp-red" target="_blank" rel="noopener noreferrer">
+            <span class="signpost-icon" aria-hidden="true">▶️</span>
+            <span>Watch IIH UK on YouTube</span>
+          </a>
+          <a href="https://111.nhs.uk" class="signpost sp-indigo" target="_blank" rel="noopener noreferrer">
+            <span class="signpost-icon" aria-hidden="true">🩺</span>
+            <span>NHS 111 — non-emergency health advice</span>
+          </a>
+          <a href="https://www.samaritans.org" class="signpost sp-amber" target="_blank" rel="noopener noreferrer">
+            <span class="signpost-icon" aria-hidden="true">💚</span>
+            <span>Samaritans — call 116 123, free, any time</span>
+          </a>
+          <a href="https://www.gov.uk/find-local-council" class="signpost sp-green" target="_blank" rel="noopener noreferrer">
+            <span class="signpost-icon" aria-hidden="true">🏛️</span>
+            <span>Find your local council</span>
+          </a>
+          <a href="https://www.citizensadvice.org.uk" class="signpost sp-indigo" target="_blank" rel="noopener noreferrer">
+            <span class="signpost-icon" aria-hidden="true">⚖️</span>
+            <span>Citizens Advice — benefits and rights</span>
+          </a>
+          <a href="https://www.carersuk.org" class="signpost sp-amber" target="_blank" rel="noopener noreferrer">
+            <span class="signpost-icon" aria-hidden="true">🤝</span>
+            <span>Carers UK — local carer support</span>
+          </a>
+          <a href="mailto:info@iih.org.uk" class="signpost sp-navy">
+            <span class="signpost-icon" aria-hidden="true">✉️</span>
+            <span>Email IIH UK — info@iih.org.uk</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- PRINT-ONLY full content (filled by JS) -->
+      <div class="print-only" id="print-content" aria-hidden="true"></div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-disclaimer" role="note">
+        This information is provided by IIH UK to support people affected by Idiopathic Intracranial Hypertension.
+        It is for general education only and is not a substitute for medical advice from your own healthcare team.
+        Information about the condition and its treatments may change over time. If you are concerned about your
+        health, please contact your GP or specialist.
+      </div>
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h2>About this resource</h2>
+          <ul>
+            <li>Reference: IIHPT006</li>
+            <li>Version: v4.1 (digital edition)</li>
+            <li>Published: October 2024</li>
+            <li>Review due: October 2027</li>
+            <li>Author: S. Mollan (IIH UK)</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h2>IIH UK</h2>
+          <p>Registered charity</p>
+          <p>England &amp; Wales: 1143522</p>
+          <p>Scotland: SC043294</p>
+          <p><a href="https://www.iih.org.uk">www.iih.org.uk</a></p>
+        </div>
+        <div class="footer-section">
+          <h2>Licence</h2>
+          <p>Creative Commons</p>
+          <p>CC BY-NC 4.0</p>
+          <p>Free to share with credit.<br>Not for commercial use.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; IIH UK. Registered charity England &amp; Wales 1143522 | Scotland SC043294. Content licensed under CC BY-NC 4.0.
+      </div>
+    </div>
+  </footer>
+
+  <script src="whatis-content.js"></script>
+  <script src="whatis-views.js"></script>
+
+</body>
+</html>
