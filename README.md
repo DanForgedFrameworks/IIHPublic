@@ -29,6 +29,7 @@ Available in `01 Patient and Family/`:
 | IIHPT004 | Information for Family, Friends and Carers (Digital — Cards &amp; List) | v3.3 HTML |
 | IIHPT005 | IIHWOP Patient Information Booklet | v4.0 |
 | IIHPT006 | What is IIH Patient Information Booklet | v4.0 |
+| IIHPT006 | What is IIH Patient Information Booklet (Digital — Cards &amp; List) | v4.1 HTML |
 | IIHPT007 | IIH and Weight Management | v5.0 |
 | IIHPT008 | Medication Overuse Headache in IIH | v3.0 |
 | IIHPT009 | Shunts and IIH | v5.0 |
@@ -39,6 +40,7 @@ Available in `01 Patient and Family/`:
 | IIHPT014 | Employment with IIH | v1.0 |
 | IIHPT015 | Visual Problems in IIH | v3.0 |
 | IIHPT016 | When I Go to the Eye Clinic | v2.0 |
+| IIHPT017 | IIH UK Resource Hub (portal — all assets &amp; videos) | v1.0 HTML |
 
 ### Clinical and Healthcare Professional Resources
 Resources for orthoptists, neuro-ophthalmologists, neurologists, and allied health clinicians.
@@ -48,6 +50,7 @@ Available in `02 Clinical HCP/`:
 | Reference | Title | Version |
 |---|---|---|
 | IIHHCP001 | BIOS Orthoptic Led IIH Service Presentation | v1.0 |
+| IIHHCP002 | 2018 Consensus Guidelines Interactive Tool (Digital — filterable reference) | v1.0 HTML |
 
 ### Reference and Research
 Open access academic papers and guidelines for researchers, policy makers, and clinicians.
