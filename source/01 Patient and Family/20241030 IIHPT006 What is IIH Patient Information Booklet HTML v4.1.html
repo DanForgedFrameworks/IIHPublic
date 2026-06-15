@@ -113,9 +113,11 @@
       border: 2px solid #FFFFFF; border-radius: 999px;
       padding: 0.5rem 1.1rem; font-size: 0.9rem; font-weight: 600;
       text-decoration: none; white-space: nowrap; min-height: var(--touch-target); cursor: pointer;
-      transition: background .15s, color .15s;
+      transition: transform 0.12s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
-    .print-pill:hover, .print-pill:focus { background: transparent; color: #FFFFFF; outline: 3px solid #FFFFFF; outline-offset: 2px; }
+    .print-pill:hover { background: #EBF8F8; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .print-pill:active { transform: translateY(1px) scale(0.99); box-shadow: none; }
+    .print-pill:focus-visible { outline: 3px solid var(--color-text); outline-offset: 2px; }
     .asset-meta { font-size: var(--font-size-sm); color: var(--color-text); margin-top: var(--space-xs); opacity: .82; }
 
     /* =========================================================
@@ -382,18 +384,22 @@
     /* =========================================================
        HELP & SUPPORT BAND (shown in every view)
        ========================================================= */
-    .help-band { margin-top: var(--space-xl); padding-top: var(--space-xl); border-top: 2px solid var(--color-border); }
-    .help-band h2 { font-size: var(--font-size-xl); margin-bottom: var(--space-sm); }
-    .help-band > p { color: var(--color-text-muted); margin-bottom: var(--space-md); max-width: var(--measure); }
-    .help-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm); }
-    .help-grid .signpost { flex: 1 1 calc(20% - var(--space-sm)); min-width: 200px; margin: 0; }
-    .signpost.sp-teal   { border-left-color: var(--color-primary); }
-    .signpost.sp-blue   { border-left-color: oklch(0.60 0.13 250); }
-    .signpost.sp-red    { border-left-color: var(--color-alert-border); }
-    .signpost.sp-green  { border-left-color: oklch(0.58 0.13 150); }
-    .signpost.sp-indigo { border-left-color: oklch(0.55 0.16 295); }
-    .signpost.sp-amber  { border-left-color: var(--color-warning-border); }
-    .signpost.sp-navy   { border-left-color: var(--color-text); }
+    /* SUPPORT BAND (§C) — 9 links, fixed order, colour-coded left border.
+       Copied VERBATIM from _Admin\IIH HTML Help Support and Interstitial Master v1.0.html */
+    .support-band { background: #fff; border-top: 4px solid var(--color-primary); padding: var(--space-xl) 0; }
+    .support-band h2 { font-size: var(--font-size-xl); margin-bottom: var(--space-lg); }
+    .support-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-sm); }
+    .support-list a {
+      display: flex; gap: var(--space-sm); align-items: center;
+      min-height: var(--touch-target); padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--color-border); border-left: 5px solid var(--sp); border-radius: var(--radius);
+      background: var(--color-surface); color: var(--color-text); text-decoration: none; font-weight: 600; font-size: var(--font-size-sm);
+      transition: transform 0.12s ease, box-shadow 0.15s ease, background 0.15s ease, border-left-width 0.12s ease;
+    }
+    .support-list a:hover { background: #EBF8F8; transform: translateY(-2px); box-shadow: var(--shadow); border-left-width: 7px; }
+    .support-list a:active { transform: translateY(1px) scale(0.99); box-shadow: none; }
+    .sp-teal{--sp:#3CBBBA;} .sp-blue{--sp:#2B6CB0;} .sp-red{--sp:#C0392B;} .sp-green{--sp:#1E7A46;}
+    .sp-indigo{--sp:#5A4FCF;} .sp-amber{--sp:#D4730A;} .sp-navy{--sp:#1A2B4A;}
 
     /* =========================================================
        FOOTER
@@ -416,13 +422,11 @@
       .sidebar { position: static; }
       .topic-nav ul { flex-direction: row; flex-wrap: wrap; gap: var(--space-xs); }
       .topic-nav button { width: auto; min-height: 40px; }
-      .help-grid .signpost { flex-basis: calc(50% - var(--space-sm)); }
     }
     @media (max-width: 600px) {
       .site-header .container { flex-direction: column; align-items: flex-start; }
       .site-logo { width: 56px; height: 56px; }
       .asset-banner h1 { font-size: var(--font-size-xl); }
-      .help-grid .signpost { flex-basis: 100%; }
     }
     @media print {
       .controlbar, .accordion-controls, .skip-link, .detail-nav, .detail-close, .card-cue { display: none !important; }
@@ -434,6 +438,45 @@
       .footer-section p, .footer-section li { color: #333; }
       a { color: #1A2B4A; text-decoration: none; }
       body { font-size: 12pt; }
+      .interstitial { display: none !important; }
+    }
+
+    /* =========================================================
+       INTERSTITIAL (§P) — "leaving the page" notice.
+       Copied VERBATIM from the canonical master.
+       ========================================================= */
+    .interstitial { position: fixed; inset: 0; z-index: 600; display: flex; align-items: center; justify-content: center; padding: var(--space-md); background: rgba(26,43,74,0.6); animation: backdrop-fade 0.2s ease both; }
+    .interstitial[hidden] { display: none; }
+    @keyframes backdrop-fade { from { opacity: 0; } to { opacity: 1; } }
+    .interstitial-card { background: #fff; border-radius: var(--radius-lg); border-top: 6px solid var(--color-primary); box-shadow: var(--shadow-lg); max-width: 420px; width: 100%; padding: var(--space-xl) var(--space-lg); text-align: center; animation: inter-pop 0.25s ease both; }
+    @keyframes inter-pop { from { opacity: 0; transform: scale(0.94) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .interstitial-icon { width: 56px; height: 56px; margin: 0 auto var(--space-md); display: flex; align-items: center; justify-content: center; }
+    .interstitial-icon.is-done { font-size: 2rem; font-weight: 700; color: #fff; background: #1E7A46; border-radius: 50%; }
+    .interstitial-spinner { width: 44px; height: 44px; border: 4px solid var(--color-surface); border-top-color: var(--color-primary-dark); border-radius: 50%; animation: inter-spin 0.8s linear infinite; }
+    @keyframes inter-spin { to { transform: rotate(360deg); } }
+    .interstitial-title { font-size: var(--font-size-lg); font-weight: 700; margin-bottom: var(--space-sm); }
+    .interstitial-sub { font-size: var(--font-size-sm); color: var(--color-text-muted); margin-bottom: var(--space-md); }
+    .interstitial-extra { font-size: var(--font-size-sm); margin-bottom: var(--space-md); }
+    .interstitial-extra a { font-weight: 700; } .interstitial-extra[hidden] { display: none; }
+    .interstitial-link { display: inline-flex; align-items: center; justify-content: center; min-height: var(--touch-target); width: 100%; padding: var(--space-xs) var(--space-lg); font-size: var(--font-size-base); font-weight: 700; color: #fff; background: var(--color-text); border: 2px solid var(--color-text); border-radius: var(--radius); text-decoration: none; }
+    .interstitial-close { display: inline-flex; align-items: center; justify-content: center; min-height: var(--touch-target); width: 100%; margin-top: var(--space-sm); padding: var(--space-xs) var(--space-lg); font-family: var(--font-family); font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text); background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius); cursor: pointer; }
+    .interstitial-close:hover { background: var(--color-surface); }
+
+    /* =========================================================
+       §Q — prefers-reduced-motion: disable ALL motion, keep
+       every control usable and ≥44px (banner print pill, cards,
+       support links, accordions, interstitial).
+       ========================================================= */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .print-pill, .support-list a, .topic-card, .video-link,
+      .signpost, .accordion-icon, .accordion-panel,
+      .view-switch button, .btn-secondary, .topic-nav button { transition: none; }
+      .print-pill:hover, .print-pill:active,
+      .support-list a:hover, .support-list a:active,
+      .topic-card:hover, .topic-card:active { transform: none; box-shadow: none; }
+      .interstitial, .interstitial-card { animation: none; }
+      .interstitial-spinner { animation: none; border-top-color: var(--color-primary-dark); }
     }
   </style>
 </head>
@@ -456,7 +499,7 @@
     <div class="container">
       <div class="asset-banner-inner">
         <h1>What is IIH?</h1>
-        <a class="print-pill" href="https://iih.org.uk/patient-leaflets/" target="_blank" rel="noopener noreferrer">🖨️ Want a printed copy?</a>
+        <a class="print-pill no-interstitial" href="https://iih.org.uk/patient-leaflets/" target="_blank" rel="noopener noreferrer">🖨️ Want a printed copy?</a>
       </div>
     </div>
   </div>
@@ -521,55 +564,29 @@
     </div><!-- /.layout -->
 
     <div class="container">
-      <!-- HELP & SUPPORT (always visible) -->
-      <section class="help-band" id="help" aria-labelledby="help-heading">
-        <h2 id="help-heading">Where to get more help and support</h2>
-        <p>You do not have to manage on your own. These organisations can help with information, your health, benefits, work and local support.</p>
-        <div class="help-grid">
-          <a href="https://www.iih.org.uk" class="signpost sp-teal" target="_blank" rel="noopener noreferrer">
-            <span class="signpost-icon" aria-hidden="true">🔗</span>
-            <span>IIH UK — information, leaflets and support</span>
-          </a>
-          <a href="https://www.facebook.com/groups/432155240173972" class="signpost sp-blue" target="_blank" rel="noopener noreferrer">
-            <span class="signpost-icon" aria-hidden="true">💬</span>
-            <span>IIH UK Support Group on Facebook</span>
-          </a>
-          <a href="https://www.youtube.com/@IIHUKNationalCharity" class="signpost sp-red" target="_blank" rel="noopener noreferrer">
-            <span class="signpost-icon" aria-hidden="true">▶️</span>
-            <span>Watch IIH UK on YouTube</span>
-          </a>
-          <a href="https://111.nhs.uk" class="signpost sp-indigo" target="_blank" rel="noopener noreferrer">
-            <span class="signpost-icon" aria-hidden="true">🩺</span>
-            <span>NHS 111 — non-emergency health advice</span>
-          </a>
-          <a href="https://www.samaritans.org" class="signpost sp-amber" target="_blank" rel="noopener noreferrer">
-            <span class="signpost-icon" aria-hidden="true">💚</span>
-            <span>Samaritans — call 116 123, free, any time</span>
-          </a>
-          <a href="https://www.gov.uk/find-local-council" class="signpost sp-green" target="_blank" rel="noopener noreferrer">
-            <span class="signpost-icon" aria-hidden="true">🏛️</span>
-            <span>Find your local council</span>
-          </a>
-          <a href="https://www.citizensadvice.org.uk" class="signpost sp-indigo" target="_blank" rel="noopener noreferrer">
-            <span class="signpost-icon" aria-hidden="true">⚖️</span>
-            <span>Citizens Advice — benefits and rights</span>
-          </a>
-          <a href="https://www.carersuk.org" class="signpost sp-amber" target="_blank" rel="noopener noreferrer">
-            <span class="signpost-icon" aria-hidden="true">🤝</span>
-            <span>Carers UK — local carer support</span>
-          </a>
-          <a href="mailto:info@iih.org.uk" class="signpost sp-navy">
-            <span class="signpost-icon" aria-hidden="true">✉️</span>
-            <span>Email IIH UK — info@iih.org.uk</span>
-          </a>
-        </div>
-      </section>
-
       <!-- PRINT-ONLY full content (filled by JS) -->
       <div class="print-only" id="print-content" aria-hidden="true"></div>
-
     </div>
   </main>
+
+  <!-- SUPPORT BAND (§C) — copied VERBATIM from
+       _Admin\IIH HTML Help Support and Interstitial Master v1.0.html -->
+  <section class="support-band" aria-labelledby="support-heading">
+    <div class="container">
+      <h2 id="support-heading">Where to get more help and support</h2>
+      <ul class="support-list">
+        <li><a class="sp-teal"   href="https://iih.org.uk" target="_blank" rel="noopener noreferrer">🌐 IIH UK — information, leaflets and support</a></li>
+        <li><a class="sp-blue"   href="https://www.facebook.com/IIHUKCharity/?locale=en_GB" target="_blank" rel="noopener noreferrer">👍 IIH UK on Facebook (official page)</a></li>
+        <li><a class="sp-red"    href="https://www.youtube.com/@IIHUKNationalCharity" target="_blank" rel="noopener noreferrer">▶️ Watch IIH UK on YouTube</a></li>
+        <li><a class="sp-green no-interstitial" href="https://111.nhs.uk" target="_blank" rel="noopener noreferrer">➕ NHS 111 — non-emergency medical advice</a></li>
+        <li><a class="sp-indigo no-interstitial" href="https://www.samaritans.org" target="_blank" rel="noopener noreferrer">💜 Samaritans — 116 123, free, any time</a></li>
+        <li><a class="sp-amber"  href="https://www.gov.uk/find-local-council" target="_blank" rel="noopener noreferrer">🏛️ Find your local council</a></li>
+        <li><a class="sp-blue"   href="https://www.citizensadvice.org.uk" target="_blank" rel="noopener noreferrer">⚖️ Citizens Advice — benefits and rights</a></li>
+        <li><a class="sp-teal"   href="https://www.carersuk.org" target="_blank" rel="noopener noreferrer">🤝 Carers UK — local carer support</a></li>
+        <li><a class="sp-navy"   href="mailto:info@iih.org.uk">✉️ Email IIH UK — info@iih.org.uk</a></li>
+      </ul>
+    </div>
+  </section>
 
   <footer class="site-footer" role="contentinfo">
     <div class="container">
@@ -610,8 +627,104 @@
     </div>
   </footer>
 
+  <!-- INTERSTITIAL DIALOG (§P) — copied VERBATIM from the canonical master -->
+  <div class="interstitial" id="interstitial" role="dialog" aria-modal="true" aria-labelledby="inter-title" hidden>
+    <div class="interstitial-card">
+      <div class="interstitial-icon" id="inter-icon" aria-hidden="true"><span class="interstitial-spinner"></span></div>
+      <p class="interstitial-title" id="inter-title">Opening <span id="inter-where">this resource</span> in a new tab…</p>
+      <p class="interstitial-sub" id="inter-sub"></p>
+      <p class="interstitial-extra" id="inter-extra" hidden>
+        🖨️ Prefer paper? <a class="no-interstitial" href="https://iih.org.uk/patient-leaflets/" target="_blank" rel="noopener noreferrer">See all printed leaflets on iih.org.uk</a>
+      </p>
+      <a class="interstitial-link" id="inter-link" href="#" target="_blank" rel="noopener noreferrer">Open it now</a>
+      <button type="button" class="interstitial-close" id="inter-close">Cancel</button>
+    </div>
+  </div>
+
   <script src="whatis-content.js"></script>
   <script src="whatis-views.js"></script>
+
+  <!-- §P leaving-the-page handler — copied VERBATIM from the canonical master -->
+  <script>
+  (function () {
+    'use strict';
+    var SUB_OPENING = 'If a new tab doesn’t open in a moment, you may need to allow pop-ups for this page, then use the button below.';
+    var SUB_OPENED  = 'If the new tab didn’t open, your browser may have blocked it — allow pop-ups for this page, then use the button below.';
+
+    var interstitial = document.getElementById('interstitial');
+    if (!interstitial) return;
+    var interIcon  = document.getElementById('inter-icon');
+    var interTitle = document.getElementById('inter-title');
+    var interSub   = document.getElementById('inter-sub');
+    var interExtra = document.getElementById('inter-extra');
+    var interLink  = document.getElementById('inter-link');
+    var interClose = document.getElementById('inter-close');
+    var interTimer = null, interFocusReturn = null;
+
+    // Name the destination for EXTERNAL links only; internal/relative → "this resource".
+    function destLabel(url) {
+      if (!/^https?:\/\//i.test(url)) return null;
+      try {
+        var h = new URL(url).hostname.replace(/^www\./, '');
+        if (/youtube\.com|youtu\.be|youtube-nocookie\.com/.test(h)) return 'YouTube';
+        if (/facebook\.com/.test(h))  return 'Facebook';
+        if (/instagram\.com/.test(h)) return 'Instagram';
+        if (/linkedin\.com/.test(h))  return 'LinkedIn';
+        if (/iih\.org\.uk/.test(h))   return 'the IIH UK website';
+        return h;
+      } catch (e) { return null; }
+    }
+
+    function showInterstitial(url, isPdfLeaflet) {
+      var where = destLabel(url) || 'this resource';
+      interTitle.innerHTML = 'Opening <span id="inter-where"></span> in a new tab…';
+      document.getElementById('inter-where').textContent = where;
+      interIcon.className = 'interstitial-icon';
+      interIcon.innerHTML = '<span class="interstitial-spinner"></span>';
+      interSub.textContent = SUB_OPENING;
+      interExtra.hidden = !isPdfLeaflet;
+      interLink.href = url;
+      interFocusReturn = document.activeElement;
+      interstitial.hidden = false;
+      interLink.focus();
+      clearTimeout(interTimer);
+      interTimer = setTimeout(function () {
+        window.open(url, '_blank', 'noopener');
+        interTitle.innerHTML = 'Opened <span id="inter-where"></span> in a new tab.';
+        document.getElementById('inter-where').textContent = where;
+        interIcon.className = 'interstitial-icon is-done';
+        interIcon.innerHTML = '✓';
+        interSub.textContent = SUB_OPENED;
+      }, 2000);
+    }
+    function hideInterstitial() {
+      clearTimeout(interTimer);
+      interstitial.hidden = true;
+      if (interFocusReturn && interFocusReturn.focus) interFocusReturn.focus();
+    }
+    interLink.addEventListener('click', hideInterstitial);   // real anchor = user gesture → never blocked
+    interClose.addEventListener('click', hideInterstitial);
+
+    // Global: every link that LEAVES the page routes through the interstitial,
+    // EXCEPT (a) crisis/urgent + opt-out links carrying class "no-interstitial"
+    // (they open instantly via the native anchor — unblockable, zero friction),
+    // (b) mailto:/tel: (not http), and (c) the interstitial's own links.
+    // For PDF patient leaflets, pass isPdfLeaflet=true to show the "Prefer paper?" line.
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[target="_blank"]');
+      if (!a) return;
+      if (a.classList.contains('no-interstitial')) return;      // crisis / opt-out → native open
+      if (!/^https?:/i.test(a.getAttribute('href') || '')) return; // mailto:/tel:/relative
+      if (a.closest('#interstitial')) return;                   // its own controls
+      e.preventDefault();
+      showInterstitial(a.href, a.hasAttribute('data-pdf-leaflet'));
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !interstitial.hidden) hideInterstitial();
+    });
+  })();
+  </script>
 
 </body>
 </html>
