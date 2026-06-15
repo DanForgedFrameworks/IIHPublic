@@ -639,9 +639,10 @@ window.CG_RECS = [
 /* =========================================================
    PRESENTATION ROUTES — "What is the patient presenting with?"
    ---------------------------------------------------------
-   DRAFT — pending clinical review team sign-off (see
-   _Admin/20260612 IIHHCP002 Evidence Grading Decision
-   Rationale v1.0.html and the Outstanding Issues Log).
+   DRAFT — pending clinical review team sign-off (see the
+   published sibling "20260612 IIHHCP002 Evidence Grading
+   Decision Rationale HTML v1.0.html" and the Outstanding
+   Issues Log).
    The route list, red-flag wording and the timeframe mapping
    below were derived editorially from the question groupings
    in the 2018 paper; they are NOT part of the published

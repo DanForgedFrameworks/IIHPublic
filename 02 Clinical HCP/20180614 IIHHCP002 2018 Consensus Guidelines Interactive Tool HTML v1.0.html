@@ -384,6 +384,24 @@
       .band-node{left:-38px;}
     }
 
+    /* §P — "leaving the page" interstitial (canonical master v1.0, remapped to this tool's tokens; language verbatim) */
+    .interstitial{position:fixed;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(22,32,42,.6);animation:backdrop-fade .2s ease both;}
+    .interstitial[hidden]{display:none;}
+    @keyframes backdrop-fade{from{opacity:0;}to{opacity:1;}}
+    .interstitial-card{background:var(--bg);border-radius:var(--radius);border-top:6px solid var(--accent);box-shadow:var(--shadow-3);max-width:420px;width:100%;padding:2rem 1.5rem;text-align:center;animation:inter-pop .25s ease both;}
+    @keyframes inter-pop{from{opacity:0;transform:scale(.94) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+    .interstitial-icon{width:56px;height:56px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;}
+    .interstitial-icon.is-done{font-size:2rem;font-weight:700;color:#fff;background:#1E7A46;border-radius:50%;}
+    .interstitial-spinner{width:44px;height:44px;border:4px solid var(--surface);border-top-color:var(--accent-2);border-radius:50%;animation:inter-spin .8s linear infinite;}
+    @keyframes inter-spin{to{transform:rotate(360deg);}}
+    .interstitial-title{font-size:1.15rem;font-weight:700;margin-bottom:.75rem;}
+    .interstitial-sub{font-size:.9rem;color:var(--muted);margin-bottom:1rem;}
+    .interstitial-extra{font-size:.9rem;margin-bottom:1rem;}
+    .interstitial-extra a{font-weight:700;} .interstitial-extra[hidden]{display:none;}
+    .interstitial-link{display:inline-flex;align-items:center;justify-content:center;min-height:var(--touch);width:100%;padding:.5rem 1.5rem;font-size:1rem;font-weight:700;color:#fff;background:var(--ink);border:2px solid var(--ink);border-radius:var(--radius-sm);text-decoration:none;}
+    .interstitial-close{display:inline-flex;align-items:center;justify-content:center;min-height:var(--touch);width:100%;margin-top:.75rem;padding:.5rem 1.5rem;font-family:var(--font);font-size:.9rem;font-weight:600;color:var(--ink);background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;}
+    .interstitial-close:hover{background:var(--surface);}
+
     /* print: review pack */
     @media print{
       .tabbar,.sidebar,.scrim,.drawer-toggle,.search-wrap,.back-btn,.action-toggle,.app-ref,.picker-go{display:none !important;}
@@ -399,10 +417,11 @@
       .review{max-width:none;}
     }
 
-    /* respect reduced motion */
+    /* respect reduced motion — universal rule also halts the interstitial spinner/backdrop/pop (§Q) */
     @media (prefers-reduced-motion:reduce){
       *{animation:none !important;transition:none !important;scroll-behavior:auto !important;}
       .action-panel-wrap{transition:none;}
+      .interstitial-spinner{border-top-color:var(--accent-2);}
     }
   </style>
 </head>
@@ -483,7 +502,7 @@
           <p>Registered charity</p>
           <p>England &amp; Wales: 1143522</p>
           <p>Scotland: SC043294</p>
-          <p><a href="https://www.iih.org.uk">www.iih.org.uk</a></p>
+          <p><a href="https://www.iih.org.uk" target="_blank" rel="noopener noreferrer">www.iih.org.uk</a></p>
         </div>
         <div class="footer-section">
           <h2>Licence</h2>
@@ -496,6 +515,18 @@
       </div>
     </div>
   </footer>
+
+  <!-- §P INTERSTITIAL DIALOG (canonical master v1.0; HCP build: no PT "Prefer paper" line) -->
+  <div class="interstitial" id="interstitial" role="dialog" aria-modal="true" aria-labelledby="inter-title" hidden>
+    <div class="interstitial-card">
+      <div class="interstitial-icon" id="inter-icon" aria-hidden="true"><span class="interstitial-spinner"></span></div>
+      <p class="interstitial-title" id="inter-title">Opening <span id="inter-where">this resource</span> in a new tab…</p>
+      <p class="interstitial-sub" id="inter-sub"></p>
+      <p class="interstitial-extra" id="inter-extra" hidden></p>
+      <a class="interstitial-link" id="inter-link" href="#" target="_blank" rel="noopener noreferrer">Open it now</a>
+      <button type="button" class="interstitial-close" id="inter-close">Cancel</button>
+    </div>
+  </div>
 
   <script>
 /* =========================================================
@@ -1139,9 +1170,10 @@ window.CG_RECS = [
 /* =========================================================
    PRESENTATION ROUTES — "What is the patient presenting with?"
    ---------------------------------------------------------
-   DRAFT — pending clinical review team sign-off (see
-   _Admin/20260612 IIHHCP002 Evidence Grading Decision
-   Rationale v1.0.html and the Outstanding Issues Log).
+   DRAFT — pending clinical review team sign-off (see the
+   published sibling "20260612 IIHHCP002 Evidence Grading
+   Decision Rationale HTML v1.0.html" and the Outstanding
+   Issues Log).
    The route list, red-flag wording and the timeframe mapping
    below were derived editorially from the question groupings
    in the 2018 paper; they are NOT part of the published
@@ -2154,7 +2186,7 @@ window.CG_DIFFERENTIALS = [
       'This pack reproduces the matrix mapping, the full route / timeframe placements, and the questions we need answered.</p></div>';
 
     html += '<div class="callout callout-warning"><strong>' + esc(DRAFT.label || 'Draft') + '.</strong> ' + esc(DRAFT.note || '') +
-      (DRAFT.rationaleHref ? ' Full rationale: <a href="' + esc(DRAFT.rationaleHref) + '">' + esc(DRAFT.rationaleTitle || 'decision rationale') + '</a>.' : '') + '</div>';
+      (DRAFT.rationaleHref ? ' Full rationale: <a href="' + esc(DRAFT.rationaleHref) + '" target="_blank" rel="noopener noreferrer">' + esc(DRAFT.rationaleTitle || 'decision rationale') + '</a>.' : '') + '</div>';
 
     html += '<h3 class="review-h">Questions for the review team</h3><ol class="review-qs">';
     QS.forEach(function (q) { html += '<li>' + esc(q) + '</li>'; });
@@ -2222,7 +2254,7 @@ window.CG_DIFFERENTIALS = [
       bn.innerHTML = '<div class="inner">' +
         ico('alert', 'ico-sm') + ' <strong>' + esc(DRAFT.label) + '</strong> — ' +
         'recommendation strength, routes and timeframes are an editorial layer awaiting clinical review team approval. ' +
-        (DRAFT.rationaleHref ? '<a href="' + esc(DRAFT.rationaleHref) + '">Why / decision rationale ' + ico('arrowR', 'ico-sm') + '</a>' : '') +
+        (DRAFT.rationaleHref ? '<a href="' + esc(DRAFT.rationaleHref) + '" target="_blank" rel="noopener noreferrer">Why / decision rationale ' + ico('arrowR', 'ico-sm') + '</a>' : '') +
         '</div>';
       bn.hidden = false;
     }
@@ -2241,6 +2273,88 @@ window.CG_DIFFERENTIALS = [
 }());
 
 </script>
+
+  <!-- §P leaving-the-page handler (canonical master v1.0; language verbatim).
+       One deviation, documented: the click guard routes internal/relative
+       target="_blank" links (e.g. the rationale sub-doc) through the interstitial too,
+       so they show "this resource" per spec; mailto/tel/# stay native. -->
+  <script>
+  (function () {
+    'use strict';
+    var SUB_OPENING = 'If a new tab doesn’t open in a moment, you may need to allow pop-ups for this page, then use the button below.';
+    var SUB_OPENED  = 'If the new tab didn’t open, your browser may have blocked it — allow pop-ups for this page, then use the button below.';
+
+    var interstitial = document.getElementById('interstitial');
+    if (!interstitial) return;
+    var interIcon  = document.getElementById('inter-icon');
+    var interTitle = document.getElementById('inter-title');
+    var interSub   = document.getElementById('inter-sub');
+    var interExtra = document.getElementById('inter-extra');
+    var interLink  = document.getElementById('inter-link');
+    var interClose = document.getElementById('inter-close');
+    var interTimer = null, interFocusReturn = null;
+
+    function destLabel(url) {
+      try { if (new URL(url, location.href).origin === location.origin) return null; } catch (e) {} // internal sub-doc → "this resource"
+      if (!/^https?:\/\//i.test(url)) return null;
+      try {
+        var h = new URL(url).hostname.replace(/^www\./, '');
+        if (/youtube\.com|youtu\.be|youtube-nocookie\.com/.test(h)) return 'YouTube';
+        if (/facebook\.com/.test(h))  return 'Facebook';
+        if (/instagram\.com/.test(h)) return 'Instagram';
+        if (/linkedin\.com/.test(h))  return 'LinkedIn';
+        if (/iih\.org\.uk/.test(h))   return 'the IIH UK website';
+        if (/jnnp\.bmj\.com|bmj\.com|doi\.org/.test(h)) return 'the source guideline';
+        return h;
+      } catch (e) { return null; }
+    }
+
+    function showInterstitial(url, isPdfLeaflet) {
+      var where = destLabel(url) || 'this resource';
+      interTitle.innerHTML = 'Opening <span id="inter-where"></span> in a new tab…';
+      document.getElementById('inter-where').textContent = where;
+      interIcon.className = 'interstitial-icon';
+      interIcon.innerHTML = '<span class="interstitial-spinner"></span>';
+      interSub.textContent = SUB_OPENING;
+      interExtra.hidden = !isPdfLeaflet;
+      interLink.href = url;
+      interFocusReturn = document.activeElement;
+      interstitial.hidden = false;
+      interLink.focus();
+      clearTimeout(interTimer);
+      interTimer = setTimeout(function () {
+        window.open(url, '_blank', 'noopener');
+        interTitle.innerHTML = 'Opened <span id="inter-where"></span> in a new tab.';
+        document.getElementById('inter-where').textContent = where;
+        interIcon.className = 'interstitial-icon is-done';
+        interIcon.innerHTML = '✓';
+        interSub.textContent = SUB_OPENED;
+      }, 2000);
+    }
+    function hideInterstitial() {
+      clearTimeout(interTimer);
+      interstitial.hidden = true;
+      if (interFocusReturn && interFocusReturn.focus) interFocusReturn.focus();
+    }
+    interLink.addEventListener('click', hideInterstitial);
+    interClose.addEventListener('click', hideInterstitial);
+
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[target="_blank"]');
+      if (!a) return;
+      if (a.classList.contains('no-interstitial')) return;       // crisis / opt-out → native open
+      var href = a.getAttribute('href') || '';
+      if (/^(mailto:|tel:|#|javascript:)/i.test(href)) return;   // not a page navigation
+      if (a.closest('#interstitial')) return;                    // its own controls
+      e.preventDefault();
+      showInterstitial(a.href, a.hasAttribute('data-pdf-leaflet'));
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !interstitial.hidden) hideInterstitial();
+    });
+  })();
+  </script>
 
 </body>
 </html>

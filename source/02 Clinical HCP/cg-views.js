@@ -662,7 +662,7 @@
       'This pack reproduces the matrix mapping, the full route / timeframe placements, and the questions we need answered.</p></div>';
 
     html += '<div class="callout callout-warning"><strong>' + esc(DRAFT.label || 'Draft') + '.</strong> ' + esc(DRAFT.note || '') +
-      (DRAFT.rationaleHref ? ' Full rationale: <a href="' + esc(DRAFT.rationaleHref) + '">' + esc(DRAFT.rationaleTitle || 'decision rationale') + '</a>.' : '') + '</div>';
+      (DRAFT.rationaleHref ? ' Full rationale: <a href="' + esc(DRAFT.rationaleHref) + '" target="_blank" rel="noopener noreferrer">' + esc(DRAFT.rationaleTitle || 'decision rationale') + '</a>.' : '') + '</div>';
 
     html += '<h3 class="review-h">Questions for the review team</h3><ol class="review-qs">';
     QS.forEach(function (q) { html += '<li>' + esc(q) + '</li>'; });
@@ -730,7 +730,7 @@
       bn.innerHTML = '<div class="inner">' +
         ico('alert', 'ico-sm') + ' <strong>' + esc(DRAFT.label) + '</strong> — ' +
         'recommendation strength, routes and timeframes are an editorial layer awaiting clinical review team approval. ' +
-        (DRAFT.rationaleHref ? '<a href="' + esc(DRAFT.rationaleHref) + '">Why / decision rationale ' + ico('arrowR', 'ico-sm') + '</a>' : '') +
+        (DRAFT.rationaleHref ? '<a href="' + esc(DRAFT.rationaleHref) + '" target="_blank" rel="noopener noreferrer">Why / decision rationale ' + ico('arrowR', 'ico-sm') + '</a>' : '') +
         '</div>';
       bn.hidden = false;
     }
