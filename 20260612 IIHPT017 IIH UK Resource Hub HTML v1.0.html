@@ -241,6 +241,7 @@
     [data-accent="clinical"] { --accent: #1D4ED8; --accent-soft: #EDF2FE; --accent-glow: rgba(29,78,216,0.22); }
     [data-accent="research"] { --accent: #4338CA; --accent-soft: #F0EFFB; --accent-glow: rgba(67,56,202,0.22); }
     [data-accent="videos"]   { --accent: #C0392B; --accent-soft: #FDF0EE; --accent-glow: rgba(192,57,43,0.20); }
+    [data-accent="social"]   { --accent: #B5179E; --accent-soft: #FBEEF8; --accent-glow: rgba(181,23,158,0.18); }
 
     /* CATEGORY GRID (home) — 2 x 2 on tablet/desktop, single column on small phones */
     .category-grid {
@@ -278,7 +279,9 @@
       gap: var(--space-sm);
       background: none; border: none; padding: 0; margin: 0;
       font: inherit; color: inherit; text-align: left; cursor: pointer;
+      transition: transform 0.12s ease;
     }
+    .cat-main:active { transform: scale(0.985); }
     .category-card .cat-icon {
       display: inline-flex; align-items: center; justify-content: center;
       width: 56px; height: 56px;
@@ -312,7 +315,9 @@
       white-space: nowrap;
       cursor: pointer;
     }
+    .cat-chip { transition: transform 0.12s ease, background 0.15s ease; }
     .cat-chip:hover { background: var(--accent-soft, var(--color-surface)); }
+    .cat-chip:active { transform: translateY(1px) scale(0.97); }
     .cat-chip .chip-n {
       font-size: 0.75rem; font-weight: 700;
       background: var(--accent-soft, var(--color-surface));
@@ -361,6 +366,16 @@
     }
     .resource-card:hover,
     .resource-card:focus-visible { transform: translateY(-2px); box-shadow: 0 8px 24px var(--accent-glow, rgba(26,43,74,0.18)); }
+    /* Press → depress */
+    .resource-card:active { transform: translateY(1px) scale(0.992); box-shadow: var(--shadow); }
+    /* Hover → description rolls up (re-reveals); stays visible at rest, so no
+       info is lost where there's no hover (mobile). */
+    @keyframes rc-rollup { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .resource-card:hover .rc-desc { animation: rc-rollup 0.3s ease-out both; }
+    @media (prefers-reduced-motion: reduce) {
+      .resource-card:hover .rc-desc { animation: none; }
+      .resource-card:active { transform: none; }
+    }
     /* Wayfinding tags — "Start here" + "New" */
     .rc-tags { display: flex; gap: var(--space-xs); flex-wrap: wrap; }
     .tag {
@@ -402,6 +417,7 @@
     .badge-pdf   { background: #4A5568; }
     .badge-html  { background: var(--color-link); }
     .badge-video { background: var(--color-text); }
+    .badge-link  { background: #6B2D8C; }
 
     /* EMPTY STATE */
     .empty-state {
@@ -414,38 +430,28 @@
     /* =========================================================
        PRINTED-COPY BAND — bottom of page
        ========================================================= */
-    .print-band { background: #EBF8F8; border-top: 1px solid var(--color-border); padding: var(--space-lg) 0; }
+    .print-band { background: var(--color-surface); border-top: 1px solid var(--color-border); padding: var(--space-lg) 0; }
+    .print-band .container { display: flex; justify-content: center; }
+    /* White pill — same hover-lift + press-depress as the cards */
     .print-band-link {
       display: inline-flex; align-items: center; gap: var(--space-xs);
       min-height: var(--touch-target);
+      padding: var(--space-xs) var(--space-lg);
       font-size: var(--font-size-base); font-weight: 700;
-      color: var(--color-link); text-decoration: underline; text-underline-offset: 3px;
+      color: var(--color-text);
+      background: #fff;
+      border: 2px solid var(--color-primary);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      text-decoration: none; white-space: nowrap;
+      transition: transform 0.12s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
-    .print-band-link:hover { color: var(--color-text); }
-
-    /* =========================================================
-       TOAST — printed-copy nudge after opening a PDF
-       ========================================================= */
-    .toast {
-      position: fixed; left: 50%; bottom: var(--space-lg); transform: translateX(-50%);
-      z-index: 500; width: calc(100% - 2 * var(--space-md)); max-width: 460px;
-      display: flex; align-items: center; gap: var(--space-sm);
-      padding: var(--space-sm) var(--space-md);
-      background: var(--color-text); color: #fff;
-      border-radius: var(--radius); box-shadow: var(--shadow-lg);
-      animation: toast-in 0.25s ease both;
+    .print-band-link:hover { background: #EBF8F8; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .print-band-link:active { transform: translateY(1px) scale(0.99); box-shadow: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .print-band-link { transition: none; }
+      .print-band-link:hover, .print-band-link:active { transform: none; }
     }
-    .toast[hidden] { display: none; }
-    @keyframes toast-in { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
-    @media (prefers-reduced-motion: reduce) { .toast { animation: none; } }
-    .toast-text { flex: 1; font-size: var(--font-size-sm); line-height: 1.4; }
-    .toast-text a { color: var(--color-primary); font-weight: 700; }
-    .toast-close {
-      flex-shrink: 0; min-width: var(--touch-target); min-height: var(--touch-target);
-      font-size: 1.4rem; line-height: 1; color: #fff; background: transparent;
-      border: 1px solid rgba(255,255,255,0.4); border-radius: var(--radius); cursor: pointer;
-    }
-    .toast-close:hover { background: rgba(255,255,255,0.12); }
 
     /* =========================================================
        INTERSTITIAL — centre-screen "opening in a new tab" notice
@@ -469,8 +475,16 @@
       animation: inter-pop 0.25s ease both;
     }
     @keyframes inter-pop { from { opacity: 0; transform: scale(0.94) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .interstitial-icon {
+      width: 56px; height: 56px; margin: 0 auto var(--space-md);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .interstitial-icon.is-done {
+      font-size: 2rem; font-weight: 700; color: #fff;
+      background: #1E7A46; border-radius: 50%;
+    }
     .interstitial-spinner {
-      width: 44px; height: 44px; margin: 0 auto var(--space-md);
+      width: 44px; height: 44px;
       border: 4px solid var(--color-surface);
       border-top-color: var(--color-primary-dark);
       border-radius: 50%;
@@ -478,7 +492,10 @@
     }
     @keyframes inter-spin { to { transform: rotate(360deg); } }
     .interstitial-title { font-size: var(--font-size-lg); font-weight: 700; margin-bottom: var(--space-sm); }
-    .interstitial-sub { font-size: var(--font-size-sm); color: var(--color-text-muted); margin-bottom: var(--space-lg); }
+    .interstitial-sub { font-size: var(--font-size-sm); color: var(--color-text-muted); margin-bottom: var(--space-md); }
+    .interstitial-extra { font-size: var(--font-size-sm); margin-bottom: var(--space-md); }
+    .interstitial-extra a { font-weight: 700; }
+    .interstitial-extra[hidden] { display: none; }
     .interstitial-link {
       display: inline-flex; align-items: center; justify-content: center;
       min-height: var(--touch-target); width: 100%;
@@ -515,8 +532,15 @@
       min-height: var(--touch-target); padding: var(--space-sm) var(--space-md);
       border: 1px solid var(--color-border); border-left: 5px solid var(--sp); border-radius: var(--radius);
       background: var(--color-surface); color: var(--color-text); text-decoration: none; font-weight: 600; font-size: var(--font-size-sm);
+      transition: transform 0.12s ease, box-shadow 0.15s ease, background 0.15s ease, border-left-width 0.12s ease;
     }
-    .support-list a:hover { background: #EBF8F8; }
+    .support-list a:hover { background: #EBF8F8; transform: translateY(-2px); box-shadow: var(--shadow); border-left-width: 7px; }
+    .support-list a:active { transform: translateY(1px) scale(0.99); box-shadow: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .support-list a, .cat-main, .cat-chip { transition: none; }
+      .support-list a:hover, .support-list a:active,
+      .cat-main:active, .cat-chip:active { transform: none; }
+    }
     .sp-teal   { --sp: #3CBBBA; }
     .sp-blue   { --sp: #1D4ED8; }
     .sp-red    { --sp: #C0392B; }
@@ -554,7 +578,7 @@
        PRINT
        ========================================================= */
     @media print {
-      .dot-grid, .skip-link, .toolbar, .toast { display: none !important; }
+      .dot-grid, .skip-link, .toolbar, .interstitial { display: none !important; }
       body { background: #fff; }
       .category-card, .resource-card { box-shadow: none; }
       a { color: #1A2B4A; }
@@ -625,7 +649,7 @@
   <!-- PRINTED-COPY BAND — bottom of page; printed leaflets live on iih.org.uk -->
   <section class="print-band" aria-label="Printed copies">
     <div class="container">
-      <a class="print-band-link"
+      <a class="print-band-link no-interstitial"
          href="https://iih.org.uk/patient-leaflets/"
          target="_blank" rel="noopener noreferrer">
         🖨️ Want a printed copy? See all leaflets on iih.org.uk
@@ -640,10 +664,10 @@
       <h2 id="support-heading">Where to get more help and support</h2>
       <ul class="support-list">
         <li><a class="sp-teal"   href="https://iih.org.uk" target="_blank" rel="noopener noreferrer">🌐 IIH UK — information, leaflets and support</a></li>
-        <li><a class="sp-blue"   href="https://www.facebook.com/groups/IIHUK" target="_blank" rel="noopener noreferrer">👥 IIH UK Support Group on Facebook</a></li>
+        <li><a class="sp-blue"   href="https://www.facebook.com/IIHUKCharity/?locale=en_GB" target="_blank" rel="noopener noreferrer">👍 IIH UK on Facebook (official page)</a></li>
         <li><a class="sp-red"    href="https://www.youtube.com/@IIHUKNationalCharity" target="_blank" rel="noopener noreferrer">▶️ Watch IIH UK on YouTube</a></li>
-        <li><a class="sp-green"  href="https://111.nhs.uk" target="_blank" rel="noopener noreferrer">➕ NHS 111 — non-emergency medical advice</a></li>
-        <li><a class="sp-indigo" href="https://www.samaritans.org" target="_blank" rel="noopener noreferrer">💜 Samaritans — 116 123, free, any time</a></li>
+        <li><a class="sp-green no-interstitial"  href="https://111.nhs.uk" target="_blank" rel="noopener noreferrer">➕ NHS 111 — non-emergency medical advice</a></li>
+        <li><a class="sp-indigo no-interstitial" href="https://www.samaritans.org" target="_blank" rel="noopener noreferrer">💜 Samaritans — 116 123, free, any time</a></li>
         <li><a class="sp-amber"  href="https://www.gov.uk/find-local-council" target="_blank" rel="noopener noreferrer">🏛️ Find your local council</a></li>
         <li><a class="sp-blue"   href="https://www.citizensadvice.org.uk" target="_blank" rel="noopener noreferrer">⚖️ Citizens Advice — benefits and rights</a></li>
         <li><a class="sp-teal"   href="https://www.carersuk.org" target="_blank" rel="noopener noreferrer">🤝 Carers UK — local carer support</a></li>
@@ -677,7 +701,7 @@
           <p>England &amp; Wales: 1143522</p>
           <p>Scotland: SC043294</p>
           <p><a href="https://www.iih.org.uk" target="_blank" rel="noopener noreferrer">www.iih.org.uk</a></p>
-          <p><a href="https://iih.org.uk/patient-leaflets/" target="_blank" rel="noopener noreferrer">All printed leaflets</a></p>
+          <p><a class="no-interstitial" href="https://iih.org.uk/patient-leaflets/" target="_blank" rel="noopener noreferrer">All printed leaflets</a></p>
         </div>
         <div class="footer-section">
           <h2>Licence</h2>
@@ -693,23 +717,17 @@
     </div>
   </footer>
 
-  <!-- TOAST — shown briefly after opening a patient PDF leaflet -->
-  <div class="toast" id="pdf-toast" role="status" aria-live="polite" hidden>
-    <span class="toast-text">
-      🖨️ Opening the PDF in a new tab. Prefer paper?
-      <a href="https://iih.org.uk/patient-leaflets/" target="_blank" rel="noopener noreferrer">See all printed leaflets on iih.org.uk</a>
-    </span>
-    <button type="button" class="toast-close" id="toast-close" aria-label="Dismiss">×</button>
-  </div>
-
-  <!-- INTERSTITIAL — centre-screen "opening in a new tab" notice -->
+  <!-- INTERSTITIAL — centre-screen "opening / opened in a new tab" notice -->
   <div class="interstitial" id="interstitial" role="dialog" aria-modal="true"
        aria-labelledby="inter-title" hidden>
     <div class="interstitial-card">
-      <div class="interstitial-spinner" aria-hidden="true"></div>
+      <div class="interstitial-icon" id="inter-icon" aria-hidden="true"><span class="interstitial-spinner"></span></div>
       <p class="interstitial-title" id="inter-title">Opening <span id="inter-where">this resource</span> in a new tab…</p>
-      <p class="interstitial-sub">
+      <p class="interstitial-sub" id="inter-sub">
         If a new tab doesn’t open in a moment, you may need to allow pop-ups for this page, then use the button below.
+      </p>
+      <p class="interstitial-extra" id="inter-extra" hidden>
+        🖨️ Prefer paper? <a href="https://iih.org.uk/patient-leaflets/" target="_blank" rel="noopener noreferrer">See all printed leaflets on iih.org.uk</a>
       </p>
       <a class="interstitial-link" id="inter-link" href="#" target="_blank" rel="noopener noreferrer">Open it now</a>
       <button type="button" class="interstitial-close" id="inter-close">Cancel</button>
@@ -730,6 +748,8 @@
     function f(type, version, path) { return { type: type, version: version, path: path }; }
     // Helper: build a video format object
     function v(id, runtime) { return { type: 'Video', youtubeId: id, runtime: runtime }; }
+    // Helper: build an external link (social media etc.)
+    function lnk(url, label) { return { type: 'Link', url: url, label: label }; }
 
     var CATEGORIES = [
       {
@@ -898,6 +918,26 @@
             { docId: 'IIHREF005', title: 'IIH Priority Setting Partnership', desc: 'The James Lind Alliance IIH Priority Setting Partnership.', formats: [ v('ylrIJ3tNuUE','~5 min') ] }
           ]}
         ]
+      },
+      {
+        id: 'social', icon: '💬', title: 'Social Media & Community',
+        blurb: 'Follow IIH UK and connect with the wider IIH community.',
+        subcategories: [
+          { id: 'official', title: 'Follow IIH UK', items: [
+            { title: 'IIH UK on Facebook', desc: 'The official IIH UK Facebook page, run by IIH UK National Charity.',
+              formats: [ lnk('https://www.facebook.com/IIHUKCharity/?locale=en_GB', 'Facebook') ] },
+            { title: 'IIH UK on Instagram', desc: 'Follow @IIHUKcharity on Instagram.',
+              formats: [ lnk('https://www.instagram.com/iihukcharity/', 'Instagram') ] },
+            { title: 'IIH UK on LinkedIn', desc: 'IIH UK National Charity on LinkedIn.',
+              formats: [ lnk('https://www.linkedin.com/company/iih-uk-national-charity/', 'LinkedIn') ] },
+            { title: 'IIH UK on YouTube', desc: 'Watch films and webinars on the IIH UK YouTube channel.',
+              formats: [ lnk('https://www.youtube.com/@IIHUKNationalCharity', 'YouTube') ] }
+          ]},
+          { id: 'community', title: 'Community group (independent)', items: [
+            { title: 'IIH Support UK Facebook group', desc: 'A peer-support group run independently by members. It is not run by IIH UK National Charity.',
+              formats: [ lnk('https://www.facebook.com/groups/432155240173972/', 'Facebook group') ] }
+          ]}
+        ]
       }
     ];
 
@@ -933,12 +973,14 @@
     // repo is local. (Videos always use the absolute YouTube URL.)
     function urlFor(format) {
       if (format.type === 'Video') return YT + format.youtubeId;
+      if (format.type === 'Link') return format.url;
       return encodeURI(format.path);
     }
     function primaryFormat(item) { return item.formats[0]; }
-    function badgeHtml(type) {
-      var cls = type === 'Video' ? 'badge-video' : (type === 'HTML' ? 'badge-html' : 'badge-pdf');
-      var label = type === 'Video' ? '▶ Video' : type;
+    function badgeFor(format) {
+      if (format.type === 'Link') return '<span class="badge badge-link">↗ ' + esc(format.label || 'Visit') + '</span>';
+      var cls = format.type === 'Video' ? 'badge-video' : (format.type === 'HTML' ? 'badge-html' : 'badge-pdf');
+      var label = format.type === 'Video' ? '▶ Video' : format.type;
       return '<span class="badge ' + cls + '">' + esc(label) + '</span>';
     }
 
@@ -968,23 +1010,23 @@
       });
     }
 
-    // Every resource opens straight to its asset in a new tab. After a patient
-    // PDF leaflet, briefly surface the "printed copy" toast.
-    var toast = document.getElementById('pdf-toast');
-    var toastTimer;
-    function showToast() {
-      if (!toast) return;
-      toast.hidden = false;
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(function () { toast.hidden = true; }, 9000);
-    }
-    /* ----- Interstitial: centre-screen "opening in a new tab" notice ----- */
+    /* ----- Interstitial: centre-screen "opening / opened in a new tab" notice
+       Every resource opens through this. After 2s it opens the tab and stays
+       visible, switching to an "Opened" state with the pop-up warning so the
+       user can retry if their browser blocked it. ----- */
     var interstitial = document.getElementById('interstitial');
+    var interIcon = document.getElementById('inter-icon');
+    var interTitle = document.getElementById('inter-title');
     var interWhere = document.getElementById('inter-where');
+    var interSub = document.getElementById('inter-sub');
+    var interExtra = document.getElementById('inter-extra');
     var interLink = document.getElementById('inter-link');
     var interClose = document.getElementById('inter-close');
     var interTimer;
     var interFocusReturn = null;
+
+    var SUB_OPENING = 'If a new tab doesn’t open in a moment, you may need to allow pop-ups for this page, then use the button below.';
+    var SUB_OPENED  = 'If the new tab didn’t open, your browser may have blocked it — allow pop-ups for this page, then use the button below.';
 
     // Name the destination platform for EXTERNAL links only; internal repo
     // files (PDF/HTML, relative URLs) get no platform name.
@@ -993,14 +1035,23 @@
       try {
         var h = new URL(url).hostname.replace(/^www\./, '');
         if (/youtube\.com|youtu\.be|youtube-nocookie\.com/.test(h)) return 'YouTube';
+        if (/facebook\.com/.test(h)) return 'Facebook';
+        if (/instagram\.com/.test(h)) return 'Instagram';
+        if (/linkedin\.com/.test(h)) return 'LinkedIn';
         if (/iih\.org\.uk/.test(h)) return 'the IIH UK website';
         return h;
       } catch (e) { return null; }
     }
 
-    function showInterstitial(url, afterOpen) {
-      var label = destLabel(url);
-      interWhere.textContent = label || 'this resource';
+    function showInterstitial(url, isPdfLeaflet) {
+      var where = destLabel(url) || 'this resource';
+      // reset to "opening" state
+      interTitle.innerHTML = 'Opening <span id="inter-where"></span> in a new tab…';
+      document.getElementById('inter-where').textContent = where;
+      interIcon.className = 'interstitial-icon';
+      interIcon.innerHTML = '<span class="interstitial-spinner"></span>';
+      interSub.textContent = SUB_OPENING;
+      interExtra.hidden = !isPdfLeaflet;
       interLink.href = url;
       interFocusReturn = document.activeElement;
       interstitial.hidden = false;
@@ -1008,8 +1059,12 @@
       clearTimeout(interTimer);
       interTimer = setTimeout(function () {
         window.open(url, '_blank', 'noopener');
-        if (typeof afterOpen === 'function') afterOpen();
-        hideInterstitial();
+        // switch to "opened" state — popup stays open
+        interTitle.innerHTML = 'Opened <span id="inter-where"></span> in a new tab.';
+        document.getElementById('inter-where').textContent = where;
+        interIcon.className = 'interstitial-icon is-done';
+        interIcon.innerHTML = '✓';
+        interSub.textContent = SUB_OPENED;
       }, 2000);
     }
     function hideInterstitial() {
@@ -1017,21 +1072,15 @@
       interstitial.hidden = true;
       if (interFocusReturn && interFocusReturn.focus) interFocusReturn.focus();
     }
-    // Manual link click: open now, cancel the auto-open, run the after-step.
-    interLink.addEventListener('click', function () {
-      clearTimeout(interTimer);
-      if (interLink._after) { interLink._after(); interLink._after = null; }
-      hideInterstitial();
-    });
-    interClose.addEventListener('click', function () { interLink._after = null; hideInterstitial(); });
+    // Manual link is a real anchor (user gesture → never blocked); just close after.
+    interLink.addEventListener('click', hideInterstitial);
+    interClose.addEventListener('click', hideInterstitial);
 
     function openResource(item) {
       markViewed(item);
       var pf = primaryFormat(item);
       var isPdfLeaflet = (pf.type === 'PDF' && item._cat.id === 'patient');
-      var after = isPdfLeaflet ? showToast : null;
-      interLink._after = after;
-      showInterstitial(urlFor(pf), after);
+      showInterstitial(urlFor(pf), isPdfLeaflet);
     }
 
     /* =======================================================
@@ -1164,8 +1213,9 @@
 
     function resourceCard(item, i) {
       var pf = primaryFormat(item);
-      var badges = item.formats.map(function (fo) { return badgeHtml(fo.type); }).join(' ');
-      var meta = pf.type === 'Video' ? 'Runtime ' + esc(pf.runtime) : esc(pf.version);
+      var badges = item.formats.map(function (fo) { return badgeFor(fo); }).join(' ');
+      var meta = pf.type === 'Video' ? 'Runtime ' + esc(pf.runtime)
+        : (pf.type === 'Link' ? esc(pf.label || 'Visit') : esc(pf.version));
       var delay = Math.min(i || 0, 10) * 45;
       var tags = '';
       if (item.start) tags += '<span class="tag tag-start">⭐ Start here</span>';
@@ -1219,11 +1269,6 @@
       viewEl.innerHTML = status + '<div class="resource-grid">' + matches.map(resourceCard).join('') + '</div>';
     }
 
-    /* =======================================================
-       TOAST (printed-copy nudge after opening a PDF)
-       ======================================================= */
-    var toastClose = document.getElementById('toast-close');
-    if (toastClose) toastClose.addEventListener('click', function () { toast.hidden = true; });
 
     /* =======================================================
        EVENTS
@@ -1234,6 +1279,17 @@
     ALL.forEach(function (item) { BY_ID[item._id] = item; });
 
     document.addEventListener('click', function (e) {
+      // Help & support links route through the same interstitial as resources.
+      // EXCEPT crisis/print links carrying class="no-interstitial" (open instantly
+      // via the native anchor — unblockable, see §P), mailto, and the dialog's own links.
+      var ext = e.target.closest('a[target="_blank"]');
+      if (ext && /^https?:/i.test(ext.getAttribute('href') || '') && !ext.closest('#interstitial')
+          && !ext.classList.contains('no-interstitial')) {
+        e.preventDefault();
+        showInterstitial(ext.href, false);
+        return;
+      }
+
       var subBtn = e.target.closest('[data-sub]');
       if (subBtn) {
         state.view = 'category'; state.catId = subBtn.getAttribute('data-cat');
@@ -1260,7 +1316,7 @@
 
     // Escape cancels the interstitial
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !interstitial.hidden) { interLink._after = null; hideInterstitial(); }
+      if (e.key === 'Escape' && !interstitial.hidden) { hideInterstitial(); }
     });
 
     var searchTimer;
