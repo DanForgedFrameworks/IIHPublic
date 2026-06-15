@@ -55,7 +55,7 @@
   TOPICS.forEach(function (t) {
     var card = el('button', {
       type: 'button',
-      class: 'topic-card' + (t.featured ? ' is-featured' : ''),
+      class: 'topic-card',
       'data-topic': t.id,
       'aria-expanded': 'false',
       'aria-controls': 'detail-panel'

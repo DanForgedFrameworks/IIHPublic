@@ -23,7 +23,7 @@ window.IFC_TOPICS = [
       <div class="callout callout-info" role="note">
         IIH is an <strong>invisible condition</strong>. The person can look completely well on a day when they actually feel very unwell. This is one of the hardest things for family and friends to understand — and one of the most important.
       </div>
-      <a href="https://iih.org.uk/patient-leaflets/" class="signpost" target="_blank" rel="noopener noreferrer">
+      <a href="https://iih.org.uk/patient-leaflets/" class="signpost no-interstitial" target="_blank" rel="noopener noreferrer">
         <span class="signpost-icon" aria-hidden="true">🖨️</span>
         <span>Want a leaflet to print and share with others? Browse the IIH UK patient leaflets</span>
       </a>
@@ -88,7 +88,7 @@ window.IFC_TOPICS = [
       <p>Some children are too young to explain their symptoms clearly, so they may show lots of vague, "non-specific" signs instead. Trust what you notice, and share it with the medical team.</p>
       <p>If you have a child under 16 with IIH, contact <a href="https://www.iih.org.uk" target="_blank" rel="noopener noreferrer">IIH UK</a> — they can put you in touch with a parent Facebook group where families share advice and support.</p>
       <p>For help with school, there is an IIH UK leaflet called <strong>"IIH and Education"</strong>.</p>
-      <a href="https://iih.org.uk/patient-leaflets/" class="signpost" target="_blank" rel="noopener noreferrer">
+      <a href="https://iih.org.uk/patient-leaflets/" class="signpost no-interstitial" target="_blank" rel="noopener noreferrer">
         <span class="signpost-icon" aria-hidden="true">🔗</span>
         <span>Find the "IIH and Education" leaflet and more on the IIH UK patient leaflets page</span>
       </a>`
@@ -204,7 +204,7 @@ window.IFC_TOPICS = [
         <li>Talk to your own GP if you are struggling.</li>
       </ul>
       <h3>Build a support network</h3>
-      <p>You are not the only person supporting someone with IIH. Sharing your experiences with others who understand can make a real difference. The <a href="https://www.facebook.com/groups/432155240173972" target="_blank" rel="noopener noreferrer">IIH UK support group on Facebook</a> is a good place to connect with other families and carers.</p>
+      <p>You are not the only person supporting someone with IIH. Sharing your experiences with others who understand can make a real difference. The <a href="https://www.facebook.com/groups/432155240173972" target="_blank" rel="noopener noreferrer">IIH support group on Facebook</a> is a good place to connect with other families and carers. This is an independent, member-run group. It is run by members, not by IIH UK — for the official charity page, see the support links at the bottom of this page.</p>
       <h3>Practical and financial help</h3>
       <p>Your <a href="https://www.gov.uk/find-local-council" target="_blank" rel="noopener noreferrer">local council</a> can help you find support in your area, such as a local carers' association. Your local <a href="https://www.citizensadvice.org.uk" target="_blank" rel="noopener noreferrer">Citizens Advice</a> is also a good source of information and advice.</p>
       <p>If you provide regular care, you may be able to claim <strong>Carer's Allowance</strong>. Citizens Advice or GOV.UK can tell you whether you qualify and help you apply.</p>
