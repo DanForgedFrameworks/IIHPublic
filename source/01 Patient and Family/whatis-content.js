@@ -262,6 +262,11 @@ window.WHATIS_TOPICS = [
       <div class="watch">
         <p class="watch-label">▶ Watch — from IIH UK</p>
         <a class="video-link" href="https://www.youtube.com/watch?v=ED4FRgXHuWk" target="_blank" rel="noopener noreferrer"><span class="video-ico" aria-hidden="true">▶</span><span class="video-txt">What is IIH without papilloedema? (IIHWOP)</span><span class="video-len">5 min</span></a>
+      </div>
+      <h3>Support to live well: the HOPE programme</h3>
+      <p>IIH UK offers a support programme called <strong>HOPE</strong> for adults with IIH and for parents of children who have IIH. It shares practical ways to cope and live well with the condition from day to day. You can find out more and register your interest through <strong>iih.org.uk</strong>.</p>
+      <div class="watch">
+        <p class="watch-label">▶ Watch — from IIH UK</p>
         <a class="video-link" href="https://www.youtube.com/watch?v=jANlplMqvq8" target="_blank" rel="noopener noreferrer"><span class="video-ico" aria-hidden="true">▶</span><span class="video-txt">Live Well with HOPE</span><span class="video-len">29 min</span></a>
       </div>`
   }
