@@ -64,6 +64,20 @@ Available in `03 Reference and Research/`:
 | IIHREF003 | 2026 RISE IIH Standards Call (MacKeith et al. Eye 2026) | v1.0 |
 | IIHREF004 | 2018 JLA PSP Contributing Uncertainties | v1.0 |
 
+### Brand Assets
+IIH UK logo files for volunteers, partners, and anyone producing IIH UK materials.
+
+Available in `05 Brand/` — see the [brand asset guide](05%20Brand/README.md) for which file to use when:
+
+| Reference | Title | Version |
+|---|---|---|
+| IIHADMIN003 | IIH UK Horizontal Lockup (SVG, PNG 2048–256, animated) | v1.0 |
+| IIHADMIN004 | IIH UK Emblem (SVG, PNG 1024–32, animated) | v1.0 |
+| IIHADMIN005 | IIH UK Brandmark (SVG, PNG 512–32) | v1.0 |
+
+The IIH UK name and logo are the charity's identity. These files may be used to represent IIH UK
+accurately; they do not grant permission to act on the charity's behalf.
+
 ---
 
 ## Accessibility
