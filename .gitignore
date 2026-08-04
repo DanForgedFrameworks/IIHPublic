@@ -16,6 +16,12 @@ Videos/
 # Staging area for new/unprocessed files — never publish
 To be processed/
 
+# Newsletter working area — internal briefs and previous editions, not yet
+# catalogued. Was unprotected until 20260804; a broad `git add` would have
+# published the team brief. Remove this line only when a newsletter asset is
+# formally catalogued and intended for release.
+04 Newsletter/
+
 # Claude AI project files — internal AI session management, stays local
 .claude/
 CLAUDE.md
