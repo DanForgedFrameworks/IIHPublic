@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIH UK Brand Assets — how to use the logo</title>
+<meta name="description" content="IIH UK logo files: what each one is, which to use where, and how to save them.">
+<style>
+  :root{
+    --navy:#1A2B4A; --teal:#3CBBBA; --grey:#F5F5F5; --amber:#D4730A;
+    --logo-teal:#65C6B3; --logo-blue:#628CC5;
+    --line:#dbe1ea; --muted:#4a5a72;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:#fff; color:var(--navy);
+    font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  .wrap{max-width:940px; margin:0 auto; padding:0 20px}
+
+  a{color:#0B5C7A}
+  a:focus-visible, button:focus-visible, summary:focus-visible{
+    outline:3px solid var(--amber); outline-offset:2px; border-radius:4px;
+  }
+  .skip{position:absolute;left:-9999px}
+  .skip:focus{left:12px;top:12px;z-index:99;background:var(--navy);color:#fff;
+    padding:12px 18px;border-radius:8px;
+    display:flex;align-items:center;min-height:44px}
+
+  header.top{background:var(--navy); color:#fff; padding:30px 0 34px}
+  header.top .wrap{display:flex; gap:22px; align-items:center; flex-wrap:wrap}
+  header.top img{width:84px;height:84px;flex:none}
+  header.top h1{font-size:1.65rem; margin:0 0 6px; line-height:1.25}
+  header.top p{margin:0; color:#c9d6e6; font-size:1rem}
+
+  h2{font-size:1.3rem; margin:0 0 10px; padding-top:6px}
+  h3{font-size:1.02rem; margin:22px 0 8px}
+  section{padding:34px 0; border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  .lede{color:var(--muted); margin:0 0 20px; max-width:62ch}
+
+  /* transparency checkerboard so people can see there is no white box */
+  .swatch{
+    background-color:#fff;
+    background-image:
+      linear-gradient(45deg,#eceff3 25%,transparent 25%,transparent 75%,#eceff3 75%),
+      linear-gradient(45deg,#eceff3 25%,transparent 25%,transparent 75%,#eceff3 75%);
+    background-size:18px 18px; background-position:0 0,9px 9px;
+    border:1px solid var(--line); border-radius:var(--radius);
+    display:flex; align-items:center; justify-content:center; padding:22px;
+  }
+  .swatch img{max-width:100%; height:auto; display:block}
+
+  .asset{display:grid; gap:22px; grid-template-columns:minmax(0,1fr); margin-bottom:34px}
+  @media (min-width:720px){ .asset{grid-template-columns:300px minmax(0,1fr)} }
+  .asset .body h3{margin-top:0}
+  .tag{
+    display:inline-block; font-size:.74rem; letter-spacing:.06em; text-transform:uppercase;
+    font-weight:700; background:var(--grey); color:var(--muted);
+    padding:4px 9px; border-radius:99px; margin-bottom:8px;
+  }
+  .asset p{margin:0 0 12px}
+  .use{margin:0 0 14px; padding-left:20px}
+  .use li{margin:3px 0}
+
+  .dl{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px}
+  .dl a{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-height:44px; min-width:44px; padding:10px 15px;
+    border:2px solid var(--navy); border-radius:8px;
+    background:#fff; color:var(--navy); font-weight:700; font-size:.9rem;
+    text-decoration:none; white-space:nowrap;
+  }
+  .dl a:hover{background:var(--navy); color:#fff}
+  .dl a.primary{background:var(--navy); color:#fff}
+  .dl a.primary:hover{background:#0f1c33}
+  .dl .lbl{width:100%; font-size:.82rem; color:var(--muted); margin:6px 0 0}
+
+  table{border-collapse:collapse; width:100%; margin:14px 0; font-size:.95rem}
+  th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{background:var(--grey); font-size:.85rem; letter-spacing:.02em}
+  .scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+
+  .callout{
+    border-left:5px solid var(--teal); background:var(--grey);
+    padding:16px 18px; border-radius:0 var(--radius) var(--radius) 0; margin:18px 0;
+  }
+  .callout.warn{border-left-color:var(--amber); background:#fff6ec}
+  .callout p{margin:0 0 8px}
+  .callout p:last-child{margin:0}
+  /* heading strong only — scoping this to the first line keeps inline emphasis inline */
+  .callout > p:first-child > strong{display:block; margin-bottom:4px}
+
+  ol.steps{padding-left:22px; margin:12px 0}
+  ol.steps li{margin:9px 0}
+
+  code{
+    background:var(--grey); padding:2px 6px; border-radius:4px;
+    font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace; font-size:.9em;
+  }
+  pre{
+    background:var(--navy); color:#e8eef7; padding:15px 17px; border-radius:8px;
+    overflow-x:auto; font-size:.86rem; line-height:1.5;
+  }
+  pre code{background:none; padding:0; color:inherit}
+
+  .cols{display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+  .card{border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px}
+  .card h3{margin:0 0 6px; font-size:.98rem}
+  .card p{margin:0; font-size:.92rem; color:var(--muted)}
+
+  .chip{display:inline-flex; align-items:center; gap:9px; font-size:.9rem; margin:0 14px 8px 0}
+  .chip i{width:20px;height:20px;border-radius:4px;border:1px solid rgba(0,0,0,.18);display:block}
+
+  iframe.demo{border:1px solid var(--line); border-radius:var(--radius); display:block; max-width:100%}
+
+  footer{background:var(--grey); padding:26px 0; font-size:.88rem; color:var(--muted)}
+  footer p{margin:0 0 6px}
+
+  @media print{
+    header.top{background:#fff;color:#000}
+    .dl,iframe.demo{display:none}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <img src="Static/20260804 IIHADMIN005 IIH UK Brandmark 256 v1.0.png" alt="" width="84" height="84">
+    <div>
+      <h1>IIH UK brand assets</h1>
+      <p>What each logo is, which one to use, and how to save it.</p>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+
+  <section>
+    <h2>Start here</h2>
+    <p class="lede">There are three logos. They are the same identity in three shapes, for three
+      different amounts of space. Pick by the shape of the gap you are filling.</p>
+
+    <div class="cols">
+      <div class="card">
+        <h3>Wide space?</h3>
+        <p>Use the <strong>horizontal lockup</strong>. Page headers, letterheads, email footers.</p>
+      </div>
+      <div class="card">
+        <h3>Square or round space?</h3>
+        <p>Use the <strong>emblem</strong>. Social profile pictures, stamps, badges.</p>
+      </div>
+      <div class="card">
+        <h3>Tiny space?</h3>
+        <p>Use the <strong>brandmark</strong>. Favicons, app icons, avatars.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>If you only remember one thing</strong></p>
+      <p>Download the <strong>SVG</strong> if the thing you are using accepts it — it stays sharp at
+        any size. If it will not accept an SVG, download a <strong>PNG</strong> and pick a size a
+        little larger than you need.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The three logos</h2>
+    <p class="lede">Every file below has a transparent background — the grey chequerboard is just
+      this page showing you there is no white box behind the logo.</p>
+
+    <!-- LOCKUP -->
+    <div class="asset">
+      <div class="swatch">
+        <img src="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 512 v1.0.png"
+             alt="IIH UK horizontal lockup: the butterfly symbol beside the letters IIHUK, with Idiopathic Intracranial Hypertension underneath"
+             width="512" height="133" loading="lazy">
+      </div>
+      <div class="body">
+        <span class="tag">IIHADMIN003</span>
+        <h3>Horizontal lockup</h3>
+        <p>The symbol and the lettering side by side, with the full condition name underneath.
+          This is the main logo — if you are unsure, use this one.</p>
+        <ul class="use">
+          <li>Document and page headers</li>
+          <li>Letterheads and email signatures</li>
+          <li>Slide decks and banners</li>
+        </ul>
+        <div class="dl">
+          <a class="primary" href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup v1.0.svg" download>SVG (best)</a>
+          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 2048 v1.0.png" download>2048</a>
+          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 1024 v1.0.png" download>1024</a>
+          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 512 v1.0.png" download>512</a>
+          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 256 v1.0.png" download>256</a>
+          <p class="lbl">Numbers are the width in pixels.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMBLEM -->
+    <div class="asset">
+      <div class="swatch">
+        <img src="Static/20260804 IIHADMIN004 IIH UK Emblem 512 v1.0.png"
+             alt="IIH UK emblem: a circular badge reading Working to relieve the pressure and Support, Advice, Information around the IIHUK logo"
+             width="330" height="330" loading="lazy" style="max-width:230px">
+      </div>
+      <div class="body">
+        <span class="tag">IIHADMIN004</span>
+        <h3>Emblem</h3>
+        <p>The circular badge. It carries the strapline, the website and the email address, so it
+          works on its own without any other text around it.</p>
+        <ul class="use">
+          <li>Social media profile pictures</li>
+          <li>Stickers, badges, pin designs</li>
+          <li>Anywhere the space is a circle or a square</li>
+        </ul>
+        <div class="dl">
+          <a class="primary" href="Static/20260804 IIHADMIN004 IIH UK Emblem v1.0.svg" download>SVG (best)</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 1024 v1.0.png" download>1024</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 512 v1.0.png" download>512</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 256 v1.0.png" download>256</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 128 v1.0.png" download>128</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 64 v1.0.png" download>64</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 32 v1.0.png" download>32</a>
+          <p class="lbl">512 is the right size for most social media profile pictures.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRANDMARK -->
+    <div class="asset">
+      <div class="swatch">
+        <img src="Static/20260804 IIHADMIN005 IIH UK Brandmark 256 v1.0.png"
+             alt="IIH UK brandmark: the teal butterfly shape formed from four wings around two brain lobes"
+             width="200" height="200" loading="lazy" style="max-width:180px">
+      </div>
+      <div class="body">
+        <span class="tag">IIHADMIN005</span>
+        <h3>Brandmark</h3>
+        <p>The symbol on its own — four wings around the two halves of the brain. Use it where the
+          full logo would be too small to read.</p>
+        <ul class="use">
+          <li>Favicons (the little icon in a browser tab)</li>
+          <li>App and shortcut icons</li>
+          <li>Avatars where the name appears next to the picture anyway</li>
+        </ul>
+        <div class="dl">
+          <a class="primary" href="Static/20260804 IIHADMIN005 IIH UK Brandmark v1.0.svg" download>SVG (best)</a>
+          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 512 v1.0.png" download>512</a>
+          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 256 v1.0.png" download>256</a>
+          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 128 v1.0.png" download>128</a>
+          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 64 v1.0.png" download>64</a>
+          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 32 v1.0.png" download>32</a>
+          <p class="lbl">32 and 64 are favicon sizes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>How to save a file</h2>
+
+    <h3>On a computer</h3>
+    <ol class="steps">
+      <li>Click the button for the size you want. Most browsers save it straight to your
+        <strong>Downloads</strong> folder.</li>
+      <li>If it opens in the browser instead of saving, press <code>Ctrl</code> + <code>S</code>
+        (Windows) or <code>Cmd</code> + <code>S</code> (Mac).</li>
+      <li>Do not rename the file. The name records which logo it is and what version, which is how
+        we keep track of them.</li>
+    </ol>
+
+    <h3>On a phone or tablet</h3>
+    <ol class="steps">
+      <li>Press and hold the logo image above.</li>
+      <li>Choose <strong>Save to Photos</strong>, <strong>Download image</strong>, or
+        <strong>Share</strong>.</li>
+    </ol>
+
+    <h3>Putting it into Word, PowerPoint or Canva</h3>
+    <ol class="steps">
+      <li>Save the file first using the steps above.</li>
+      <li>In your document use <strong>Insert &rarr; Picture &rarr; This device</strong> and choose
+        the file you saved.</li>
+      <li>To resize it, drag a <strong>corner</strong> handle, never a side handle — a side handle
+        squashes the logo out of shape.</li>
+    </ol>
+
+    <div class="callout warn">
+      <p><strong>If the logo appears with a white box around it</strong></p>
+      <p>You have probably saved a screenshot of it rather than the file itself. Go back and use the
+        download buttons — those files have a transparent background and will sit on any colour.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>SVG or PNG?</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>&nbsp;</th><th>SVG</th><th>PNG</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Quality</th>
+              <td>Perfectly sharp at any size, however far you enlarge it</td>
+              <td>Sharp up to its own size, then goes fuzzy</td></tr>
+          <tr><th scope="row">File size</th><td>Usually smaller</td><td>Larger at big sizes</td></tr>
+          <tr><th scope="row">Works in</th>
+              <td>Websites, Word, PowerPoint, Illustrator, most modern software</td>
+              <td>Everything, including social media uploads and older software</td></tr>
+          <tr><th scope="row">Use it when</th>
+              <td>You have the choice — this is the better file</td>
+              <td>SVG is rejected, or you are uploading a profile picture</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Social media sites nearly always reject SVG. For a profile picture, use
+      <strong>Emblem 512</strong>.</p>
+  </section>
+
+  <section>
+    <h2>Animated versions</h2>
+    <p class="lede">For web pages only. Each one settles into place, then breathes gently. It stops
+      completely for anyone who has reduced motion turned on in their device settings.</p>
+
+    <iframe class="demo" src="Dynamic/20260804 IIHADMIN003 IIH UK Horizontal Lockup Animated 512 v1.0.html"
+            width="512" height="133" title="Animated IIH UK horizontal lockup" loading="lazy"></iframe>
+
+    <p style="margin-top:16px">To put one in a web page, copy this and change the size to match the
+      file name:</p>
+    <pre><code>&lt;iframe src="20260804 IIHADMIN003 IIH UK Horizontal Lockup Animated 512 v1.0.html"
+        width="512" height="133" style="border:0"
+        title="IIH UK logo"&gt;&lt;/iframe&gt;</code></pre>
+
+    <p>Available at 1024, 512 and 256 for the lockup, and 512, 256 and 128 for the emblem, in the
+      <code>Dynamic</code> folder.</p>
+
+    <div class="callout warn">
+      <p><strong>There is no animated file for documents or slides</strong></p>
+      <p>We tested one and removed it, because it came out half-drawn in Word, PowerPoint and file
+        previews. For anything that is not a live web page, use a normal PNG or SVG. A logo that
+        does not move is never wrong.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Colours</h2>
+    <p class="lede">These are the logo's own colours. They are close to, but not the same as, the
+      colours used in the IIH UK digital leaflets — do not swap one set for the other.</p>
+    <p>
+      <span class="chip"><i style="background:#65C6B3"></i> <code>#65C6B3</code> symbol and “UK”</span>
+      <span class="chip"><i style="background:#628CC5"></i> <code>#628CC5</code> “II” and “H”</span>
+      <span class="chip"><i style="background:#1A2B4A"></i> <code>#1A2B4A</code> emblem ring</span>
+      <span class="chip"><i style="background:#D4730A"></i> <code>#D4730A</code> web and email text</span>
+    </p>
+  </section>
+
+  <section>
+    <h2>Please don't</h2>
+    <ul class="use">
+      <li>Stretch, squash or rotate the logo — always drag a corner handle</li>
+      <li>Change the colours, or add shadows, outlines or effects</li>
+      <li>Rebuild the lockup yourself by placing the symbol next to the letters — use the supplied file</li>
+      <li>Place it on a busy photograph, or on a colour close to the teal</li>
+      <li>Use it in a way that suggests IIH UK endorses something it has not</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Questions</h2>
+    <p>Email <a href="mailto:info@iih.org.uk">info@iih.org.uk</a>, or see the
+      <a href="README.md">technical notes</a> for the full file list and known limitations.</p>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>IIH UK brand assets</strong> — IIHADMIN003, IIHADMIN004, IIHADMIN005 · v1.0 · 4 August 2026</p>
+    <p>Licensed CC BY-NC 4.0. The IIH UK name and logo are the charity's identity; this licence covers
+      reuse of the files, not permission to act on the charity's behalf.</p>
+    <p>IIH UK — Registered Charity England &amp; Wales 1143522 | Scotland SC043294</p>
+  </div>
+</footer>
+
+</body>
+</html>
