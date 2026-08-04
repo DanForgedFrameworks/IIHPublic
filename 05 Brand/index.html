@@ -91,6 +91,13 @@
   .dl a.primary:hover{background:#0f1c33}
   .dl .lbl{width:100%; font-size:.82rem; color:var(--muted); margin:6px 0 0}
 
+  /* animated downloads are a different KIND of file — teal, so nobody confuses
+     an HTML web-page file with a picture */
+  .dl-head.anim{color:#12595f}
+  .dl-head.anim .ico{background:var(--teal); color:#08363a}
+  .dl.anim a{border-color:var(--teal); color:#12595f}
+  .dl.anim a:hover{background:var(--teal); color:#08363a}
+
   /* ---- play controls, sitting with the preview ---- */
   .preview{display:flex; flex-direction:column; gap:10px}
   .anim-controls{display:flex; flex-wrap:wrap; gap:8px}
@@ -225,7 +232,7 @@
           <button type="button" data-play aria-pressed="false">
             <span aria-hidden="true">&#9654;</span> Play animation
           </button>
-          <p class="hint">Preview only &mdash; nothing is saved.</p>
+          <p class="hint">Watch it here. To keep it, use <strong>Download the animated version</strong>.</p>
         </div>
       </div>
       <div class="body">
@@ -245,7 +252,18 @@
           <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 1024 v1.0.png" download>PNG 1024</a>
           <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 512 v1.0.png" download>PNG 512</a>
           <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 256 v1.0.png" download>PNG 256</a>
-          <p class="lbl">Numbers are the width in pixels. Each button saves the file to your device.</p>
+          <p class="lbl">Still image. Numbers are the width in pixels. Each button saves the file to your device.</p>
+        </div>
+
+        <p class="dl-head anim" id="dla-lockup"><span class="ico" aria-hidden="true">&#8595;</span> Download the animated version</p>
+        <div class="dl anim" role="group" aria-labelledby="dla-lockup">
+          <a href="Dynamic/20260804 IIHADMIN003 IIH UK Horizontal Lockup Animated 1024 v1.0.html" download>Animated 1024</a>
+          <a href="Dynamic/20260804 IIHADMIN003 IIH UK Horizontal Lockup Animated 512 v1.0.html" download>Animated 512</a>
+          <a href="Dynamic/20260804 IIHADMIN003 IIH UK Horizontal Lockup Animated 256 v1.0.html" download>Animated 256</a>
+          <p class="lbl">These are <strong>web page files (.html)</strong>, not pictures. Double-click one
+            to watch it in a browser, or give it to whoever builds the website. They will
+            <strong>not</strong> work in Word, PowerPoint or a social media upload &mdash; use a still image
+            above for those.</p>
         </div>
       </div>
     </div>
@@ -264,7 +282,7 @@
           <button type="button" data-play aria-pressed="false">
             <span aria-hidden="true">&#9654;</span> Play animation
           </button>
-          <p class="hint">Preview only &mdash; nothing is saved.</p>
+          <p class="hint">Watch it here. To keep it, use <strong>Download the animated version</strong>.</p>
         </div>
       </div>
       <div class="body">
@@ -286,7 +304,18 @@
           <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 128 v1.0.png" download>PNG 128</a>
           <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 64 v1.0.png" download>PNG 64</a>
           <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 32 v1.0.png" download>PNG 32</a>
-          <p class="lbl">PNG 512 is the right size for most social media profile pictures.</p>
+          <p class="lbl">Still image. PNG 512 is the right size for most social media profile pictures.</p>
+        </div>
+
+        <p class="dl-head anim" id="dla-emblem"><span class="ico" aria-hidden="true">&#8595;</span> Download the animated version</p>
+        <div class="dl anim" role="group" aria-labelledby="dla-emblem">
+          <a href="Dynamic/20260804 IIHADMIN004 IIH UK Emblem Animated 512 v1.0.html" download>Animated 512</a>
+          <a href="Dynamic/20260804 IIHADMIN004 IIH UK Emblem Animated 256 v1.0.html" download>Animated 256</a>
+          <a href="Dynamic/20260804 IIHADMIN004 IIH UK Emblem Animated 128 v1.0.html" download>Animated 128</a>
+          <p class="lbl">These are <strong>web page files (.html)</strong>, not pictures. Double-click one
+            to watch it in a browser, or give it to whoever builds the website. They will
+            <strong>not</strong> work in Word, PowerPoint or a social media upload &mdash; use a still image
+            above for those.</p>
         </div>
       </div>
     </div>
