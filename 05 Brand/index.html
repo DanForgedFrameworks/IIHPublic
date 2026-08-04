@@ -65,18 +65,51 @@
   .use{margin:0 0 14px; padding-left:20px}
   .use li{margin:3px 0}
 
-  .dl{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px}
-  .dl a{
+  /* ---- download group: must read as "this saves a file", not "this is a size option" ---- */
+  .dl-head{
+    display:flex; align-items:center; gap:7px;
+    font-size:.8rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase;
+    color:var(--muted); margin:16px 0 8px;
+  }
+  .dl-head .ico{
+    width:20px; height:20px; border-radius:50%; background:var(--navy); color:#fff;
     display:inline-flex; align-items:center; justify-content:center;
+    font-size:.72rem; line-height:1; flex:none;
+  }
+  .dl{display:flex; flex-wrap:wrap; gap:8px}
+  .dl a{
+    display:inline-flex; align-items:center; gap:7px;
     min-height:44px; min-width:44px; padding:10px 15px;
     border:2px solid var(--navy); border-radius:8px;
     background:#fff; color:var(--navy); font-weight:700; font-size:.9rem;
     text-decoration:none; white-space:nowrap;
   }
+  .dl a::before{content:"\2193"; font-weight:700; opacity:.75}
   .dl a:hover{background:var(--navy); color:#fff}
+  .dl a:hover::before{opacity:1}
   .dl a.primary{background:var(--navy); color:#fff}
   .dl a.primary:hover{background:#0f1c33}
   .dl .lbl{width:100%; font-size:.82rem; color:var(--muted); margin:6px 0 0}
+
+  /* ---- play controls, sitting with the preview ---- */
+  .preview{display:flex; flex-direction:column; gap:10px}
+  .anim-controls{display:flex; flex-wrap:wrap; gap:8px}
+  .anim-controls button{
+    display:inline-flex; align-items:center; gap:7px;
+    min-height:44px; padding:10px 15px;
+    border:2px solid var(--teal); border-radius:8px;
+    background:#fff; color:#12595f; font:inherit; font-weight:700; font-size:.88rem;
+    cursor:pointer; white-space:nowrap;
+  }
+  /* a display rule beats the [hidden] attribute, so restore it explicitly */
+  .anim-controls button[hidden]{display:none}
+  .anim-controls button:hover{background:var(--teal); color:#08363a}
+  .anim-controls button[aria-pressed="true"]{background:var(--teal); color:#08363a}
+  .anim-controls .hint{font-size:.8rem; color:var(--muted); margin:0; width:100%}
+  /* The animated files are fixed-size pages, so the iframe cannot simply be given
+     width:100% — it would crop. Scale it to the slot instead. */
+  .anim-fit{width:100%; overflow:hidden}
+  .anim-fit iframe{border:0; display:block; transform-origin:top left}
 
   table{border-collapse:collapse; width:100%; margin:14px 0; font-size:.95rem}
   th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top}
@@ -119,9 +152,13 @@
   footer{background:var(--grey); padding:26px 0; font-size:.88rem; color:var(--muted)}
   footer p{margin:0 0 6px}
 
+  details{border:1px solid var(--line); border-radius:var(--radius); padding:14px 18px; margin-top:18px}
+  summary{cursor:pointer; font-weight:700; min-height:44px; display:flex; align-items:center}
+  details p{margin:10px 0}
+
   @media print{
     header.top{background:#fff;color:#000}
-    .dl,iframe.demo{display:none}
+    .dl,.anim-controls,iframe.demo{display:none}
   }
 </style>
 </head>
@@ -176,10 +213,20 @@
 
     <!-- LOCKUP -->
     <div class="asset">
-      <div class="swatch">
-        <img src="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 512 v1.0.png"
-             alt="IIH UK horizontal lockup: the butterfly symbol beside the letters IIHUK, with Idiopathic Intracranial Hypertension underneath"
-             width="512" height="133" loading="lazy">
+      <div class="preview">
+        <div class="swatch" data-slot
+             data-anim="Dynamic/20260804 IIHADMIN003 IIH UK Horizontal Lockup Animated 512 v1.0.html"
+             data-anim-w="512" data-anim-h="133">
+          <img src="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 512 v1.0.png"
+               alt="IIH UK horizontal lockup: the butterfly symbol beside the letters IIHUK, with Idiopathic Intracranial Hypertension underneath"
+               width="512" height="133" loading="lazy">
+        </div>
+        <div class="anim-controls" data-controls>
+          <button type="button" data-play aria-pressed="false">
+            <span aria-hidden="true">&#9654;</span> Play animation
+          </button>
+          <p class="hint">Preview only &mdash; nothing is saved.</p>
+        </div>
       </div>
       <div class="body">
         <span class="tag">IIHADMIN003</span>
@@ -191,23 +238,34 @@
           <li>Letterheads and email signatures</li>
           <li>Slide decks and banners</li>
         </ul>
-        <div class="dl">
-          <a class="primary" href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup v1.0.svg" download>SVG (best)</a>
-          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 2048 v1.0.png" download>2048</a>
-          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 1024 v1.0.png" download>1024</a>
-          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 512 v1.0.png" download>512</a>
-          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 256 v1.0.png" download>256</a>
-          <p class="lbl">Numbers are the width in pixels.</p>
+        <p class="dl-head" id="dl-lockup"><span class="ico" aria-hidden="true">&#8595;</span> Download a file</p>
+        <div class="dl" role="group" aria-labelledby="dl-lockup">
+          <a class="primary" href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup v1.0.svg" download>SVG &mdash; best quality</a>
+          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 2048 v1.0.png" download>PNG 2048</a>
+          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 1024 v1.0.png" download>PNG 1024</a>
+          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 512 v1.0.png" download>PNG 512</a>
+          <a href="Static/20260804 IIHADMIN003 IIH UK Horizontal Lockup 256 v1.0.png" download>PNG 256</a>
+          <p class="lbl">Numbers are the width in pixels. Each button saves the file to your device.</p>
         </div>
       </div>
     </div>
 
     <!-- EMBLEM -->
     <div class="asset">
-      <div class="swatch">
-        <img src="Static/20260804 IIHADMIN004 IIH UK Emblem 512 v1.0.png"
-             alt="IIH UK emblem: a circular badge reading Working to relieve the pressure and Support, Advice, Information around the IIHUK logo"
-             width="330" height="330" loading="lazy" style="max-width:230px">
+      <div class="preview">
+        <div class="swatch" data-slot
+             data-anim="Dynamic/20260804 IIHADMIN004 IIH UK Emblem Animated 256 v1.0.html"
+             data-anim-w="256" data-anim-h="256">
+          <img src="Static/20260804 IIHADMIN004 IIH UK Emblem 512 v1.0.png"
+               alt="IIH UK emblem: a circular badge reading Working to relieve the pressure and Support, Advice, Information around the IIHUK logo"
+               width="330" height="330" loading="lazy" style="max-width:230px">
+        </div>
+        <div class="anim-controls" data-controls>
+          <button type="button" data-play aria-pressed="false">
+            <span aria-hidden="true">&#9654;</span> Play animation
+          </button>
+          <p class="hint">Preview only &mdash; nothing is saved.</p>
+        </div>
       </div>
       <div class="body">
         <span class="tag">IIHADMIN004</span>
@@ -219,15 +277,16 @@
           <li>Stickers, badges, pin designs</li>
           <li>Anywhere the space is a circle or a square</li>
         </ul>
-        <div class="dl">
-          <a class="primary" href="Static/20260804 IIHADMIN004 IIH UK Emblem v1.0.svg" download>SVG (best)</a>
-          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 1024 v1.0.png" download>1024</a>
-          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 512 v1.0.png" download>512</a>
-          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 256 v1.0.png" download>256</a>
-          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 128 v1.0.png" download>128</a>
-          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 64 v1.0.png" download>64</a>
-          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 32 v1.0.png" download>32</a>
-          <p class="lbl">512 is the right size for most social media profile pictures.</p>
+        <p class="dl-head" id="dl-emblem"><span class="ico" aria-hidden="true">&#8595;</span> Download a file</p>
+        <div class="dl" role="group" aria-labelledby="dl-emblem">
+          <a class="primary" href="Static/20260804 IIHADMIN004 IIH UK Emblem v1.0.svg" download>SVG &mdash; best quality</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 1024 v1.0.png" download>PNG 1024</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 512 v1.0.png" download>PNG 512</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 256 v1.0.png" download>PNG 256</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 128 v1.0.png" download>PNG 128</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 64 v1.0.png" download>PNG 64</a>
+          <a href="Static/20260804 IIHADMIN004 IIH UK Emblem 32 v1.0.png" download>PNG 32</a>
+          <p class="lbl">PNG 512 is the right size for most social media profile pictures.</p>
         </div>
       </div>
     </div>
@@ -249,14 +308,15 @@
           <li>App and shortcut icons</li>
           <li>Avatars where the name appears next to the picture anyway</li>
         </ul>
-        <div class="dl">
-          <a class="primary" href="Static/20260804 IIHADMIN005 IIH UK Brandmark v1.0.svg" download>SVG (best)</a>
-          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 512 v1.0.png" download>512</a>
-          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 256 v1.0.png" download>256</a>
-          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 128 v1.0.png" download>128</a>
-          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 64 v1.0.png" download>64</a>
-          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 32 v1.0.png" download>32</a>
-          <p class="lbl">32 and 64 are favicon sizes.</p>
+        <p class="dl-head" id="dl-mark"><span class="ico" aria-hidden="true">&#8595;</span> Download a file</p>
+        <div class="dl" role="group" aria-labelledby="dl-mark">
+          <a class="primary" href="Static/20260804 IIHADMIN005 IIH UK Brandmark v1.0.svg" download>SVG &mdash; best quality</a>
+          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 512 v1.0.png" download>PNG 512</a>
+          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 256 v1.0.png" download>PNG 256</a>
+          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 128 v1.0.png" download>PNG 128</a>
+          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 64 v1.0.png" download>PNG 64</a>
+          <a href="Static/20260804 IIHADMIN005 IIH UK Brandmark 32 v1.0.png" download>PNG 32</a>
+          <p class="lbl">PNG 32 and 64 are favicon sizes.</p>
         </div>
       </div>
     </div>
@@ -325,20 +385,9 @@
 
   <section>
     <h2>Animated versions</h2>
-    <p class="lede">For web pages only. Each one settles into place, then breathes gently. It stops
-      completely for anyone who has reduced motion turned on in their device settings.</p>
-
-    <iframe class="demo" src="Dynamic/20260804 IIHADMIN003 IIH UK Horizontal Lockup Animated 512 v1.0.html"
-            width="512" height="133" title="Animated IIH UK horizontal lockup" loading="lazy"></iframe>
-
-    <p style="margin-top:16px">To put one in a web page, copy this and change the size to match the
-      file name:</p>
-    <pre><code>&lt;iframe src="20260804 IIHADMIN003 IIH UK Horizontal Lockup Animated 512 v1.0.html"
-        width="512" height="133" style="border:0"
-        title="IIH UK logo"&gt;&lt;/iframe&gt;</code></pre>
-
-    <p>Available at 1024, 512 and 256 for the lockup, and 512, 256 and 128 for the emblem, in the
-      <code>Dynamic</code> folder.</p>
+    <p class="lede">Use the <strong>Play animation</strong> button on the lockup or emblem above to
+      watch one. They are for live web pages only, and they stop completely for anyone who has
+      reduced motion turned on in their device settings.</p>
 
     <div class="callout warn">
       <p><strong>There is no animated file for documents or slides</strong></p>
@@ -346,6 +395,16 @@
         previews. For anything that is not a live web page, use a normal PNG or SVG. A logo that
         does not move is never wrong.</p>
     </div>
+
+    <details>
+      <summary>For whoever builds the website &mdash; how to embed one</summary>
+      <p style="margin-top:12px">Copy this, and change the size to match the file name:</p>
+      <pre><code>&lt;iframe src="20260804 IIHADMIN003 IIH UK Horizontal Lockup Animated 512 v1.0.html"
+        width="512" height="133" style="border:0"
+        title="IIH UK logo"&gt;&lt;/iframe&gt;</code></pre>
+      <p>Sizes available in the <code>Dynamic</code> folder: lockup at 1024, 512 and 256; emblem at
+        512, 256 and 128.</p>
+    </details>
   </section>
 
   <section>
@@ -388,6 +447,83 @@
     <p>IIH UK — Registered Charity England &amp; Wales 1143522 | Scotland SC043294</p>
   </div>
 </footer>
+
+<script>
+(function(){
+  // Swap the still image for the animated version, in place. Re-creating the iframe
+  // is what replays it. Nothing here downloads anything.
+  var PLAY = '▶', STOP = '■', REPLAY = '↻';
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-controls]'), function(controls){
+    var preview = controls.parentNode;
+    var slot    = preview.querySelector('[data-slot]');
+    var btn     = controls.querySelector('[data-play]');
+    var still   = slot.querySelector('img');
+    var src     = slot.getAttribute('data-anim');
+    var w       = slot.getAttribute('data-anim-w');
+    var h       = slot.getAttribute('data-anim-h');
+    if(!src) return;
+
+    var replay = document.createElement('button');
+    replay.type = 'button';
+    replay.hidden = true;
+    replay.innerHTML = '<span aria-hidden="true">' + REPLAY + '</span> Replay';
+    btn.parentNode.insertBefore(replay, btn.nextSibling);
+
+    var fit = null;
+
+    // The animated file is a fixed-size page. Scale it down to whatever width the
+    // slot actually has, and shrink the wrapper to match so nothing is clipped.
+    function resize(){
+      if(!fit) return;
+      var frame = fit.querySelector('iframe');
+      if(!frame) return;
+      var avail = fit.clientWidth;
+      var scale = Math.min(1, avail / w);
+      frame.style.transform = 'scale(' + scale + ')';
+      fit.style.height = Math.round(h * scale) + 'px';
+    }
+
+    function mount(){
+      unmount(true);
+      fit = document.createElement('div');
+      fit.className = 'anim-fit';
+      var f = document.createElement('iframe');
+      f.src = src; f.width = w; f.height = h;
+      f.title = 'Animated preview';
+      f.setAttribute('scrolling','no');
+      fit.appendChild(f);
+      still.style.display = 'none';
+      slot.appendChild(fit);
+      resize();
+    }
+    function unmount(keepHidden){
+      if(fit && fit.parentNode) fit.parentNode.removeChild(fit);
+      fit = null;
+      if(!keepHidden) still.style.display = '';
+    }
+
+    window.addEventListener('resize', resize);
+
+    btn.addEventListener('click', function(){
+      var on = btn.getAttribute('aria-pressed') === 'true';
+      if(on){
+        unmount();
+        btn.setAttribute('aria-pressed','false');
+        btn.innerHTML = '<span aria-hidden="true">' + PLAY + '</span> Play animation';
+        replay.hidden = true;
+      } else {
+        mount();
+        btn.setAttribute('aria-pressed','true');
+        btn.innerHTML = '<span aria-hidden="true">' + STOP + '</span> Show still image';
+        replay.hidden = false;
+      }
+    });
+
+    replay.addEventListener('click', mount);
+  });
+})();
+</script>
 
 </body>
 </html>
