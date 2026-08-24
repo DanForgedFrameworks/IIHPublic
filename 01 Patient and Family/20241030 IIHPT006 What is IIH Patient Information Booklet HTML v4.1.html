@@ -382,6 +382,26 @@
     .accordion-content { padding: var(--space-lg); border-left: 4px solid var(--color-primary); max-width: var(--measure); }
 
     /* =========================================================
+       FEEDBACK BAND — user review invitation (TEMPORARY).
+       Local to this asset. NOT part of the canonical master.
+       Remove this block and its <section> when the review closes.
+       ========================================================= */
+    .feedback-band { background: var(--color-primary-tint); border-top: 4px solid var(--color-primary); padding: var(--space-xl) 0; }
+    .feedback-band h2 { font-size: var(--font-size-xl); margin-bottom: var(--space-sm); }
+    .feedback-band p { max-width: var(--measure); margin-bottom: var(--space-md); }
+    .feedback-cta {
+      display: inline-flex; align-items: center; gap: var(--space-xs);
+      min-height: var(--touch-target); padding: var(--space-sm) var(--space-lg);
+      /* #176E6D = AA-safe teal (6.0:1 behind white text). NOT --color-primary-dark,
+         which is only 3.4:1 and fails AA for label text at this size. */
+      border-radius: 999px; background: #176E6D; color: #fff;
+      font-weight: 700; text-decoration: none; white-space: nowrap;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .feedback-cta:hover, .feedback-cta:focus-visible { background: var(--color-text); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .feedback-note { font-size: var(--font-size-sm); color: var(--color-text-muted); margin-bottom: 0; }
+
+    /* =========================================================
        HELP & SUPPORT BAND (shown in every view)
        ========================================================= */
     /* SUPPORT BAND (§C) — 12 links, fixed order, colour-coded left border.
@@ -595,6 +615,32 @@
         <li><a class="sp-teal"   href="https://www.carersuk.org" target="_blank" rel="noopener noreferrer"><span class="sp-ico" aria-hidden="true">🤝</span>Carers UK — local carer support</a></li>
         <li><a class="sp-navy"   href="mailto:info@iih.org.uk"><span class="sp-ico" aria-hidden="true">✉️</span>Email IIH UK — info@iih.org.uk</a></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FEEDBACK BAND — user review invitation (TEMPORARY).          -->
+  <!-- NOT part of the canonical master. Remove when review closes. -->
+  <!-- Link carries the edition in a prefill parameter, so every    -->
+  <!-- response is stamped v4.1 without asking the reader.          -->
+  <!-- The %3F is the "?" in the booklet title, percent-encoded.    -->
+  <!-- ============================================================ -->
+  <section class="feedback-band" aria-labelledby="feedback-heading">
+    <div class="container">
+      <h2 id="feedback-heading">Would you help us make this better?</h2>
+      <p>
+        We are asking people who actually use these leaflets what worked and what got in the way.
+        There are no right answers, and short replies are perfect. It takes about 7 minutes.
+      </p>
+      <p>
+        <a class="feedback-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSeqm_5uJzka8P8OUoeXEyrftHnlaVxOZEgoJxkFwIbrEm0e_Q/viewform?usp=pp_url&amp;entry.496244461=What+is+IIH%3F+Patient+Information+Booklet+(v4.1)" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">💬</span>Tell us what you think</a>
+      </p>
+      <p class="feedback-note">
+        We do not collect your name, and we will not ask anything about your health.
+        Would you rather talk than type? Record a voice note on your phone and email it to
+        <a href="mailto:danboyland@iih.org.uk">danboyland@iih.org.uk</a> — we will type up what
+        you tell us and delete the recording.
+      </p>
     </div>
   </section>
 
