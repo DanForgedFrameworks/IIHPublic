@@ -26,6 +26,17 @@ To be processed/
 .claude/
 CLAUDE.md
 
+# Secrets — this repo is PUBLIC. A `.env` holding a live Clockify API key sat
+# untracked and unignored here until 20260911; a broad `git add` would have
+# published it. The key now lives outside every repo, at ~/.secrets/. Nothing
+# of this kind belongs in this working tree — these lines are a backstop, not
+# a licence to keep credentials here.
+.env
+*.env
+.env.*
+secrets/
+.secrets/
+
 # Windows system files
 Thumbs.db
 Thumbs.db:encryptable
