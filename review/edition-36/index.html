@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="warm">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heads Up! is coming back — which way should it work?</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="style.css?v=202609120918">
+<style>
+  .choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;margin:1.5rem 0}
+  .card{background:var(--surface);border:1px solid var(--rule);border-top:5px solid var(--rub,var(--teal));
+    border-radius:var(--r-lg);box-shadow:var(--shadow);padding:1.25rem;display:flex;flex-direction:column;gap:.625rem}
+  .card h3{font-size:1.5rem}
+  .card .lead{font-size:1rem}
+  .card .spacer{flex:1}
+  .qlist{counter-reset:q;list-style:none;margin:1rem 0}
+  .qlist li{counter-increment:q;position:relative;padding-left:2.5rem;margin-bottom:.75rem;font-weight:700}
+  .qlist li::before{content:counter(q);position:absolute;left:0;top:0;
+    width:1.75rem;height:1.75rem;border-radius:50%;background:var(--navy);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:.9rem}
+  :root[data-mode="dark"] .qlist li::before{background:var(--teal);color:#0B1117}
+  .deadline{background:#FFF8E1;border-left:5px solid #D4730A;color:#92520A;
+    border-radius:0 var(--r) var(--r) 0;padding:.875rem 1rem;font-size:1rem}
+  :root[data-mode="dark"] .deadline{background:#2A2114;color:#F0C489}
+  .caveat{background:var(--bg-alt);border-radius:var(--r);padding:1rem;font-size:1rem;color:var(--ink-soft);margin-top:1.5rem}
+  @media (max-width:720px){ .choice{grid-template-columns:minmax(0,1fr)} }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="controls">
+  <div class="wrap">
+    <span class="controls-label">Background</span>
+    <button type="button" class="modebtn" data-mode="warm" aria-pressed="true">Warm</button>
+    <button type="button" class="modebtn" data-mode="dark" aria-pressed="false">Dark</button>
+    <button type="button" class="modebtn" data-mode="light" aria-pressed="false">Bright</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="brandmark">IIH<span>UK</span></div>
+    <p class="reg">Registered charity<br>1143522 &middot; SC043294</p>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap hero-text">
+    <h1 class="ttl" style="font-size:clamp(1.9rem,6vw,2.6rem)">Heads&nbsp;Up! is coming back</h1>
+    <p class="issue">Two drafts &middot; four short questions &middot; about ten minutes</p>
+  </div>
+</div>
+
+<main id="main"><div class="wrap" style="padding-top:2rem">
+
+  <p style="font-size:1.2rem;margin-bottom:1rem">I am rebuilding the newsletter so it works on a
+  phone, can be read in short bursts, and does not blind you on a bad day. Before I write the words,
+  I want to get the shape right &mdash; and I would rather hear from you now than after it is built.</p>
+
+  <p style="margin-bottom:.5rem"><strong>The words are the same in both drafts.</strong> The only
+  difference is how the edition starts. Have a look at each, ideally on your phone.</p>
+
+  <div class="choice">
+    <div class="card" style="--rub:#176E6D">
+      <span class="rubric">Draft A</span>
+      <h3>Opens with a picture</h3>
+      <p class="lead">A photograph across the top, then the title, then straight into the stories.
+      It feels like a magazine.</p>
+      <p class="lead"><strong>But</strong> you have to scroll past the picture before you can see
+      what is in the edition.</p>
+      <span class="spacer"></span>
+      <a class="btn btn-primary" href="draft-a.html">Open Draft A</a>
+    </div>
+    <div class="card" style="--rub:#4338CA">
+      <span class="rubric">Draft B</span>
+      <h3>Opens with a contents list</h3>
+      <p class="lead">The title, then a numbered list of everything in the edition, so you can jump
+      straight to what you want.</p>
+      <p class="lead"><strong>But</strong> it is a plainer start and feels less like a magazine.</p>
+      <span class="spacer"></span>
+      <a class="btn btn-primary" href="draft-b.html">Open Draft B</a>
+    </div>
+  </div>
+
+  <h2 style="font-size:1.5rem;margin-top:2rem">The four questions</h2>
+  <p style="margin-top:.5rem">One or two words is a perfect answer. You do not need to explain.</p>
+  <ol class="qlist">
+    <li>A or B?</li>
+    <li>Is the text big enough to read comfortably on your phone?</li>
+    <li>Is anything too much &mdash; too busy, too bright, too many things at once?</li>
+    <li>Is there anything you expected to find and could not?</li>
+  </ol>
+
+  <p class="deadline"><strong>Please reply by Wednesday 17 September.</strong> After that I lock the
+  layout and start writing. You are not being asked about the wording or whether the facts are right
+  yet &mdash; that is the next round.</p>
+
+  <div class="caveat">
+    <p style="margin-bottom:.625rem"><strong>Things you can safely ignore.</strong></p>
+    <p style="margin-bottom:.625rem">Every photograph is a grey placeholder &mdash; the real conference
+    pictures go in later. The Spotlight section is deliberately blank until someone agrees to be
+    featured. None of the buttons do anything yet.</p>
+    <p style="margin-bottom:0">One thing that <em>does</em> work, and is worth trying: the
+    <strong>Warm / Dark / Bright</strong> buttons at the very top. It opens on Warm, because a white
+    screen is the thing people tell me they struggle with most on a bad day. Tell me if it helps, or
+    if you would rather it started bright.</p>
+  </div>
+
+</div></main>
+
+<footer class="foot" style="margin-top:2.5rem">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><h2>What this is</h2><p>A draft of Heads Up! Edition 36, for review by the IIH UK team.
+        Not the finished newsletter.</p></div>
+      <div><h2>IIH UK</h2><p>Registered charity<br>England &amp; Wales 1143522<br>Scotland SC043294</p></div>
+    </div>
+    <p class="foot-bottom">&copy; 2026 IIH UK &middot; CC BY-NC 4.0</p>
+  </div>
+</footer>
+
+<script src="app.js?v=202609120918"></script>
+</body>
+</html>
