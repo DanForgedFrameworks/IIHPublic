@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-mode="warm">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Direction 4 — Noticeboard — Heads Up! Edition 36</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="theme.css?v=202609121003">
 <style>
   .navstrip {
     position: sticky; top: 0; z-index: 100;
-    background: #1A2B4A; color: #fff;
+    background: var(--wf-navy); color: #fff;
     padding: 10px 16px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
@@ -34,14 +36,14 @@
   .tabs a:hover { border-color: #3CBBBA; }
   .tabs a[aria-current="page"] { background: #3CBBBA; border-color: #3CBBBA; color: #12303A; }
   .blurb {
-    background: #EBF8F8; border-bottom: 1px solid #B9C0CA;
-    padding: 10px 16px; font-size: 14px; color: #1A2B4A;
+    background: var(--wf-blurb); border-bottom: 1px solid var(--wf-rule);
+    padding: 10px 16px; font-size: 14px; color: var(--wf-ink);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
   .blurb-inner { max-width: 1100px; margin: 0 auto; }
   .sheet { flex-wrap: wrap; }
   .scrollhint {
-    display: none; font-size: 13px; color: #5C6675; margin: 0 0 8px;
+    display: none; font-size: 13px; color: var(--wf-soft); margin: 0 0 8px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
   /* Narrow screens: stack the two sheets, and let the WIDE one scroll inside its
@@ -56,40 +58,48 @@
   }
 
     body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-      background:#EFEEE9;color:#1A2B4A}
+      background:var(--wf-canvas);color:var(--wf-ink)}
     .sheet{display:flex;gap:56px;padding:40px;align-items:flex-start}
-    .lab{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7A8494;margin-bottom:10px}
-    .pg{background:#fff;border:1px solid #B9C0CA;box-shadow:0 2px 10px rgba(26,43,74,.08)}
+    .lab{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--wf-soft);margin-bottom:10px}
+    .pg{background:var(--wf-paper);border:1px solid var(--wf-rule);box-shadow:0 2px 10px rgba(0,0,0,.10)}
     .mast{background:#2E3A4E;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
     .mlogo{width:74px;height:16px;background:#7FD4D3;border-radius:2px}
-    .mdate{width:60px;height:7px;background:#7A8494;border-radius:2px}
+    .mdate{width:60px;height:7px;background:var(--wf-soft);border-radius:2px}
     .band{background:#7FD4D3;padding:14px}
     .ttl{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1}
     .body{padding:14px}
-    .bar{height:7px;background:#D3D8DE;border-radius:2px;margin-bottom:6px}
+    .bar{height:7px;background:var(--wf-bar);border-radius:2px;margin-bottom:6px}
     .bar.s{width:55%}.bar.m{width:80%}.bar.l{width:100%}
-    .img{background:#C7CED6;border:1px dashed #97A1AD;display:flex;align-items:center;justify-content:center;
-      font-size:9px;font-weight:700;letter-spacing:.1em;color:#5C6675;text-transform:uppercase}
+    .img{background:var(--wf-img);border:1px dashed var(--wf-rule);display:flex;align-items:center;justify-content:center;
+      font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--wf-soft);text-transform:uppercase}
     .h{font-size:14px;font-weight:800;margin:0 0 6px;line-height:1.15}
     .h.sm{font-size:12px}
     .mosaic{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:54px;gap:5px;margin-bottom:6px}
-    .card{background:#fff;border:1px solid #DDE2E8;border-top:4px solid var(--ac,#7FD4D3);
+    .card{background:var(--wf-paper);border:1px solid var(--wf-rule);border-top:4px solid var(--ac,#7FD4D3);
       border-radius:4px;padding:10px;box-shadow:0 1px 4px rgba(26,43,74,.06)}
     .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     .pin{display:inline-block;font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-      color:#5C6675;background:#EFF2F5;border-radius:2px;padding:2px 5px;margin-bottom:6px}
-    .face{width:40px;height:40px;border-radius:50%;background:#C7CED6;border:1px dashed #97A1AD;
-      display:flex;align-items:center;justify-content:center;font-size:7px;color:#5C6675;text-align:center}
+      color:var(--wf-soft);background:#EFF2F5;border-radius:2px;padding:2px 5px;margin-bottom:6px}
+    .face{width:40px;height:40px;border-radius:50%;background:var(--wf-img);border:1px dashed var(--wf-rule);
+      display:flex;align-items:center;justify-content:center;font-size:7px;color:var(--wf-soft);text-align:center}
     .quote{background:#F6FAFA;border-left:4px solid #7FD4D3;padding:9px 11px;border-radius:0 4px 4px 0}
     .quoteTxt{font-size:12px;font-style:italic;font-weight:600;line-height:1.35;color:#2E3A4E}
     .foot{background:#2E3A4E;padding:14px}
     .foot .bar{background:#57637A}
-    .note{font-size:11px;color:#5C6675;line-height:1.5;margin-top:10px;max-width:600px}
-    .cap{font-size:9px;color:#7A8494;margin-top:4px}
-    .cta{height:20px;background:#1A2B4A;border-radius:10px;width:90px}
+    .note{font-size:11px;color:var(--wf-soft);line-height:1.5;margin-top:10px;max-width:600px}
+    .cap{font-size:9px;color:var(--wf-soft);margin-top:4px}
+    .cta{height:20px;background:var(--wf-ink);border-radius:10px;width:90px}
 </style>
 </head>
 <body>
+<div class="themebar">
+  <div class="themebar-inner">
+    <span class="themebar-label">Background</span>
+    <button type="button" class="modebtn" data-mode="warm" aria-pressed="true">Warm</button>
+    <button type="button" class="modebtn" data-mode="dark" aria-pressed="false">Dark</button>
+    <button type="button" class="modebtn" data-mode="light" aria-pressed="false">Bright</button>
+  </div>
+</div>
 <div class="navstrip">
   <div class="navstrip-inner">
     <div class="title">Heads Up! Edition 36 <span>&middot; four directions</span></div>
@@ -230,5 +240,6 @@
   </div>
 
 </div>
+<script src="theme.js?v=202609121003"></script>
 </body>
 </html>

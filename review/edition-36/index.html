@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-mode="warm">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Heads Up! is coming back — which shape should it take?</title>
 <meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="theme.css?v=2">
 <style>
-  :root{
-    --teal:#3CBBBA; --link:#176E6D; --navy:#1A2B4A;
-    --paper:#F6EFE2; --card:#FBF6EC; --rule:#D9CDB8;
-    --ink:#2B2418; --soft:#5C5344;
-    --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
-  }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:var(--font);font-size:1.125rem;line-height:1.7;color:var(--ink);background:var(--paper)}
-  a{color:var(--link);text-underline-offset:3px}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    font-size:1.125rem;line-height:1.7;color:var(--wf-ink);background:var(--wf-canvas);
+    -webkit-text-size-adjust:100%;
+  }
+  a{color:var(--wf-ink);text-underline-offset:3px}
   h1,h2,h3{line-height:1.15}
-  :focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:2px}
+  :focus-visible{outline:3px solid var(--wf-teal);outline-offset:3px;border-radius:2px}
   .wrap{width:100%;max-width:46rem;margin:0 auto;padding:0 1.25rem}
-  .navstrip{background:var(--navy);color:#fff;padding:10px 16px;position:sticky;top:0;z-index:50}
+
+  .navstrip{background:var(--wf-navy);color:#fff;padding:10px 16px;position:sticky;top:0;z-index:50}
   .navstrip-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
   .navstrip .title{font-weight:800;font-size:15px}
   .navstrip .title span{font-weight:400;opacity:.7}
@@ -26,37 +26,49 @@
   .tabs a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;
     padding:0 14px;border-radius:999px;border:2px solid rgba(255,255,255,.25);color:#fff;
     text-decoration:none;font-weight:700;font-size:14px}
-  .tabs a:hover{border-color:var(--teal)}
-  header.hero{background:var(--teal);padding:2.25rem 0}
-  header.hero h1{font-size:clamp(1.8rem,6vw,2.5rem);font-weight:800;letter-spacing:-.02em;color:var(--navy)}
+  .tabs a:hover{border-color:var(--wf-teal);color:#fff}
+
+  header.hero{background:#7FD4D3;padding:2.25rem 0}
+  header.hero h1{font-size:clamp(1.8rem,6vw,2.5rem);font-weight:800;letter-spacing:-.02em;color:#12303A}
   header.hero p{margin-top:.5rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
     font-size:.9rem;color:#12303A}
+
   main{padding:2rem 0 3rem}
   p{margin-bottom:1rem;max-width:36rem}
   .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.5rem 0}
-  .opt{background:var(--card);border:1px solid var(--rule);border-top:5px solid var(--ac);
-    border-radius:12px;padding:1.1rem;display:flex;flex-direction:column;gap:.5rem}
+  .opt{background:var(--wf-paper);border:1px solid var(--wf-rule);border-top:5px solid var(--ac);
+    border-radius:12px;padding:1.1rem;display:flex;flex-direction:column;gap:.5rem;box-shadow:var(--wf-shadow)}
   .opt .lab{font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
   .opt h3{font-size:1.25rem}
-  .opt p{font-size:1rem;margin:0}
+  .opt p{font-size:1rem;margin:0;color:var(--wf-soft)}
   .opt .sp{flex:1}
   .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.6rem 1.25rem;
-    border-radius:999px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:1rem}
-  .btn:hover{background:var(--link);color:#fff}
+    border-radius:999px;background:var(--wf-ink);color:var(--wf-paper);text-decoration:none;
+    font-weight:700;font-size:1rem}
+  .btn:hover{background:var(--wf-soft);color:var(--wf-paper)}
   .qlist{counter-reset:q;list-style:none;margin:1rem 0 1.5rem}
   .qlist li{counter-increment:q;position:relative;padding-left:2.5rem;margin-bottom:.75rem;font-weight:700}
   .qlist li::before{content:counter(q);position:absolute;left:0;top:.1rem;width:1.75rem;height:1.75rem;
-    border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;
+    border-radius:50%;background:var(--wf-ink);color:var(--wf-paper);display:flex;align-items:center;
     justify-content:center;font-size:.9rem}
-  .deadline{background:#FFF8E1;border-left:5px solid #D4730A;color:#92520A;border-radius:0 6px 6px 0;
+  .deadline{background:var(--wf-blurb);border-left:5px solid #D4730A;border-radius:0 6px 6px 0;
     padding:.875rem 1rem;font-size:1rem;max-width:36rem}
-  .caveat{background:#EFE6D6;border-radius:6px;padding:1rem;font-size:1rem;color:var(--soft);
-    margin-top:1.5rem;max-width:36rem}
-  footer{background:var(--navy);color:rgba(255,255,255,.85);padding:2rem 0;font-size:.95rem}
+  .caveat{background:var(--wf-rail);border:1px solid var(--wf-rule);border-radius:6px;padding:1rem;
+    font-size:1rem;color:var(--wf-soft);margin-top:1.5rem;max-width:36rem}
+  footer{background:var(--wf-navy);color:rgba(255,255,255,.85);padding:2rem 0;font-size:.95rem}
   @media (max-width:720px){ .grid{grid-template-columns:minmax(0,1fr)} .tabs{margin-left:0} }
 </style>
 </head>
 <body>
+
+<div class="themebar">
+  <div class="themebar-inner">
+    <span class="themebar-label">Background</span>
+    <button type="button" class="modebtn" data-mode="warm" aria-pressed="true">Warm</button>
+    <button type="button" class="modebtn" data-mode="dark" aria-pressed="false">Dark</button>
+    <button type="button" class="modebtn" data-mode="light" aria-pressed="false">Bright</button>
+  </div>
+</div>
 
 <div class="navstrip">
   <div class="navstrip-inner">
@@ -140,10 +152,14 @@
     yet &mdash; that comes next, and there will be a proper draft to read.</p>
 
     <div class="caveat">
-      <p style="margin-bottom:.625rem"><strong>Things you can safely ignore.</strong></p>
-      <p style="margin-bottom:0">Nothing is clickable inside the sketches. The photographs are grey
-      boxes. The writing is grey bars, except the headlines, which are roughly what they will say.
-      Colours, fonts and the finished look all come after you have told me which shape works.</p>
+      <p style="margin-bottom:.625rem"><strong>Two things worth knowing.</strong></p>
+      <p style="margin-bottom:.625rem">Nothing is clickable inside the sketches. The photographs are
+      grey boxes and the writing is grey bars, except the headlines, which are roughly what they
+      will say.</p>
+      <p style="margin-bottom:0">The <strong>Warm / Dark / Bright</strong> buttons at the very top
+      <em>do</em> work, on every page. It opens on Warm because a bright white screen is the thing
+      people tell me they struggle with most on a bad day. Tell me if that helps, or if you would
+      rather it started bright.</p>
     </div>
 
   </div>
@@ -158,5 +174,6 @@
   </div>
 </footer>
 
+<script src="theme.js?v=2"></script>
 </body>
 </html>

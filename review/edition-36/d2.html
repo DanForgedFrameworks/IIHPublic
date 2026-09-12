@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-mode="warm">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Direction 2 — Magazine — Heads Up! Edition 36</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="theme.css?v=202609121003">
 <style>
   .navstrip {
     position: sticky; top: 0; z-index: 100;
-    background: #1A2B4A; color: #fff;
+    background: var(--wf-navy); color: #fff;
     padding: 10px 16px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
@@ -34,14 +36,14 @@
   .tabs a:hover { border-color: #3CBBBA; }
   .tabs a[aria-current="page"] { background: #3CBBBA; border-color: #3CBBBA; color: #12303A; }
   .blurb {
-    background: #EBF8F8; border-bottom: 1px solid #B9C0CA;
-    padding: 10px 16px; font-size: 14px; color: #1A2B4A;
+    background: var(--wf-blurb); border-bottom: 1px solid var(--wf-rule);
+    padding: 10px 16px; font-size: 14px; color: var(--wf-ink);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
   .blurb-inner { max-width: 1100px; margin: 0 auto; }
   .sheet { flex-wrap: wrap; }
   .scrollhint {
-    display: none; font-size: 13px; color: #5C6675; margin: 0 0 8px;
+    display: none; font-size: 13px; color: var(--wf-soft); margin: 0 0 8px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
   /* Narrow screens: stack the two sheets, and let the WIDE one scroll inside its
@@ -56,37 +58,45 @@
   }
 
     body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-      background:#EFEEE9;color:#1A2B4A}
+      background:var(--wf-canvas);color:var(--wf-ink)}
     .sheet{display:flex;gap:56px;padding:40px;align-items:flex-start}
-    .lab{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7A8494;margin-bottom:10px}
-    .pg{background:#fff;border:1px solid #B9C0CA;box-shadow:0 2px 10px rgba(26,43,74,.08)}
-    .hero{position:relative;height:190px;background:#C7CED6;border-bottom:1px dashed #97A1AD;
+    .lab{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--wf-soft);margin-bottom:10px}
+    .pg{background:var(--wf-paper);border:1px solid var(--wf-rule);box-shadow:0 2px 10px rgba(0,0,0,.10)}
+    .hero{position:relative;height:190px;background:var(--wf-img);border-bottom:1px dashed var(--wf-rule);
       display:flex;align-items:flex-end;padding:16px}
     .heroTag{position:absolute;top:10px;left:14px;font-size:10px;font-weight:700;letter-spacing:.1em;
-      text-transform:uppercase;color:#5C6675}
-    .heroTtl{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1;color:#1A2B4A}
+      text-transform:uppercase;color:var(--wf-soft)}
+    .heroTtl{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--wf-ink)}
     .body{padding:18px}
-    .bar{height:7px;background:#D3D8DE;border-radius:2px;margin-bottom:7px}
+    .bar{height:7px;background:var(--wf-bar);border-radius:2px;margin-bottom:7px}
     .bar.s{width:55%}.bar.m{width:78%}.bar.l{width:100%}
-    .img{background:#C7CED6;border:1px dashed #97A1AD;display:flex;align-items:center;justify-content:center;
-      font-size:10px;font-weight:700;letter-spacing:.1em;color:#5C6675;text-transform:uppercase}
+    .img{background:var(--wf-img);border:1px dashed var(--wf-rule);display:flex;align-items:center;justify-content:center;
+      font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--wf-soft);text-transform:uppercase}
     .h{font-size:19px;font-weight:800;margin:0 0 8px;line-height:1.15}
     .h.sm{font-size:13px}
-    .rubband{border-top:2px solid #1A2B4A;border-bottom:1px solid #DDE2E8;padding:6px 0;margin:22px 0 12px;
-      font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#1A2B4A}
+    .rubband{border-top:2px solid var(--wf-ink);border-bottom:1px solid var(--wf-rule);padding:6px 0;margin:22px 0 12px;
+      font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--wf-ink)}
     .quote{border-left:5px solid #7FD4D3;padding:12px 16px;margin:16px 0;background:#F6FAFA}
     .quoteTxt{font-size:17px;font-weight:600;font-style:italic;line-height:1.35;color:#2E3A4E}
-    .quoteWho{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#7A8494;margin-top:8px}
+    .quoteWho{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--wf-soft);margin-top:8px}
     .cols2{column-count:2;column-gap:18px}
-    .cap{font-size:9px;color:#7A8494;margin-top:4px}
+    .cap{font-size:9px;color:var(--wf-soft);margin-top:4px}
     .foot{background:#2E3A4E;padding:14px}
     .foot .bar{background:#57637A}
-    .note{font-size:11px;color:#5C6675;line-height:1.5;margin-top:10px;max-width:600px}
-    .cta{height:22px;background:#1A2B4A;border-radius:11px;width:120px}
+    .note{font-size:11px;color:var(--wf-soft);line-height:1.5;margin-top:10px;max-width:600px}
+    .cta{height:22px;background:var(--wf-ink);border-radius:11px;width:120px}
     .stack{display:flex;flex-direction:column;gap:8px}
 </style>
 </head>
 <body>
+<div class="themebar">
+  <div class="themebar-inner">
+    <span class="themebar-label">Background</span>
+    <button type="button" class="modebtn" data-mode="warm" aria-pressed="true">Warm</button>
+    <button type="button" class="modebtn" data-mode="dark" aria-pressed="false">Dark</button>
+    <button type="button" class="modebtn" data-mode="light" aria-pressed="false">Bright</button>
+  </div>
+</div>
 <div class="navstrip">
   <div class="navstrip-inner">
     <div class="title">Heads Up! Edition 36 <span>&middot; four directions</span></div>
@@ -199,5 +209,6 @@
   </div>
 
 </div>
+<script src="theme.js?v=202609121003"></script>
 </body>
 </html>
