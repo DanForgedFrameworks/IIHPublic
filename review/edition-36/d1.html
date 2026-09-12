@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction 1 — Front page — Heads Up! Edition 36</title>
+<style>
+  .navstrip {
+    position: sticky; top: 0; z-index: 100;
+    background: #1A2B4A; color: #fff;
+    padding: 10px 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  .navstrip-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .navstrip .title { font-weight: 800; font-size: 15px; }
+  .navstrip .title span { font-weight: 400; opacity: .7; }
+  .navstrip .qlink {
+    margin-left: auto; display: inline-flex; align-items: center;
+    min-height: 44px; padding: 0 14px; border-radius: 999px;
+    border: 2px solid #3CBBBA; color: #fff; text-decoration: none;
+    font-weight: 700; font-size: 14px;
+  }
+  .navstrip .qlink:hover { background: #3CBBBA; color: #12303A; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tabs a {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; min-width: 44px; padding: 0 14px;
+    border-radius: 999px; border: 2px solid rgba(255,255,255,.25);
+    color: #fff; text-decoration: none; font-weight: 700; font-size: 14px;
+  }
+  .tabs a:hover { border-color: #3CBBBA; }
+  .tabs a[aria-current="page"] { background: #3CBBBA; border-color: #3CBBBA; color: #12303A; }
+  .blurb {
+    background: #EBF8F8; border-bottom: 1px solid #B9C0CA;
+    padding: 10px 16px; font-size: 14px; color: #1A2B4A;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  .blurb-inner { max-width: 1100px; margin: 0 auto; }
+  .sheet { flex-wrap: wrap; }
+  .scrollhint {
+    display: none; font-size: 13px; color: #5C6675; margin: 0 0 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  /* Narrow screens: stack the two sheets, and let the WIDE one scroll inside its
+     own box so the page body never scrolls sideways. */
+  @media (max-width: 980px) {
+    .sheet { flex-direction: column; gap: 32px !important; padding: 16px; }
+    .sheet > div { width: 100% !important; max-width: 100%; overflow-x: auto; }
+    .sheet > div > .pg { min-width: 600px; }
+    .sheet > div:last-child > .pg { min-width: 0; max-width: 270px; }
+    .note { max-width: 100% !important; }
+    .scrollhint { display: block; }
+  }
+
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      background:#EFEEE9;color:#1A2B4A}
+    .sheet{display:flex;gap:56px;padding:40px;align-items:flex-start}
+    .lab{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7A8494;margin-bottom:10px}
+    .pg{background:#fff;border:1px solid #B9C0CA;box-shadow:0 2px 10px rgba(26,43,74,.08)}
+    .mast{background:#2E3A4E;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+    .mlogo{width:74px;height:16px;background:#7FD4D3;border-radius:2px}
+    .mdate{width:60px;height:7px;background:#7A8494;border-radius:2px}
+    .band{background:#7FD4D3;padding:16px 14px}
+    .ttl{font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1A2B4A;line-height:1}
+    .sub{margin-top:6px;width:150px;height:7px;background:rgba(26,43,74,.35);border-radius:2px}
+    .body{padding:14px}
+    .bar{height:7px;background:#D3D8DE;border-radius:2px;margin-bottom:7px}
+    .bar.s{width:55%}.bar.m{width:78%}.bar.l{width:100%}
+    .img{background:#C7CED6;border:1px dashed #97A1AD;display:flex;align-items:center;justify-content:center;
+      font-size:10px;font-weight:700;letter-spacing:.1em;color:#5C6675;text-transform:uppercase}
+    .h{font-size:15px;font-weight:800;margin:0 0 7px;line-height:1.15}
+    .h.big{font-size:22px}
+    .h.sm{font-size:12px}
+    .rub{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+      color:#fff;background:#3F6E8C;padding:3px 7px;border-radius:2px;margin-bottom:8px}
+    .rail{background:#F3F5F7;border:1px solid #DDE2E8;padding:10px}
+    .railitem{border-bottom:1px solid #E3E7EC;padding:8px 0}
+    .railitem:last-child{border-bottom:none}
+    .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+    .foot{background:#2E3A4E;padding:14px}
+    .foot .bar{background:#57637A}
+    .note{font-size:11px;color:#5C6675;line-height:1.5;margin-top:10px;max-width:600px}
+    .cap{font-size:9px;color:#7A8494;margin-top:4px}
+    .cta{height:22px;background:#1A2B4A;border-radius:11px;width:110px}
+    .cta.ghost{background:#fff;border:2px solid #7FD4D3}
+</style>
+</head>
+<body>
+<div class="navstrip">
+  <div class="navstrip-inner">
+    <div class="title">Heads Up! Edition 36 <span>&middot; four directions</span></div>
+    <nav class="tabs" aria-label="Direction">
+      <a href="d1.html" aria-current="page">1 &middot; Front page</a>
+      <a href="d2.html">2 &middot; Magazine</a>
+      <a href="d3.html">3 &middot; Digest</a>
+      <a href="d4.html">4 &middot; Noticeboard</a>
+    </nav>
+    <a class="qlink" href="index.html">The questions</a>
+  </div>
+</div>
+<div class="blurb"><div class="blurb-inner"><strong>Direction 1 &mdash; Front page.</strong> One lead story owns the only big photograph. Standing items live in a side rail.
+  <p class="scrollhint">On a phone: the wide sketch slides sideways &mdash; drag it. The narrow one
+  underneath is the phone version, shown at its real size.</p></div></div>
+<div class="sheet">
+
+  <!-- ================= DESKTOP ================= -->
+  <div style="width:620px">
+    <div class="lab">Direction 1 — Front page · desktop</div>
+    <div class="pg">
+      <div class="mast"><div class="mlogo"></div><div class="mdate"></div></div>
+      <div class="band"><div class="ttl">Heads&nbsp;Up!</div><div class="sub"></div></div>
+
+      <div class="body">
+        <!-- LEAD -->
+        <div style="display:flex;gap:12px;margin-bottom:16px">
+          <div style="flex:1.45">
+            <span class="rub">Lead · Conference</span>
+            <div class="img" style="height:150px;margin-bottom:10px">Conference photo</div>
+            <div class="h big">Tickets are open for June 2027</div>
+            <div class="bar l"></div><div class="bar l"></div><div class="bar m"></div>
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <div class="cta"></div><div class="cta ghost" style="width:90px"></div>
+            </div>
+            <div class="cap">Join → book → renew, one journey</div>
+          </div>
+          <!-- SIDEBAR RAIL -->
+          <div style="flex:.75">
+            <div class="rail">
+              <div class="lab" style="margin-bottom:6px">Standing</div>
+              <div class="railitem"><div class="h sm">Membership</div><div class="bar s"></div></div>
+              <div class="railitem"><div class="h sm">Get involved</div><div class="bar m"></div><div class="bar s"></div></div>
+              <div class="railitem"><div class="h sm">Support us</div><div class="bar s"></div></div>
+              <div class="railitem"><div class="h sm">Download</div><div class="bar s"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:1px;background:#DDE2E8;margin:4px 0 14px"></div>
+
+        <!-- TWO SECONDARIES -->
+        <div class="grid2" style="margin-bottom:16px">
+          <div>
+            <span class="rub" style="background:#5A4E9C">Research</span>
+            <div class="img" style="height:60px;margin-bottom:8px">Mark / no photo</div>
+            <div class="h">The IIH research that reaches space</div>
+            <div class="bar l"></div><div class="bar m"></div>
+          </div>
+          <div>
+            <span class="rub" style="background:#2E8C7E">Resources</span>
+            <div class="img" style="height:60px;margin-bottom:8px">Mark / no photo</div>
+            <div class="h">Four new tools — tell us what you think</div>
+            <div class="bar l"></div><div class="bar m"></div>
+          </div>
+        </div>
+
+        <!-- PHOTO GRID -->
+        <span class="rub" style="background:#8C5A3F">Conference recap</span>
+        <div class="grid3" style="margin-bottom:4px">
+          <div class="img" style="height:52px">Photo</div>
+          <div class="img" style="height:52px">Photo</div>
+          <div class="img" style="height:52px">Photo</div>
+          <div class="img" style="height:52px">Photo</div>
+          <div class="img" style="height:52px">Photo</div>
+          <div class="img" style="height:52px">Photo</div>
+        </div>
+        <div class="cap">Tap any photo to enlarge — the only place photography is needed</div>
+
+        <div style="height:1px;background:#DDE2E8;margin:14px 0"></div>
+
+        <!-- BRIEFS -->
+        <div class="lab">In brief</div>
+        <div class="grid2">
+          <div><div class="h sm">The HOPE Programme</div><div class="bar l"></div><div class="bar s"></div></div>
+          <div><div class="h sm">Spotlight</div><div class="bar l"></div><div class="bar s"></div></div>
+        </div>
+      </div>
+
+      <div class="foot"><div class="bar l"></div><div class="bar m"></div></div>
+    </div>
+
+    <p class="note"><strong>How it works.</strong> One story leads and owns the only big photograph. Two
+    secondaries sit beneath it, then the conference photo grid, then the small stuff as briefs. Standing
+    items — membership, volunteering, support — live in a rail so they never compete with news.
+    <br><br><strong>Why it suits you.</strong> It needs photography in exactly two places, which is exactly
+    what you have. Hierarchy tells a tired reader what matters without them deciding.
+    <br><br><strong>Against it.</strong> It is the most conventional of the four. It will read as "a
+    newsletter" rather than as something new.</p>
+  </div>
+
+  <!-- ================= PHONE ================= -->
+  <div style="width:280px">
+    <div class="lab">Phone</div>
+    <div class="pg" style="width:270px">
+      <div class="mast"><div class="mlogo" style="width:60px"></div></div>
+      <div class="band" style="padding:12px"><div class="ttl" style="font-size:20px">Heads&nbsp;Up!</div><div class="sub" style="width:110px"></div></div>
+      <div class="body" style="padding:10px">
+        <span class="rub">Lead · Conference</span>
+        <div class="img" style="height:92px;margin-bottom:8px">Conference photo</div>
+        <div class="h big" style="font-size:17px">Tickets are open for June 2027</div>
+        <div class="bar l"></div><div class="bar l"></div><div class="bar m"></div>
+        <div class="cta" style="width:100%;margin-top:8px"></div>
+
+        <div style="height:1px;background:#DDE2E8;margin:12px 0"></div>
+
+        <span class="rub" style="background:#5A4E9C">Research</span>
+        <div class="h">Research that reaches space</div>
+        <div class="bar l"></div><div class="bar m"></div>
+        <div style="height:10px"></div>
+        <span class="rub" style="background:#2E8C7E">Resources</span>
+        <div class="h">Four new tools</div>
+        <div class="bar l"></div><div class="bar m"></div>
+
+        <div style="height:12px"></div>
+        <span class="rub" style="background:#8C5A3F">Recap</span>
+        <div class="grid2" style="gap:5px">
+          <div class="img" style="height:44px">Photo</div><div class="img" style="height:44px">Photo</div>
+          <div class="img" style="height:44px">Photo</div><div class="img" style="height:44px">Photo</div>
+        </div>
+
+        <div style="height:12px"></div>
+        <div class="rail">
+          <div class="lab" style="margin-bottom:6px">Standing</div>
+          <div class="railitem"><div class="h sm">Membership</div><div class="bar s"></div></div>
+          <div class="railitem"><div class="h sm">Get involved</div><div class="bar m"></div></div>
+          <div class="railitem"><div class="h sm">Support us</div><div class="bar s"></div></div>
+        </div>
+      </div>
+      <div class="foot" style="padding:10px"><div class="bar m"></div></div>
+    </div>
+    <p class="note" style="max-width:270px">The rail drops below the lead rather than disappearing, so
+    the standing items keep a fixed home the reader learns.</p>
+  </div>
+
+</div>
+</body>
+</html>

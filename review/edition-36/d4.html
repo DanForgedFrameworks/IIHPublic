@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction 4 — Noticeboard — Heads Up! Edition 36</title>
+<style>
+  .navstrip {
+    position: sticky; top: 0; z-index: 100;
+    background: #1A2B4A; color: #fff;
+    padding: 10px 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  .navstrip-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .navstrip .title { font-weight: 800; font-size: 15px; }
+  .navstrip .title span { font-weight: 400; opacity: .7; }
+  .navstrip .qlink {
+    margin-left: auto; display: inline-flex; align-items: center;
+    min-height: 44px; padding: 0 14px; border-radius: 999px;
+    border: 2px solid #3CBBBA; color: #fff; text-decoration: none;
+    font-weight: 700; font-size: 14px;
+  }
+  .navstrip .qlink:hover { background: #3CBBBA; color: #12303A; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tabs a {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; min-width: 44px; padding: 0 14px;
+    border-radius: 999px; border: 2px solid rgba(255,255,255,.25);
+    color: #fff; text-decoration: none; font-weight: 700; font-size: 14px;
+  }
+  .tabs a:hover { border-color: #3CBBBA; }
+  .tabs a[aria-current="page"] { background: #3CBBBA; border-color: #3CBBBA; color: #12303A; }
+  .blurb {
+    background: #EBF8F8; border-bottom: 1px solid #B9C0CA;
+    padding: 10px 16px; font-size: 14px; color: #1A2B4A;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  .blurb-inner { max-width: 1100px; margin: 0 auto; }
+  .sheet { flex-wrap: wrap; }
+  .scrollhint {
+    display: none; font-size: 13px; color: #5C6675; margin: 0 0 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  /* Narrow screens: stack the two sheets, and let the WIDE one scroll inside its
+     own box so the page body never scrolls sideways. */
+  @media (max-width: 980px) {
+    .sheet { flex-direction: column; gap: 32px !important; padding: 16px; }
+    .sheet > div { width: 100% !important; max-width: 100%; overflow-x: auto; }
+    .sheet > div > .pg { min-width: 600px; }
+    .sheet > div:last-child > .pg { min-width: 0; max-width: 270px; }
+    .note { max-width: 100% !important; }
+    .scrollhint { display: block; }
+  }
+
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      background:#EFEEE9;color:#1A2B4A}
+    .sheet{display:flex;gap:56px;padding:40px;align-items:flex-start}
+    .lab{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7A8494;margin-bottom:10px}
+    .pg{background:#fff;border:1px solid #B9C0CA;box-shadow:0 2px 10px rgba(26,43,74,.08)}
+    .mast{background:#2E3A4E;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+    .mlogo{width:74px;height:16px;background:#7FD4D3;border-radius:2px}
+    .mdate{width:60px;height:7px;background:#7A8494;border-radius:2px}
+    .band{background:#7FD4D3;padding:14px}
+    .ttl{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1}
+    .body{padding:14px}
+    .bar{height:7px;background:#D3D8DE;border-radius:2px;margin-bottom:6px}
+    .bar.s{width:55%}.bar.m{width:80%}.bar.l{width:100%}
+    .img{background:#C7CED6;border:1px dashed #97A1AD;display:flex;align-items:center;justify-content:center;
+      font-size:9px;font-weight:700;letter-spacing:.1em;color:#5C6675;text-transform:uppercase}
+    .h{font-size:14px;font-weight:800;margin:0 0 6px;line-height:1.15}
+    .h.sm{font-size:12px}
+    .mosaic{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:54px;gap:5px;margin-bottom:6px}
+    .card{background:#fff;border:1px solid #DDE2E8;border-top:4px solid var(--ac,#7FD4D3);
+      border-radius:4px;padding:10px;box-shadow:0 1px 4px rgba(26,43,74,.06)}
+    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .pin{display:inline-block;font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+      color:#5C6675;background:#EFF2F5;border-radius:2px;padding:2px 5px;margin-bottom:6px}
+    .face{width:40px;height:40px;border-radius:50%;background:#C7CED6;border:1px dashed #97A1AD;
+      display:flex;align-items:center;justify-content:center;font-size:7px;color:#5C6675;text-align:center}
+    .quote{background:#F6FAFA;border-left:4px solid #7FD4D3;padding:9px 11px;border-radius:0 4px 4px 0}
+    .quoteTxt{font-size:12px;font-style:italic;font-weight:600;line-height:1.35;color:#2E3A4E}
+    .foot{background:#2E3A4E;padding:14px}
+    .foot .bar{background:#57637A}
+    .note{font-size:11px;color:#5C6675;line-height:1.5;margin-top:10px;max-width:600px}
+    .cap{font-size:9px;color:#7A8494;margin-top:4px}
+    .cta{height:20px;background:#1A2B4A;border-radius:10px;width:90px}
+</style>
+</head>
+<body>
+<div class="navstrip">
+  <div class="navstrip-inner">
+    <div class="title">Heads Up! Edition 36 <span>&middot; four directions</span></div>
+    <nav class="tabs" aria-label="Direction">
+      <a href="d1.html">1 &middot; Front page</a>
+      <a href="d2.html">2 &middot; Magazine</a>
+      <a href="d3.html">3 &middot; Digest</a>
+      <a href="d4.html" aria-current="page">4 &middot; Noticeboard</a>
+    </nav>
+    <a class="qlink" href="index.html">The questions</a>
+  </div>
+</div>
+<div class="blurb"><div class="blurb-inner"><strong>Direction 4 &mdash; Noticeboard.</strong> Conference photography opens as a mosaic and carries the edition; everything else is a card.
+  <p class="scrollhint">On a phone: the wide sketch slides sideways &mdash; drag it. The narrow one
+  underneath is the phone version, shown at its real size.</p></div></div>
+<div class="sheet">
+
+  <!-- DESKTOP -->
+  <div style="width:620px">
+    <div class="lab">Direction 4 — Noticeboard · desktop</div>
+    <div class="pg">
+      <div class="mast"><div class="mlogo"></div><div class="mdate"></div></div>
+      <div class="band"><div class="ttl">Heads&nbsp;Up!</div></div>
+
+      <div class="body">
+        <div class="lab" style="margin-bottom:6px">The conference, in pictures</div>
+        <div class="mosaic">
+          <div class="img" style="grid-column:span 2;grid-row:span 2">Large photo</div>
+          <div class="img">Photo</div>
+          <div class="img">Photo</div>
+          <div class="img">Photo</div>
+          <div class="img">Photo</div>
+          <div class="img">Photo</div>
+          <div class="img">Photo</div>
+          <div class="img">Photo</div>
+          <div class="img">Photo</div>
+        </div>
+        <div class="cap">Photography is the spine, not an illustration of the text</div>
+
+        <div style="height:14px"></div>
+
+        <div class="cards">
+          <div class="card" style="--ac:#8C5A3F">
+            <span class="pin">Booking open</span>
+            <div class="h">Conference 2027</div>
+            <div class="bar l"></div><div class="bar s"></div>
+            <div class="cta" style="margin-top:8px"></div>
+          </div>
+          <div class="card" style="--ac:#B5179E">
+            <span class="pin">We need you</span>
+            <div class="h">Newsletter editor</div>
+            <div class="bar l"></div><div class="bar s"></div>
+            <div class="cta" style="margin-top:8px;width:70px"></div>
+          </div>
+        </div>
+
+        <div style="height:10px"></div>
+        <div class="quote">
+          <div class="quoteTxt">"It has changed my way of thinking about living with the condition entirely."</div>
+        </div>
+
+        <div style="height:10px"></div>
+        <div class="cards">
+          <div class="card" style="--ac:#1D4ED8">
+            <div style="display:flex;gap:9px;align-items:center;margin-bottom:6px">
+              <div class="face">Portrait</div>
+              <div><div class="h sm" style="margin:0">Spotlight</div><div class="bar s" style="width:60px;margin:4px 0 0"></div></div>
+            </div>
+            <div class="bar l"></div><div class="bar m"></div>
+          </div>
+          <div class="card" style="--ac:#1E7A46">
+            <div class="h sm">HOPE Programme</div>
+            <div class="bar l"></div><div class="bar m"></div>
+          </div>
+          <div class="card" style="--ac:#5A4E9C">
+            <div class="h sm">Research in space</div>
+            <div class="bar l"></div><div class="bar m"></div>
+          </div>
+          <div class="card" style="--ac:#2E8C7E">
+            <div class="h sm">Four new tools</div>
+            <div class="bar l"></div><div class="bar m"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot"><div class="bar l"></div><div class="bar m"></div></div>
+    </div>
+
+    <p class="note"><strong>How it works.</strong> The conference photography opens the edition as a
+    mosaic and carries it. Everything else is a compact pinned card around it, with quotes and a portrait
+    treated as content rather than decoration. Warm, informal, people-first.
+    <br><br><strong>Why it suits you.</strong> It makes the most of the one genuinely strong asset you
+    have, and it feels like a community rather than an organisation talking. It is the furthest from a
+    clinical leaflet.
+    <br><br><strong>Against it — and this is the serious one.</strong> It needs a portrait for Spotlight
+    that does not exist yet, and if the beneficial items get pulled on 26 September the card grid thins
+    out badly. It is the direction most damaged by the cut-off. It is also the hardest to carry into
+    future editions, because every edition would need a fresh set of photographs and you only have
+    conference ones.</p>
+  </div>
+
+  <!-- PHONE -->
+  <div style="width:280px">
+    <div class="lab">Phone</div>
+    <div class="pg" style="width:270px">
+      <div class="mast"><div class="mlogo" style="width:60px"></div></div>
+      <div class="band" style="padding:12px"><div class="ttl" style="font-size:20px">Heads&nbsp;Up!</div></div>
+      <div class="body" style="padding:10px">
+        <div class="lab" style="margin-bottom:6px">In pictures</div>
+        <div class="mosaic" style="grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:48px">
+          <div class="img" style="grid-column:span 2;grid-row:span 2">Large photo</div>
+          <div class="img">Photo</div>
+          <div class="img">Photo</div>
+        </div>
+        <div style="height:10px"></div>
+        <div class="card" style="--ac:#8C5A3F;margin-bottom:8px">
+          <span class="pin">Booking open</span>
+          <div class="h">Conference 2027</div>
+          <div class="bar l"></div><div class="bar s"></div>
+        </div>
+        <div class="card" style="--ac:#B5179E;margin-bottom:8px">
+          <span class="pin">We need you</span>
+          <div class="h">Newsletter editor</div>
+          <div class="bar l"></div><div class="bar s"></div>
+        </div>
+        <div class="quote" style="margin-bottom:8px">
+          <div class="quoteTxt" style="font-size:11px">"It changed my way of thinking entirely."</div>
+        </div>
+        <div class="card" style="--ac:#1D4ED8">
+          <div class="h sm">Spotlight</div>
+          <div class="bar l"></div><div class="bar m"></div>
+        </div>
+      </div>
+      <div class="foot" style="padding:10px"><div class="bar m"></div></div>
+    </div>
+    <p class="note" style="max-width:270px">The mosaic keeps its shape but drops to two columns. The card
+    grid becomes a single stack, which is where the thinning-out problem shows most.</p>
+  </div>
+
+</div>
+</body>
+</html>

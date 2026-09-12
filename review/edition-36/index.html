@@ -1,125 +1,162 @@
 <!DOCTYPE html>
-<html lang="en" data-mode="warm">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Heads Up! is coming back — which way should it work?</title>
+<title>Heads Up! is coming back — which shape should it take?</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="stylesheet" href="style.css?v=202609120918">
 <style>
-  .choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;margin:1.5rem 0}
-  .card{background:var(--surface);border:1px solid var(--rule);border-top:5px solid var(--rub,var(--teal));
-    border-radius:var(--r-lg);box-shadow:var(--shadow);padding:1.25rem;display:flex;flex-direction:column;gap:.625rem}
-  .card h3{font-size:1.5rem}
-  .card .lead{font-size:1rem}
-  .card .spacer{flex:1}
-  .qlist{counter-reset:q;list-style:none;margin:1rem 0}
+  :root{
+    --teal:#3CBBBA; --link:#176E6D; --navy:#1A2B4A;
+    --paper:#F6EFE2; --card:#FBF6EC; --rule:#D9CDB8;
+    --ink:#2B2418; --soft:#5C5344;
+    --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);font-size:1.125rem;line-height:1.7;color:var(--ink);background:var(--paper)}
+  a{color:var(--link);text-underline-offset:3px}
+  h1,h2,h3{line-height:1.15}
+  :focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:2px}
+  .wrap{width:100%;max-width:46rem;margin:0 auto;padding:0 1.25rem}
+  .navstrip{background:var(--navy);color:#fff;padding:10px 16px;position:sticky;top:0;z-index:50}
+  .navstrip-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .navstrip .title{font-weight:800;font-size:15px}
+  .navstrip .title span{font-weight:400;opacity:.7}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+  .tabs a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;
+    padding:0 14px;border-radius:999px;border:2px solid rgba(255,255,255,.25);color:#fff;
+    text-decoration:none;font-weight:700;font-size:14px}
+  .tabs a:hover{border-color:var(--teal)}
+  header.hero{background:var(--teal);padding:2.25rem 0}
+  header.hero h1{font-size:clamp(1.8rem,6vw,2.5rem);font-weight:800;letter-spacing:-.02em;color:var(--navy)}
+  header.hero p{margin-top:.5rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    font-size:.9rem;color:#12303A}
+  main{padding:2rem 0 3rem}
+  p{margin-bottom:1rem;max-width:36rem}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.5rem 0}
+  .opt{background:var(--card);border:1px solid var(--rule);border-top:5px solid var(--ac);
+    border-radius:12px;padding:1.1rem;display:flex;flex-direction:column;gap:.5rem}
+  .opt .lab{font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
+  .opt h3{font-size:1.25rem}
+  .opt p{font-size:1rem;margin:0}
+  .opt .sp{flex:1}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.6rem 1.25rem;
+    border-radius:999px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:1rem}
+  .btn:hover{background:var(--link);color:#fff}
+  .qlist{counter-reset:q;list-style:none;margin:1rem 0 1.5rem}
   .qlist li{counter-increment:q;position:relative;padding-left:2.5rem;margin-bottom:.75rem;font-weight:700}
-  .qlist li::before{content:counter(q);position:absolute;left:0;top:0;
-    width:1.75rem;height:1.75rem;border-radius:50%;background:var(--navy);color:#fff;
-    display:flex;align-items:center;justify-content:center;font-size:.9rem}
-  :root[data-mode="dark"] .qlist li::before{background:var(--teal);color:#0B1117}
-  .deadline{background:#FFF8E1;border-left:5px solid #D4730A;color:#92520A;
-    border-radius:0 var(--r) var(--r) 0;padding:.875rem 1rem;font-size:1rem}
-  :root[data-mode="dark"] .deadline{background:#2A2114;color:#F0C489}
-  .caveat{background:var(--bg-alt);border-radius:var(--r);padding:1rem;font-size:1rem;color:var(--ink-soft);margin-top:1.5rem}
-  @media (max-width:720px){ .choice{grid-template-columns:minmax(0,1fr)} }
+  .qlist li::before{content:counter(q);position:absolute;left:0;top:.1rem;width:1.75rem;height:1.75rem;
+    border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;
+    justify-content:center;font-size:.9rem}
+  .deadline{background:#FFF8E1;border-left:5px solid #D4730A;color:#92520A;border-radius:0 6px 6px 0;
+    padding:.875rem 1rem;font-size:1rem;max-width:36rem}
+  .caveat{background:#EFE6D6;border-radius:6px;padding:1rem;font-size:1rem;color:var(--soft);
+    margin-top:1.5rem;max-width:36rem}
+  footer{background:var(--navy);color:rgba(255,255,255,.85);padding:2rem 0;font-size:.95rem}
+  @media (max-width:720px){ .grid{grid-template-columns:minmax(0,1fr)} .tabs{margin-left:0} }
 </style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
 
-<div class="controls">
-  <div class="wrap">
-    <span class="controls-label">Background</span>
-    <button type="button" class="modebtn" data-mode="warm" aria-pressed="true">Warm</button>
-    <button type="button" class="modebtn" data-mode="dark" aria-pressed="false">Dark</button>
-    <button type="button" class="modebtn" data-mode="light" aria-pressed="false">Bright</button>
+<div class="navstrip">
+  <div class="navstrip-inner">
+    <div class="title">Heads Up! Edition 36 <span>&middot; four directions</span></div>
+    <nav class="tabs" aria-label="Direction">
+      <a href="d1.html">1 &middot; Front page</a>
+      <a href="d2.html">2 &middot; Magazine</a>
+      <a href="d3.html">3 &middot; Digest</a>
+      <a href="d4.html">4 &middot; Noticeboard</a>
+    </nav>
   </div>
 </div>
 
-<header class="masthead">
+<header class="hero">
   <div class="wrap">
-    <div class="brandmark">IIH<span>UK</span></div>
-    <p class="reg">Registered charity<br>1143522 &middot; SC043294</p>
+    <h1>Heads Up! is coming back</h1>
+    <p>Four shapes &middot; four short questions &middot; about ten minutes</p>
   </div>
 </header>
 
-<div class="hero">
-  <div class="wrap hero-text">
-    <h1 class="ttl" style="font-size:clamp(1.9rem,6vw,2.6rem)">Heads&nbsp;Up! is coming back</h1>
-    <p class="issue">Two drafts &middot; four short questions &middot; about ten minutes</p>
-  </div>
-</div>
-
-<main id="main"><div class="wrap" style="padding-top:2rem">
-
-  <p style="font-size:1.2rem;margin-bottom:1rem">I am rebuilding the newsletter so it works on a
-  phone, can be read in short bursts, and does not blind you on a bad day. Before I write the words,
-  I want to get the shape right &mdash; and I would rather hear from you now than after it is built.</p>
-
-  <p style="margin-bottom:.5rem"><strong>The words are the same in both drafts.</strong> The only
-  difference is how the edition starts. Have a look at each, ideally on your phone.</p>
-
-  <div class="choice">
-    <div class="card" style="--rub:#176E6D">
-      <span class="rubric">Draft A</span>
-      <h3>Opens with a picture</h3>
-      <p class="lead">A photograph across the top, then the title, then straight into the stories.
-      It feels like a magazine.</p>
-      <p class="lead"><strong>But</strong> you have to scroll past the picture before you can see
-      what is in the edition.</p>
-      <span class="spacer"></span>
-      <a class="btn btn-primary" href="draft-a.html">Open Draft A</a>
-    </div>
-    <div class="card" style="--rub:#4338CA">
-      <span class="rubric">Draft B</span>
-      <h3>Opens with a contents list</h3>
-      <p class="lead">The title, then a numbered list of everything in the edition, so you can jump
-      straight to what you want.</p>
-      <p class="lead"><strong>But</strong> it is a plainer start and feels less like a magazine.</p>
-      <span class="spacer"></span>
-      <a class="btn btn-primary" href="draft-b.html">Open Draft B</a>
-    </div>
-  </div>
-
-  <h2 style="font-size:1.5rem;margin-top:2rem">The four questions</h2>
-  <p style="margin-top:.5rem">One or two words is a perfect answer. You do not need to explain.</p>
-  <ol class="qlist">
-    <li>A or B?</li>
-    <li>Is the text big enough to read comfortably on your phone?</li>
-    <li>Is anything too much &mdash; too busy, too bright, too many things at once?</li>
-    <li>Is there anything you expected to find and could not?</li>
-  </ol>
-
-  <p class="deadline"><strong>Please reply by Wednesday 17 September.</strong> After that I lock the
-  layout and start writing. You are not being asked about the wording or whether the facts are right
-  yet &mdash; that is the next round.</p>
-
-  <div class="caveat">
-    <p style="margin-bottom:.625rem"><strong>Things you can safely ignore.</strong></p>
-    <p style="margin-bottom:.625rem">Every photograph is a grey placeholder &mdash; the real conference
-    pictures go in later. The Spotlight section is deliberately blank until someone agrees to be
-    featured. None of the buttons do anything yet.</p>
-    <p style="margin-bottom:0">One thing that <em>does</em> work, and is worth trying: the
-    <strong>Warm / Dark / Bright</strong> buttons at the very top. It opens on Warm, because a white
-    screen is the thing people tell me they struggle with most on a bad day. Tell me if it helps, or
-    if you would rather it started bright.</p>
-  </div>
-
-</div></main>
-
-<footer class="foot" style="margin-top:2.5rem">
+<main>
   <div class="wrap">
-    <div class="foot-grid">
-      <div><h2>What this is</h2><p>A draft of Heads Up! Edition 36, for review by the IIH UK team.
-        Not the finished newsletter.</p></div>
-      <div><h2>IIH UK</h2><p>Registered charity<br>England &amp; Wales 1143522<br>Scotland SC043294</p></div>
+
+    <p style="font-size:1.2rem">I am rebuilding the newsletter so it works properly on a phone, can be
+    read in short bursts, and does not blind you on a bad day. Before I write a word, I want to get the
+    shape right &mdash; and I would rather hear from you now than after it is built.</p>
+
+    <p><strong>These are rough sketches, not finished designs.</strong> Grey boxes are where photographs
+    go and grey bars are where the writing goes. There is no colour scheme yet on purpose &mdash; I am
+    asking about the <em>shape</em> of the thing, not what it looks like painted.</p>
+
+    <p>Each one puts the same content in a different order. Use the buttons at the top to flip between
+    them. Under each sketch there is a short note on how it works and what is wrong with it.</p>
+
+    <div class="grid">
+      <div class="opt" style="--ac:#176E6D">
+        <span class="lab">Direction 1</span>
+        <h3>Front page</h3>
+        <p>One big story at the top with the main photo. Smaller items underneath, and the regular
+        things &mdash; membership, volunteering &mdash; down the side.</p>
+        <span class="sp"></span>
+        <a class="btn" href="d1.html">Look at 1</a>
+      </div>
+      <div class="opt" style="--ac:#4338CA">
+        <span class="lab">Direction 2</span>
+        <h3>Magazine</h3>
+        <p>A photograph across the whole top, longer pieces in two columns, and quotes pulled out
+        large where there is no picture.</p>
+        <span class="sp"></span>
+        <a class="btn" href="d2.html">Look at 2</a>
+      </div>
+      <div class="opt" style="--ac:#8C5A3F">
+        <span class="lab">Direction 3</span>
+        <h3>Digest</h3>
+        <p>A narrow column, the same on a laptop as on a phone. Each item gets a small drawn symbol,
+        a big short headline and a couple of lines.</p>
+        <span class="sp"></span>
+        <a class="btn" href="d3.html">Look at 3</a>
+      </div>
+      <div class="opt" style="--ac:#B5179E">
+        <span class="lab">Direction 4</span>
+        <h3>Noticeboard</h3>
+        <p>Conference photographs open the edition as a block of pictures, and everything else sits
+        around them as small cards.</p>
+        <span class="sp"></span>
+        <a class="btn" href="d4.html">Look at 4</a>
+      </div>
     </div>
-    <p class="foot-bottom">&copy; 2026 IIH UK &middot; CC BY-NC 4.0</p>
+
+    <h2 style="font-size:1.5rem;margin-top:2rem">The four questions</h2>
+    <p style="margin-top:.5rem">One or two words is a perfect answer. You do not need to explain yourself.</p>
+    <ol class="qlist">
+      <li>Which number?</li>
+      <li>Is anything too much &mdash; too busy, too cluttered, too many things at once?</li>
+      <li>Is there anything you expected to find and could not?</li>
+      <li>Anything you would move, or want nearer the top?</li>
+    </ol>
+
+    <p class="deadline"><strong>Please reply by Wednesday 17 September.</strong> After that I settle the
+    shape and start writing. You are not being asked about the wording or whether the facts are right
+    yet &mdash; that comes next, and there will be a proper draft to read.</p>
+
+    <div class="caveat">
+      <p style="margin-bottom:.625rem"><strong>Things you can safely ignore.</strong></p>
+      <p style="margin-bottom:0">Nothing is clickable inside the sketches. The photographs are grey
+      boxes. The writing is grey bars, except the headlines, which are roughly what they will say.
+      Colours, fonts and the finished look all come after you have told me which shape works.</p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p style="margin-bottom:.5rem">A draft of <em>Heads Up!</em> Edition 36, for review by the IIH UK
+    team. Not the finished newsletter.</p>
+    <p style="margin-bottom:0;font-size:.85rem;opacity:.7">IIH UK &middot; Registered charity
+    1143522 (England &amp; Wales) &middot; SC043294 (Scotland)</p>
   </div>
 </footer>
 
-<script src="app.js?v=202609120918"></script>
 </body>
 </html>
