@@ -3,178 +3,291 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Heads Up! is coming back — which shape should it take?</title>
+<title>Heads Up! Edition 36 — draft (Front page + Noticeboard)</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="stylesheet" href="theme.css?v=2">
-<style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
-    font-size:1.125rem;line-height:1.7;color:var(--wf-ink);background:var(--wf-canvas);
-    -webkit-text-size-adjust:100%;
-  }
-  a{color:var(--wf-ink);text-underline-offset:3px}
-  h1,h2,h3{line-height:1.15}
-  :focus-visible{outline:3px solid var(--wf-teal);outline-offset:3px;border-radius:2px}
-  .wrap{width:100%;max-width:46rem;margin:0 auto;padding:0 1.25rem}
-
-  .navstrip{background:var(--wf-navy);color:#fff;padding:10px 16px;position:sticky;top:0;z-index:50}
-  .navstrip-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-  .navstrip .title{font-weight:800;font-size:15px}
-  .navstrip .title span{font-weight:400;opacity:.7}
-  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
-  .tabs a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;
-    padding:0 14px;border-radius:999px;border:2px solid rgba(255,255,255,.25);color:#fff;
-    text-decoration:none;font-weight:700;font-size:14px}
-  .tabs a:hover{border-color:var(--wf-teal);color:#fff}
-
-  header.hero{background:#7FD4D3;padding:2.25rem 0}
-  header.hero h1{font-size:clamp(1.8rem,6vw,2.5rem);font-weight:800;letter-spacing:-.02em;color:#12303A}
-  header.hero p{margin-top:.5rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-    font-size:.9rem;color:#12303A}
-
-  main{padding:2rem 0 3rem}
-  p{margin-bottom:1rem;max-width:36rem}
-  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.5rem 0}
-  .opt{background:var(--wf-paper);border:1px solid var(--wf-rule);border-top:5px solid var(--ac);
-    border-radius:12px;padding:1.1rem;display:flex;flex-direction:column;gap:.5rem;box-shadow:var(--wf-shadow)}
-  .opt .lab{font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
-  .opt h3{font-size:1.25rem}
-  .opt p{font-size:1rem;margin:0;color:var(--wf-soft)}
-  .opt .sp{flex:1}
-  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.6rem 1.25rem;
-    border-radius:999px;background:var(--wf-ink);color:var(--wf-paper);text-decoration:none;
-    font-weight:700;font-size:1rem}
-  .btn:hover{background:var(--wf-soft);color:var(--wf-paper)}
-  .qlist{counter-reset:q;list-style:none;margin:1rem 0 1.5rem}
-  .qlist li{counter-increment:q;position:relative;padding-left:2.5rem;margin-bottom:.75rem;font-weight:700}
-  .qlist li::before{content:counter(q);position:absolute;left:0;top:.1rem;width:1.75rem;height:1.75rem;
-    border-radius:50%;background:var(--wf-ink);color:var(--wf-paper);display:flex;align-items:center;
-    justify-content:center;font-size:.9rem}
-  .deadline{background:var(--wf-blurb);border-left:5px solid #D4730A;border-radius:0 6px 6px 0;
-    padding:.875rem 1rem;font-size:1rem;max-width:36rem}
-  .caveat{background:var(--wf-rail);border:1px solid var(--wf-rule);border-radius:6px;padding:1rem;
-    font-size:1rem;color:var(--wf-soft);margin-top:1.5rem;max-width:36rem}
-  footer{background:var(--wf-navy);color:rgba(255,255,255,.85);padding:2rem 0;font-size:.95rem}
-  @media (max-width:720px){ .grid{grid-template-columns:minmax(0,1fr)} .tabs{margin-left:0} }
-</style>
+<link rel="stylesheet" href="style.css?v=4h">
+<link rel="stylesheet" href="layout.css?v=4h">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<div class="themebar">
-  <div class="themebar-inner">
-    <span class="themebar-label">Background</span>
+<div class="ribbon">DRAFT for the IIH UK team to review &mdash; not the finished newsletter.</div>
+
+<div class="controls">
+  <div class="wrap-wide" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;padding-top:.5rem;padding-bottom:.5rem">
+    <span class="controls-label">Background</span>
     <button type="button" class="modebtn" data-mode="warm" aria-pressed="true">Warm</button>
     <button type="button" class="modebtn" data-mode="dark" aria-pressed="false">Dark</button>
     <button type="button" class="modebtn" data-mode="light" aria-pressed="false">Bright</button>
   </div>
 </div>
 
-<div class="navstrip">
-  <div class="navstrip-inner">
-    <div class="title">Heads Up! Edition 36 <span>&middot; four directions</span></div>
-    <nav class="tabs" aria-label="Direction">
-      <a href="d1.html">1 &middot; Front page</a>
-      <a href="d2.html">2 &middot; Magazine</a>
-      <a href="d3.html">3 &middot; Digest</a>
-      <a href="d4.html">4 &middot; Noticeboard</a>
-    </nav>
-  </div>
-</div>
-
-<header class="hero">
-  <div class="wrap">
-    <h1>Heads Up! is coming back</h1>
-    <p>Four shapes &middot; four short questions &middot; about ten minutes</p>
+<header class="masthead">
+  <div class="wrap-wide" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+    <a href="https://iih.org.uk/" target="_blank" rel="noopener noreferrer">
+      <img class="logo" src="lockup.png" alt="IIH UK — Idiopathic Intracranial Hypertension. Opens the IIH UK website in a new tab.">
+    </a>
+    <p class="reg">Registered charity<br>1143522 &middot; SC043294</p>
   </div>
 </header>
 
-<main>
-  <div class="wrap">
+<div class="band">
+  <div class="wrap-wide">
+    <h1 class="ttl">Heads&nbsp;Up!</h1>
+    <p class="issue">Edition 36 &middot; September 2026 &middot; IIH Awareness Month</p>
+  </div>
+</div>
 
-    <p style="font-size:1.2rem">I am rebuilding the newsletter so it works properly on a phone, can be
-    read in short bursts, and does not blind you on a bad day. Before I write a word, I want to get the
-    shape right &mdash; and I would rather hear from you now than after it is built.</p>
+<div class="wrap-wide">
+  <div class="layout">
 
-    <p><strong>These are rough sketches, not finished designs.</strong> Grey boxes are where photographs
-    go and grey bars are where the writing goes. There is no colour scheme yet on purpose &mdash; I am
-    asking about the <em>shape</em> of the thing, not what it looks like painted.</p>
+    <!-- ===================== NEWS COLUMN ===================== -->
+    <main id="main">
 
-    <p>Each one puts the same content in a different order. Use the buttons at the top to flip between
-    them. Under each sketch there is a short note on how it works and what is wrong with it.</p>
+      <section class="review-note" aria-labelledby="review-h">
+        <h2 id="review-h">For the IIH UK team: this version is for review</h2>
+        <p>This is close to how the newsletter will look. Where you see a yellow
+        <strong>Can you supply this?</strong> box, I do not have the words or the photo yet.</p>
+        <p>If you have it, or know who does, please email it to me at
+        <a href="mailto:danboyland@iih.org.uk?subject=Heads%20Up!%20Edition%2036">danboyland@iih.org.uk<span class="vh"> (opens your email app)</span></a>.
+        I am aiming to send the newsletter out before the end of the month.</p>
+      </section>
 
-    <div class="grid">
-      <div class="opt" style="--ac:#176E6D">
-        <span class="lab">Direction 1</span>
-        <h3>Front page</h3>
-        <p>One big story at the top with the main photo. Smaller items underneath, and the regular
-        things &mdash; membership, volunteering &mdash; down the side.</p>
-        <span class="sp"></span>
-        <a class="btn" href="d1.html">Look at 1</a>
+      <p class="lede"><em>Heads Up!</em> is back, and it looks different. We have had no newsletter
+      volunteer since the end of last year, so we have used the gap to rebuild it for how most of you
+      read &mdash; on a phone, in short bursts. You can change the background at the top.</p>
+
+      <p class="linkkey" aria-hidden="true">
+        <span class="k ext">Opens another website</span>
+        <span class="k mail">Opens your email</span>
+      </p>
+
+      <!-- LEAD (Direction 1) -->
+      <article class="lead" style="--rub:#92520A" aria-labelledby="lead-h">
+        <img class="lead-img" src="img/lead-conference.jpg" width="1600" height="1067"
+             alt="A full room at the IIH UK conference: a speaker stands between two screens while delegates listen at round tables.">
+
+        <div class="lead-body">
+          <span class="rubric">Conference &middot; booking open</span>
+          <h2 id="lead-h">June 2027 is open</h2>
+          <dl class="facts">
+            <div class="fact"><dt>When</dt><dd>Sat 12 June 2027</dd></div>
+            <div class="fact"><dt>Where</dt><dd>Village Hotel, Solihull</dd></div>
+            <div class="fact"><dt>Tickets</dt><dd>&pound;25</dd></div>
+          </dl>
+          <p>A full day, 9am to 5pm, of lived experience, current treatment and research, and space for
+          honest questions. The &pound;25 is subsidised by IIH UK and includes all refreshments and lunch.</p>
+          <div class="gate">
+            <p><strong>You need to be an IIH UK member to come.</strong> Not a member yet? Join first, then
+            book &mdash; membership starts at &pound;5 a year for one person, or &pound;10 for a family.</p>
+          </div>
+          <p>Anyone 14 and over needs a ticket. Under-13s are free, but let Betsy know they are coming at
+          <a href="mailto:treasurer@iih.org.uk">treasurer@iih.org.uk<span class="vh"> (opens your email app)</span></a>.</p>
+          <div class="btnrow">
+            <a class="btn btn-primary" href="https://iih.org.uk/shop/" target="_blank" rel="noopener noreferrer">Join IIH UK<span class="vh"> (opens in a new tab)</span></a>
+            <a class="btn btn-ghost" href="https://www.zeffy.com/en-GB/ticketing/conference-ticket--2027" target="_blank" rel="noopener noreferrer">Then book your place<span class="vh"> (opens in a new tab)</span></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- IN PICTURES (Direction 4, as a carousel) -->
+      <section aria-labelledby="pics-h" style="--rub:#8C5A3F">
+        <div class="sec-head">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 8h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="14" r="3.5"/></svg></span>
+          <div>
+            <span class="rubric">In pictures</span>
+            <h2 id="pics-h">What the last one was like</h2>
+          </div>
+        </div>
+        <div class="carousel" data-carousel>
+          <div class="carousel-viewport" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Photographs from the conference">
+            <div class="slide" data-active="true"><figure><img src="img/conf-01-speakers.jpg" width="1200" height="800" alt="Two speakers at the front of the conference room, one holding a microphone."><figcaption>Speakers taking questions from the room</figcaption></figure></div>
+            <div class="slide" data-active="false"><figure><img src="img/conf-02-listening.jpg" width="1200" height="800" loading="lazy" alt="Delegates at round tables listening to a talk."><figcaption>Listening to the talks</figcaption></figure></div>
+            <div class="slide" data-active="false"><figure><img src="img/conf-03-chatting.jpg" width="1200" height="800" loading="lazy" alt="Three delegates chatting and laughing around a table."><figcaption>Catching up round the table</figcaption></figure></div>
+            <div class="slide" data-active="false"><figure><img src="img/conf-04-table.jpg" width="1200" height="800" loading="lazy" alt="Three delegates at a table, one pointing at the papers in front of them."><figcaption>Working through a session together</figcaption></figure></div>
+            <div class="slide" data-active="false"><figure><img src="img/conf-05-break.jpg" width="1200" height="800" loading="lazy" alt="Two people laughing together on a sofa between sessions."><figcaption>A laugh between sessions</figcaption></figure></div>
+            <div class="slide" data-active="false"><figure><img src="img/conf-06-audience.jpg" width="1200" height="800" loading="lazy" alt="Delegates listening at their tables, one of them smiling."><figcaption>In the audience</figcaption></figure></div>
+            <div class="slide" data-active="false"><figure><img class="whole" src="img/conf-07-stand.jpg" width="800" height="1200" loading="lazy" alt="The IIH UK information stand, with leaflets pinned to blue display boards."><figcaption>The IIH UK information stand</figcaption></figure></div>
+          </div>
+          <p class="vh" data-live aria-live="polite"></p>
+          <div class="carousel-bar">
+            <button type="button" class="cbtn" data-prev>&larr;<span class="vh"> Previous photo</span></button>
+            <button type="button" class="cbtn" data-next>&rarr;<span class="vh"> Next photo</span></button>
+            <span class="ccount" data-count></span>
+          </div>
+          <div class="cdotwrap" data-dots></div>
+        </div>
+        <p class="caption">Photographs by
+          <a href="https://daniellamillsphotography.co.uk/" target="_blank" rel="noopener noreferrer">Daniella Mills Photography<span class="vh"> (opens in a new tab)</span></a>
+        </p>
+      </section>
+
+      <!-- PINNED CARDS (Direction 4 cards, Direction 1 headers, Direction 3 icons) -->
+      <section aria-labelledby="news-h">
+        <div class="sec-head" style="--rub:#176E6D">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></span>
+          <div>
+            <span class="rubric">Also this edition</span>
+            <h2 id="news-h">News and updates</h2>
+          </div>
+        </div>
+
+        <div class="cards">
+          <article class="card" style="--rub:#176E6D">
+            <div class="card-top">
+              <span class="icon sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v12H8l-4 4V5Z"/><path d="M9 10h6M9 13h4"/></svg></span>
+              <span class="pin">Your view wanted</span>
+            </div>
+            <span class="rubric">Resources</span>
+            <h3>Four new tools, not finished yet</h3>
+            <p>What is IIH?, Family friends and carers, the Resource Hub and the Consensus Guidelines tool
+            now work on any device. Before we call them done, we want to hear from you.</p>
+            <div class="card-foot"><a class="btn btn-primary" href="https://danforgedframeworks.github.io/IIHPublic/20260612%20IIHPT017%20IIH%20UK%20Resource%20Hub%20HTML%20v1.0.html" target="_blank" rel="noopener noreferrer">Try them and tell us<span class="vh"> (opens in a new tab)</span></a></div>
+          </article>
+
+          <article class="card" style="--rub:#C0392B">
+            <div class="card-top">
+              <span class="icon sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 4.5-7 9-7 9Z"/></svg></span>
+              <span class="pin">Thank you</span>
+            </div>
+            <span class="rubric">Fundraiser spotlight</span>
+            <h3>Thank you to our fundraisers</h3>
+            <p>Each edition this card thanks someone who has raised money for IIH UK &mdash; a run, a bake
+            sale, a sponsored walk.</p>
+            <p class="ask"><strong>Can you supply this?</strong> A fundraiser&rsquo;s name, what they did, how
+            much they raised, and a photo &mdash; with their permission.</p>
+            <div class="card-foot"><a class="btn btn-ghost" href="https://iih.org.uk/fundraising-donations/" target="_blank" rel="noopener noreferrer">Plan your own fundraiser<span class="vh"> (opens in a new tab)</span></a></div>
+          </article>
+
+          <article class="card" style="--rub:#4338CA">
+            <div class="card-top">
+              <span class="icon sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0-4 10.5V17h8v-3.5A6 6 0 0 0 12 3Z"/><path d="M10 21h4"/></svg></span>
+              <span class="pin">Worth knowing</span>
+            </div>
+            <span class="rubric">Research</span>
+            <h3>The research that reaches space</h3>
+            <p>Astronauts can develop eye and pressure changes that look like IIH. So the Birmingham team led
+            by Professor Alexandra Sinclair now works with NASA &mdash; and what is learned in orbit feeds
+            back into IIH care.</p>
+            <div class="card-foot linkrow">
+              <a class="btn btn-primary" href="https://www.birmingham.ac.uk/research/projects/translational-brain-science/about-us" target="_blank" rel="noopener noreferrer">Read the Birmingham story<span class="vh"> (opens in a new tab)</span></a>
+              <a class="btn btn-ghost" href="https://iih.org.uk/research/" target="_blank" rel="noopener noreferrer">More IIH UK research<span class="vh"> (opens in a new tab)</span></a>
+            </div>
+          </article>
+
+          <article class="card" style="--rub:#1E7A46">
+            <div class="card-top">
+              <span class="icon sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 4C10 4 4 9 4 16v4"/><path d="M20 4c0 9-6 13-12 13"/></svg></span>
+              <span class="pin">Running now</span>
+            </div>
+            <span class="rubric">HOPE Programme</span>
+            <h3>The autumn course has started</h3>
+            <p>The Hope Programme for IIH is a six-session online course, created with IIH UK, people living
+            with IIH and healthcare professionals. The current course began on 16 September.</p>
+            <p><strong>There are no further courses planned yet.</strong> We will share dates in
+            <em>Heads Up!</em> as soon as there are.</p>
+            <div class="card-foot"><a class="btn btn-ghost" href="https://www.h4c.org.uk/iih" target="_blank" rel="noopener noreferrer">About the Hope Programme<span class="vh"> (opens in a new tab)</span></a></div>
+          </article>
+
+          <article class="card" style="--rub:#1D4ED8">
+            <div class="card-top">
+              <span class="icon sm" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 21v-1a7 7 0 0 1 14 0v1"/></svg></span>
+              <span class="pin">Meet the team</span>
+            </div>
+            <span class="rubric">Spotlight</span>
+            <h3>Meet the people behind IIH UK</h3>
+            <p>Each edition this card introduces one person &mdash; a volunteer, a HOPE facilitator, or a
+            clinician or researcher working on IIH.</p>
+            <p class="ask"><strong>Can you supply this?</strong> Someone happy to be featured: their name,
+            their role, a few lines about why they are involved, and a photo &mdash; with their permission.</p>
+            <div class="card-foot"><a class="btn btn-ghost" href="https://iih.org.uk/meet-the-team/" target="_blank" rel="noopener noreferrer">Meet the whole team<span class="vh"> (opens in a new tab)</span></a></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PULL QUOTE (Direction 4) -->
+      <div class="quote-strip">
+        <blockquote class="pullquote">It has changed my way of thinking about living with the condition
+        entirely.<cite>HOPE participant</cite></blockquote>
       </div>
-      <div class="opt" style="--ac:#4338CA">
-        <span class="lab">Direction 2</span>
-        <h3>Magazine</h3>
-        <p>A photograph across the whole top, longer pieces in two columns, and quotes pulled out
-        large where there is no picture.</p>
-        <span class="sp"></span>
-        <a class="btn" href="d2.html">Look at 2</a>
-      </div>
-      <div class="opt" style="--ac:#8C5A3F">
-        <span class="lab">Direction 3</span>
-        <h3>Digest</h3>
-        <p>A narrow column, the same on a laptop as on a phone. Each item gets a small drawn symbol,
-        a big short headline and a couple of lines.</p>
-        <span class="sp"></span>
-        <a class="btn" href="d3.html">Look at 3</a>
-      </div>
-      <div class="opt" style="--ac:#B5179E">
-        <span class="lab">Direction 4</span>
-        <h3>Noticeboard</h3>
-        <p>Conference photographs open the edition as a block of pictures, and everything else sits
-        around them as small cards.</p>
-        <span class="sp"></span>
-        <a class="btn" href="d4.html">Look at 4</a>
-      </div>
-    </div>
 
-    <h2 style="font-size:1.5rem;margin-top:2rem">The four questions</h2>
-    <p style="margin-top:.5rem">One or two words is a perfect answer. You do not need to explain yourself.</p>
-    <ol class="qlist">
-      <li>Which number?</li>
-      <li>Is anything too much &mdash; too busy, too cluttered, too many things at once?</li>
-      <li>Is there anything you expected to find and could not?</li>
-      <li>Anything you would move, or want nearer the top?</li>
-    </ol>
+    </main>
 
-    <p class="deadline"><strong>I am trying to get this edition out before the end of the month</strong>
-    &mdash; so the sooner you can have a look, the better. Once the shape is settled I can start
-    writing. You are not being asked about the wording or whether the facts are right yet; that comes
-    next, and there will be a proper draft to read.</p>
+    <!-- ===================== STANDING RAIL (Direction 1) ===================== -->
+    <aside class="rail" aria-labelledby="rail-h">
+      <p class="rail-title" id="rail-h">Every edition</p>
 
-    <div class="caveat">
-      <p style="margin-bottom:.625rem"><strong>Two things worth knowing.</strong></p>
-      <p style="margin-bottom:.625rem">Nothing is clickable inside the sketches. The photographs are
-      grey boxes and the writing is grey bars, except the headlines, which are roughly what they
-      will say.</p>
-      <p style="margin-bottom:0">The <strong>Warm / Dark / Bright</strong> buttons at the very top
-      <em>do</em> work, on every page. It opens on Warm because a bright white screen is the thing
-      people tell me they struggle with most on a bad day. Tell me if that helps, or if you would
-      rather it started bright.</p>
-    </div>
+      <div class="rail-card" style="--rub:#C0392B">
+        <span class="rubric">Membership</span>
+        <h3>Join or renew</h3>
+        <p>Renewals are due this autumn, and membership is what gets you into the conference.</p>
+        <a class="btn btn-primary" href="https://iih.org.uk/shop/" target="_blank" rel="noopener noreferrer">Join or renew<span class="vh"> (opens in a new tab)</span></a>
+      </div>
+
+      <div class="rail-card" style="--rub:#92520A">
+        <span class="rubric">Easy ways to help</span>
+        <h3>Raise money without spending more</h3>
+        <p>Shop online through easyfundraising and the shop gives IIH UK a donation, at no cost to you.
+        Or give once, straight to the charity.</p>
+        <div class="linkrow">
+          <a class="btn btn-primary" href="https://www.easyfundraising.org.uk/causes/iihuk/" target="_blank" rel="noopener noreferrer">easyfundraising<span class="vh"> (opens in a new tab)</span></a>
+          <a class="btn btn-ghost" href="https://www.justgiving.com/charity/iihuk" target="_blank" rel="noopener noreferrer">Donate<span class="vh"> (opens in a new tab)</span></a>
+        </div>
+      </div>
+
+      <div class="rail-card" style="--rub:#B5179E">
+        <span class="rubric">Get involved</span>
+        <h3>Where we are short</h3>
+        <ul>
+          <li>Newsletter editor</li>
+          <li>Social media</li>
+          <li>Events and fundraising</li>
+        </ul>
+        <p>All from home, around your own health.</p>
+        <a class="btn btn-ghost" href="https://iih.org.uk/volunteer/" target="_blank" rel="noopener noreferrer">Volunteer with us<span class="vh"> (opens in a new tab)</span></a>
+      </div>
+
+      <div class="rail-card" style="--rub:#4A5568">
+        <span class="rubric">Offline</span>
+        <h3>Download this edition</h3>
+        <p>Save it to read later, or print it.</p>
+        <p class="soon">The download is added in the final version.</p>
+      </div>
+    </aside>
 
   </div>
-</main>
+</div>
 
-<footer>
-  <div class="wrap">
-    <p style="margin-bottom:.5rem">A draft of <em>Heads Up!</em> Edition 36, for review by the IIH UK
-    team. Not the finished newsletter.</p>
-    <p style="margin-bottom:0;font-size:.85rem;opacity:.7">IIH UK &middot; Registered charity
-    1143522 (England &amp; Wales) &middot; SC043294 (Scotland)</p>
+<!-- SUPPORT BAND — IIH UK's own links only, on Dan's instruction (14 Sept 2026).
+     Each remaining line is verbatim from the §C master in IIHPT017 Resource Hub v1.0.
+     This is a deliberate departure from §C: NHS 111, Samaritans, Brain & Spine,
+     local council, Citizens Advice and Carers UK are removed for this newsletter. -->
+<section class="support-band" aria-labelledby="support-heading">
+  <div class="wrap-wide">
+    <h2 id="support-heading">Where to get more help and support</h2>
+    <ul class="support-list">
+        <li><a class="sp-teal"   href="https://iih.org.uk" target="_blank" rel="noopener noreferrer"><span class="sp-ico" aria-hidden="true">🌐</span>IIH UK — information, leaflets and support</a></li>
+        <li><a class="sp-blue"   href="https://www.facebook.com/IIHUKCharity/?locale=en_GB" target="_blank" rel="noopener noreferrer"><svg class="sp-ico" viewBox="0 0 24 24" fill="#1877F2" aria-hidden="true" focusable="false"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07c0 6.02 4.39 11.01 10.13 11.93v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8v8.44C19.61 23.08 24 18.09 24 12.07z"/></svg>IIH UK on Facebook (official page)</a></li>
+        <li><a class="sp-pink"   href="https://www.instagram.com/iihukcharity/" target="_blank" rel="noopener noreferrer"><svg class="sp-ico" viewBox="0 0 24 24" fill="#E4405F" aria-hidden="true" focusable="false"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63 19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>IIH UK on Instagram</a></li>
+        <li><a class="sp-navy"   href="https://www.tiktok.com/@iihukcharity" target="_blank" rel="noopener noreferrer"><svg class="sp-ico" viewBox="0 0 24 24" fill="#010101" aria-hidden="true" focusable="false"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>IIH UK on TikTok</a></li>
+        <li><a class="sp-red"    href="https://www.youtube.com/@IIHUKNationalCharity" target="_blank" rel="noopener noreferrer"><svg class="sp-ico" viewBox="0 0 24 24" fill="#FF0000" aria-hidden="true" focusable="false"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.08 0 12 0 12s0 3.92.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>Watch IIH UK on YouTube</a></li>
+        <li><a class="sp-navy"   href="mailto:info@iih.org.uk"><span class="sp-ico" aria-hidden="true">✉️</span>Email IIH UK — info@iih.org.uk</a></li>
+      </ul>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap-wide">
+    <p class="disclaimer">Nothing in this newsletter is medical advice. Always speak to your own clinical team about your care.</p>
+    <div class="foot-grid">
+      <div><h2>This edition</h2><p>Heads Up! Edition 36<br>September 2026<br>Draft</p></div>
+      <div><h2>IIH UK</h2><p>Registered charity<br>England &amp; Wales 1143522<br>Scotland SC043294</p></div>
+      <div><h2>Contact</h2><p><a href="mailto:info@iih.org.uk">info@iih.org.uk<span class="vh"> (opens your email app)</span></a><br><a href="https://iih.org.uk/" target="_blank" rel="noopener noreferrer">iih.org.uk<span class="vh"> (opens in a new tab)</span></a></p></div>
+    </div>
+    <p class="foot-bottom">&copy; 2026 IIH UK &middot; CC BY-NC 4.0 &middot; Photographs &copy; Daniella Mills Photography</p>
   </div>
 </footer>
 
-<script src="theme.js?v=2"></script>
+<script src="app.js?v=4h"></script>
 </body>
 </html>
