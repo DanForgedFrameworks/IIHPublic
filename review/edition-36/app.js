@@ -80,9 +80,13 @@
     if (prev) prev.addEventListener('click', function () { go(i - 1); });
     if (next) next.addEventListener('click', function () { go(i + 1); });
 
+    /* In a right-to-left language "back" is to the right, so the keys and swipe flip */
+    function rtl() { return getComputedStyle(car).direction === 'rtl'; }
+
     car.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowLeft') { go(i - 1); e.preventDefault(); }
-      if (e.key === 'ArrowRight') { go(i + 1); e.preventDefault(); }
+      var step = rtl() ? -1 : 1;
+      if (e.key === 'ArrowLeft') { go(i - step); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { go(i + step); e.preventDefault(); }
     });
 
     /* Swipe — horizontal only, so it never fights a vertical scroll */
@@ -95,7 +99,8 @@
       var dx = e.changedTouches[0].clientX - x0;
       var dy = e.changedTouches[0].clientY - y0;
       if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-        go(dx < 0 ? i + 1 : i - 1);
+        var forward = rtl() ? dx > 0 : dx < 0;
+        go(forward ? i + 1 : i - 1);
       }
       x0 = null; y0 = null;
     }, { passive: true });

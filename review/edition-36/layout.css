@@ -13,14 +13,29 @@
 .band .ttl { color: #12303A; }
 .band .issue { color: #12303A; opacity: .85; }
 
-/* ---------- page grid: news left, standing rail right ---------- */
-.layout {
+/* ---------- one inner spacing step for every box (L5) ----------
+   Text starts 16px in from the OUTSIDE edge of every box, so a coloured
+   stripe counts towards the 16px rather than being added on top. */
+:root { --pad: 1rem; }
+
+/* ---------- page grid (L2) ----------
+   The page is a stack of rows. Each row is a news section, and where a standing
+   "every edition" item belongs with that section it sits beside it on a wide
+   screen, and straight after it on a phone. */
+.layout { padding: 2.25rem 0 1rem; }
+.row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 19rem;
-  gap: 2.5rem;
-  padding: 2.25rem 0 1rem;
+  column-gap: 2.5rem;
   align-items: start;
 }
+.row > .row-main { grid-column: 1; min-width: 0; }
+.side {
+  grid-column: 2;
+  position: sticky; top: 5rem;        /* stays in view while its section scrolls past */
+}
+/* line the side item up with its section heading, not with the gap above it */
+.row + .row > .side { margin-top: 2.75rem; }
 
 .lede { font-size: 1.2rem; margin-bottom: 1.75rem; max-width: 40rem; }
 
@@ -45,24 +60,31 @@
   color: var(--ink-soft); font-size: .8rem; font-weight: 700;
   letter-spacing: .1em; text-transform: uppercase; text-align: center; padding: 1rem;
 }
-.lead-body { padding: 1.5rem 1.5rem 1.75rem; }
+.lead-body { padding-block: 1.25rem 1.5rem; padding-inline: calc(var(--pad) - 1px); }
 .lead-body h2 { font-size: clamp(1.8rem, 6vw, 2.5rem); font-weight: 800; letter-spacing: -.03em; margin-bottom: .75rem; }
 .lead-body p { margin-bottom: 1rem; max-width: 40rem; }
 .gate {
-  background: var(--tint); border-left: 5px solid var(--teal);
-  border-radius: 0 var(--r) var(--r) 0; padding: .875rem 1rem; margin: 1rem 0;
+  background: var(--tint); border-inline-start: 5px solid var(--teal);
+  border-start-end-radius: var(--r); border-end-end-radius: var(--r);
+  padding-block: .875rem; padding-inline: calc(var(--pad) - 5px) var(--pad); margin: 1rem 0;
 }
 .gate p { margin: 0; }
 
-/* ---------- pinned cards ---------- */
-.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+/* ---------- pinned cards ----------
+   (L1) Two across only when each card gets at least 17rem; otherwise one per row.
+   The cards decide from the room they actually have, not from the screen width. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, max(17rem, calc(50% - .5rem))), 1fr));
+  gap: 1rem;
+}
 .card {
   background: var(--surface);
   border: 1px solid var(--rule);
   border-top: 4px solid var(--rub);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow);
-  padding: 1.1rem 1.1rem 1.25rem;
+  padding-block: 1rem 1.25rem; padding-inline: calc(var(--pad) - 1px);
   display: flex; flex-direction: column; gap: .5rem;
 }
 .card-top { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
@@ -82,8 +104,7 @@
 .quote-strip { margin: 2.75rem 0 0; }
 .quote-strip .pullquote { max-width: none; margin: 0; font-size: 1.4rem; }
 
-/* ---------- standing rail ---------- */
-.rail { display: flex; flex-direction: column; gap: 1rem; }
+/* ---------- standing "every edition" items ---------- */
 .rail-title {
   font-size: .8rem; font-weight: 800; letter-spacing: .12em;
   text-transform: uppercase; color: var(--ink-soft);
@@ -91,14 +112,14 @@
 .rail-card {
   background: var(--surface);
   border: 1px solid var(--rule);
-  border-left: 5px solid var(--rub);
+  border-inline-start: 5px solid var(--rub);
   border-radius: var(--r-lg);
-  padding: 1rem 1.1rem;
+  padding-block: 1rem; padding-inline: calc(var(--pad) - 5px) calc(var(--pad) - 1px);
   display: flex; flex-direction: column; gap: .5rem;
 }
 .rail-card h3 { font-size: 1.15rem; font-weight: 800; }
 .rail-card p { font-size: 1rem; margin: 0; }
-.rail-card ul { margin: 0 0 0 1.1rem; font-size: 1rem; }
+.rail-card ul { margin: 0; padding-inline-start: 1.1rem; font-size: 1rem; }
 .rail-card li { margin-bottom: .25rem; }
 .rail-card .btn { width: 100%; }
 
@@ -119,7 +140,7 @@ a[href^="mailto:"]::after,
   content: "" / "";
   display: inline-block;
   width: .85em; height: .85em;
-  margin-left: .35em;
+  margin-inline-start: .35em;
   vertical-align: -.08em;
   flex: 0 0 auto;
   background-color: currentColor;
@@ -130,7 +151,9 @@ a[target="_blank"]      { --ico: var(--ico-ext); }
 a[href^="mailto:"]      { --ico: var(--ico-mail); }
 .linkkey .k.ext         { --ico: var(--ico-ext); }
 .linkkey .k.mail        { --ico: var(--ico-mail); }
-.linkkey .k::before     { margin-left: 0; margin-right: .35em; }
+.linkkey .k::before     { margin-inline-start: 0; margin-inline-end: .35em; }
+/* the "opens another website" arrow points out of the text, so it mirrors in right-to-left text */
+[dir="rtl"] a[target="_blank"]::after, [dir="rtl"] .linkkey .k.ext::before { transform: scaleX(-1); }
 /* inside running text, keep a short link and its icon on one line, so the icon
    never wraps onto a line by itself */
 p a[target="_blank"], p a[href^="mailto:"] { white-space: nowrap; }
@@ -139,7 +162,7 @@ p a[target="_blank"], p a[href^="mailto:"] { white-space: nowrap; }
 
 .linkkey {
   display: flex; flex-wrap: wrap; gap: .5rem 1.25rem;
-  font-size: .95rem; color: var(--ink-soft); margin: -.75rem 0 1.75rem;
+  font-size: .95rem; color: var(--ink-soft); margin: .75rem 0 0;
 }
 .linkkey .k { display: inline-flex; align-items: center; }
 
@@ -147,7 +170,7 @@ p a[target="_blank"], p a[href^="mailto:"] { white-space: nowrap; }
 .review-note {
   background: #FFF1C9; color: #3D2A00;
   border: 2px solid #B7861A; border-radius: var(--r-lg);
-  padding: 1rem 1.1rem; margin-bottom: 1.75rem;
+  padding-block: 1rem; padding-inline: calc(var(--pad) - 2px); margin-bottom: 1.75rem;
 }
 .review-note h2 { font-size: 1.15rem; margin-bottom: .375rem; color: #3D2A00; }
 .review-note p { margin: 0 0 .5rem; max-width: 42rem; }
@@ -156,7 +179,7 @@ p a[target="_blank"], p a[href^="mailto:"] { white-space: nowrap; }
 .ask {
   background: #FFF1C9; color: #3D2A00;
   border: 1px dashed #B7861A; border-radius: var(--r);
-  padding: .5rem .75rem; font-size: .95rem;
+  padding-block: .5rem; padding-inline: calc(var(--pad) - 1px); font-size: .95rem;
 }
 .ask strong { display: block; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; }
 /* the yellow ask keeps its own dark ink in every theme, whatever card it sits in */
@@ -177,15 +200,15 @@ section > .half-head:first-of-type { margin-top: .25rem; }
 .cards > .card.wide { grid-column: 1 / -1; }
 /* one-line "Also:" item under a section */
 .brief {
-  margin-top: 1rem; padding: .75rem 1rem;
+  margin-top: 1rem; padding-block: .75rem; padding-inline: calc(var(--pad) - 4px) calc(var(--pad) - 1px);
   background: var(--surface); border: 1px solid var(--rule);
-  border-left: 4px solid var(--rub, var(--rule)); border-radius: var(--r);
+  border-inline-start: 4px solid var(--rub, var(--rule)); border-radius: var(--r);
   font-size: 1rem; max-width: none;
 }
 /* card with a photo beside the words (stacks on a phone) */
 .media-card { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 0; padding: 0; overflow: hidden; }
 .media-card .card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.media-card .media-body { padding: 1.1rem 1.1rem 1.25rem; display: flex; flex-direction: column; gap: .5rem; }
+.media-card .media-body { padding-block: 1rem 1.25rem; padding-inline: var(--pad) calc(var(--pad) - 1px); display: flex; flex-direction: column; gap: .5rem; }
 @media (max-width: 640px) {
   .media-card { grid-template-columns: minmax(0, 1fr); }
   .media-card .card-img { aspect-ratio: 4 / 3; height: auto; object-position: 50% 30%; }
@@ -199,6 +222,14 @@ section > .half-head:first-of-type { margin-top: .25rem; }
 }
 /* the conference photos are 3:2, so the carousel frame matches them */
 .slide img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+/* (L4) never taller than the screen leaves room for: the Background bar above, and the
+   caption, arrows and dots below. On a short or zoomed screen the whole photo shrinks
+   and gets plain bands at the sides, so the photo and its buttons are seen together. */
+.slide img {
+  max-height: max(11rem, calc(100vh - 17rem));
+  max-height: max(11rem, calc(100svh - 17rem));
+  object-fit: contain; background: var(--bg-alt);
+}
 /* the one portrait photo is shown whole rather than cropped to a strip */
 .slide img.whole { object-fit: contain; background: var(--bg-alt); }
 
@@ -229,7 +260,8 @@ section > .half-head:first-of-type { margin-top: .25rem; }
 .support-list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
 .support-list a {
   display: flex; gap: .625rem; align-items: center; min-height: var(--tap);
-  padding: .5rem .875rem; border: 1px solid var(--rule); border-left: 5px solid var(--sp, var(--teal));
+  padding-block: .5rem; padding-inline: calc(var(--pad) - 5px) calc(var(--pad) - 1px);
+  border: 1px solid var(--rule); border-inline-start: 5px solid var(--sp, var(--teal));
   border-radius: var(--r); background: var(--bg-alt); color: var(--ink);
   text-decoration: none; font-weight: 600; font-size: 1rem;
 }
@@ -248,10 +280,29 @@ span.sp-ico { display: inline-flex; align-items: center; justify-content: center
 :root[data-mode="dark"] .rubric { color: var(--ink-soft); }
 :root[data-mode="dark"] .icon svg { stroke: var(--ink-soft); }
 
+/* ---------- phone logo inside the teal band (L3) ----------
+   Hidden on wider screens, where the navy masthead carries the logo. */
+.band-logo { display: none; }
+
 /* ---------- narrow screens ---------- */
 @media (max-width: 900px) {
-  .layout { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
-  .rail { margin-top: .5rem; }
+  .row { grid-template-columns: minmax(0, 1fr); }
+  .row > .row-main, .side { grid-column: 1; }
+  .side, .row + .row > .side { position: static; margin-top: 1.5rem; }
+}
+/* Phones: the navy masthead folds into the teal band, so the first screen reaches the
+   lead story. The charity numbers stay in the footer. */
+@media (max-width: 640px) {
+  .masthead { display: none; }
+  .band { padding: 1rem 0 1.25rem; }
+  .band-logo {
+    display: inline-block; background: var(--navy); border-radius: var(--r);
+    padding: .375rem .625rem; margin-bottom: .5rem;
+  }
+  .layout { padding-top: 1.25rem; }
+  .lede { margin-bottom: 1.25rem; }
+  .band-logo::after { content: none !important; }
+  .band-logo img { width: 150px; height: auto; display: block; }
 }
 /* Smallest phones: keep the three background buttons on one row. The label
    stays available to screen readers, it just stops taking up a line. */
@@ -265,8 +316,6 @@ span.sp-ico { display: inline-flex; align-items: center; justify-content: center
 
 @media (max-width: 640px) {
   .support-list { grid-template-columns: minmax(0, 1fr); }
-  .cards { grid-template-columns: minmax(0, 1fr); }
-  .lead-body { padding: 1.1rem 1rem 1.25rem; }
   .sec-head { margin-top: 2.25rem; }
   .quote-strip .pullquote { font-size: 1.2rem; }
 }

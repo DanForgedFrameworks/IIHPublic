@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Heads Up! Edition 36 — draft (Front page + Noticeboard)</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="stylesheet" href="style.css?v=4j">
-<link rel="stylesheet" href="layout.css?v=4j">
+<link rel="stylesheet" href="style.css?v=5a">
+<link rel="stylesheet" href="layout.css?v=5a">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -33,16 +33,24 @@
 
 <div class="band">
   <div class="wrap-wide">
+    <!-- phones only: the navy masthead is hidden there, so the logo sits in the band -->
+    <a class="band-logo" href="https://iih.org.uk/" target="_blank" rel="noopener noreferrer">
+      <img src="lockup.png" alt="IIH UK — Idiopathic Intracranial Hypertension. Opens the IIH UK website in a new tab.">
+    </a>
     <h1 class="ttl">Heads&nbsp;Up!</h1>
     <p class="issue">Edition 36 &middot; September 2026 &middot; IIH Awareness Month</p>
   </div>
 </div>
 
 <div class="wrap-wide">
-  <div class="layout">
+  <!-- Each .row is one news section. Where a standing "every edition" item belongs with
+       that section, it follows as an <aside class="side">: beside it on a wide screen,
+       straight after it on a phone. -->
+  <main id="main" class="layout">
 
-    <!-- ===================== NEWS COLUMN ===================== -->
-    <main id="main">
+    <!-- ===================== ROW: INTRO + LEAD, with Membership ===================== -->
+    <div class="row">
+    <div class="row-main">
 
       <section class="review-note" aria-labelledby="review-h">
         <h2 id="review-h">For the IIH UK team: this version is for review</h2>
@@ -56,11 +64,6 @@
       <p class="lede"><em>Heads Up!</em> is back, and it looks different. We have had no newsletter
       volunteer since the end of last year, so we have used the gap to rebuild it for how most of you
       read &mdash; on a phone, in short bursts. You can change the background at the top.</p>
-
-      <p class="linkkey" aria-hidden="true">
-        <span class="k ext">Opens another website</span>
-        <span class="k mail">Opens your email</span>
-      </p>
 
       <!-- LEAD (Direction 1) -->
       <article class="lead" style="--rub:#92520A" aria-labelledby="lead-h">
@@ -90,6 +93,25 @@
         </div>
       </article>
 
+      <p class="linkkey" aria-hidden="true">
+        <span class="k ext">Opens another website</span>
+        <span class="k mail">Opens your email</span>
+      </p>
+
+    </div>
+    <aside class="side" aria-labelledby="side-member-h">
+      <div class="rail-card" style="--rub:#C0392B">
+        <span class="rubric">Every edition &middot; Membership</span>
+        <h3 id="side-member-h">Join or renew</h3>
+        <p>Renewals are due this autumn, and membership is what gets you into the conference.</p>
+        <a class="btn btn-primary" href="https://iih.org.uk/shop/" target="_blank" rel="noopener noreferrer">Join or renew<span class="vh"> (opens in a new tab)</span></a>
+      </div>
+    </aside>
+    </div>
+
+    <!-- ===================== ROW: RESEARCH ===================== -->
+    <div class="row">
+    <div class="row-main">
       <!-- ============ RESEARCH — one lead item + one smaller item ============ -->
       <section aria-labelledby="research-h" style="--rub:#4338CA">
         <div class="sec-head">
@@ -130,7 +152,12 @@
         international team of researchers on developing new guidelines for IIH. We will share more with you
         as soon as we are able.</p>
       </section>
+    </div>
+    </div>
 
+    <!-- ===================== ROW: FUNDRAISING, with Easy ways to help ===================== -->
+    <div class="row">
+    <div class="row-main">
       <!-- ============ FUNDRAISING — happening now + thank you ============ -->
       <section aria-labelledby="fund-h" style="--rub:#C0392B">
         <div class="sec-head">
@@ -183,7 +210,24 @@
           </article>
         </div>
       </section>
+    </div>
+    <aside class="side" aria-labelledby="side-help-h">
+      <div class="rail-card" style="--rub:#92520A">
+        <span class="rubric">Every edition &middot; Easy ways to help</span>
+        <h3 id="side-help-h">Raise money without spending more</h3>
+        <p>Shop online through easyfundraising and the shop gives IIH UK a donation, at no cost to you.
+        Or give once, straight to the charity.</p>
+        <div class="linkrow">
+          <a class="btn btn-primary" href="https://www.easyfundraising.org.uk/causes/iihuk/" target="_blank" rel="noopener noreferrer">easyfundraising<span class="vh"> (opens in a new tab)</span></a>
+          <a class="btn btn-ghost" href="https://www.justgiving.com/charity/iihuk" target="_blank" rel="noopener noreferrer">Donate<span class="vh"> (opens in a new tab)</span></a>
+        </div>
+      </div>
+    </aside>
+    </div>
 
+    <!-- ===================== ROW: EVENTS ===================== -->
+    <div class="row">
+    <div class="row-main">
       <!-- ============ EVENTS — coming up + what happened ============ -->
       <section aria-labelledby="events-h" style="--rub:#8C5A3F">
         <div class="sec-head">
@@ -231,7 +275,12 @@
           <a href="https://daniellamillsphotography.co.uk/" target="_blank" rel="noopener noreferrer">Daniella Mills Photography<span class="vh"> (opens in a new tab)</span></a>
         </p>
       </section>
+    </div>
+    </div>
 
+    <!-- ===================== ROW: SPOTLIGHT, with Get involved ===================== -->
+    <div class="row">
+    <div class="row-main">
       <!-- ============ SPOTLIGHT — rotating feature ============ -->
       <section aria-labelledby="spot-h" style="--rub:#1D4ED8">
         <div class="sec-head">
@@ -262,7 +311,25 @@
           </article>
         </div>
       </section>
+    </div>
+    <aside class="side" aria-labelledby="side-involved-h">
+      <div class="rail-card" style="--rub:#B5179E">
+        <span class="rubric">Every edition &middot; Get involved</span>
+        <h3 id="side-involved-h">Where we are short</h3>
+        <ul>
+          <li>Newsletter editor</li>
+          <li>Social media</li>
+          <li>Events and fundraising</li>
+        </ul>
+        <p>All from home, around your own health.</p>
+        <a class="btn btn-ghost" href="https://iih.org.uk/volunteer/" target="_blank" rel="noopener noreferrer">Volunteer with us<span class="vh"> (opens in a new tab)</span></a>
+      </div>
+    </aside>
+    </div>
 
+    <!-- ===================== ROW: PROGRAMME UPDATE, with Download ===================== -->
+    <div class="row">
+    <div class="row-main">
       <!-- ============ PROGRAMME UPDATE — rotating feature ============ -->
       <section aria-labelledby="prog-h" style="--rub:#1E7A46">
         <div class="sec-head">
@@ -304,52 +371,18 @@
           </article>
         </div>
       </section>
-
-    </main>
-
-    <!-- ===================== STANDING RAIL (Direction 1) ===================== -->
-    <aside class="rail" aria-labelledby="rail-h">
-      <p class="rail-title" id="rail-h">Every edition</p>
-
-      <div class="rail-card" style="--rub:#C0392B">
-        <span class="rubric">Membership</span>
-        <h3>Join or renew</h3>
-        <p>Renewals are due this autumn, and membership is what gets you into the conference.</p>
-        <a class="btn btn-primary" href="https://iih.org.uk/shop/" target="_blank" rel="noopener noreferrer">Join or renew<span class="vh"> (opens in a new tab)</span></a>
-      </div>
-
-      <div class="rail-card" style="--rub:#92520A">
-        <span class="rubric">Easy ways to help</span>
-        <h3>Raise money without spending more</h3>
-        <p>Shop online through easyfundraising and the shop gives IIH UK a donation, at no cost to you.
-        Or give once, straight to the charity.</p>
-        <div class="linkrow">
-          <a class="btn btn-primary" href="https://www.easyfundraising.org.uk/causes/iihuk/" target="_blank" rel="noopener noreferrer">easyfundraising<span class="vh"> (opens in a new tab)</span></a>
-          <a class="btn btn-ghost" href="https://www.justgiving.com/charity/iihuk" target="_blank" rel="noopener noreferrer">Donate<span class="vh"> (opens in a new tab)</span></a>
-        </div>
-      </div>
-
-      <div class="rail-card" style="--rub:#B5179E">
-        <span class="rubric">Get involved</span>
-        <h3>Where we are short</h3>
-        <ul>
-          <li>Newsletter editor</li>
-          <li>Social media</li>
-          <li>Events and fundraising</li>
-        </ul>
-        <p>All from home, around your own health.</p>
-        <a class="btn btn-ghost" href="https://iih.org.uk/volunteer/" target="_blank" rel="noopener noreferrer">Volunteer with us<span class="vh"> (opens in a new tab)</span></a>
-      </div>
-
+    </div>
+    <aside class="side" aria-labelledby="side-download-h">
       <div class="rail-card" style="--rub:#4A5568">
-        <span class="rubric">Offline</span>
-        <h3>Download this edition</h3>
+        <span class="rubric">Every edition &middot; Offline</span>
+        <h3 id="side-download-h">Download this edition</h3>
         <p>Save it to read later, or print it.</p>
         <p class="soon">The download is added in the final version.</p>
       </div>
     </aside>
+    </div>
 
-  </div>
+  </main>
 </div>
 
 <!-- SUPPORT BAND — IIH UK's own links only, on Dan's instruction (14 Sept 2026).
@@ -382,6 +415,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=4j"></script>
+<script src="app.js?v=5a"></script>
 </body>
 </html>
