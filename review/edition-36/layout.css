@@ -207,6 +207,11 @@ section > .half-head:first-of-type { margin-top: .25rem; }
   border-inline-start: 4px solid var(--rub, var(--rule)); border-radius: var(--r);
   font-size: 1rem; max-width: none;
 }
+/* a photo at the top of an ordinary card */
+.card-photo { margin: 0 0 .25rem; }
+.card-photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r); display: block; }
+.card-photo figcaption { font-size: .85rem; color: var(--ink-soft); margin-top: .25rem; }
+
 /* an "Also:" item with a small photo: photo beside the words when there is room,
    photo above them when there is not */
 .brief-photo { display: flex; flex-wrap: wrap; gap: .75rem 1rem; align-items: flex-start; }
