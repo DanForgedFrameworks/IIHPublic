@@ -176,6 +176,8 @@ p a[target="_blank"], p a[href^="mailto:"] { white-space: nowrap; }
 .review-note p { margin: 0 0 .5rem; max-width: 42rem; }
 .review-note p:last-child { margin-bottom: 0; }
 .review-note a { color: #3D2A00; font-weight: 700; }
+.review-list { margin: 0 0 .75rem; padding-inline-start: 1.5rem; max-width: 42rem; }
+.review-list li { margin-bottom: .375rem; }
 .ask {
   background: #FFF1C9; color: #3D2A00;
   border: 1px dashed #B7861A; border-radius: var(--r);
@@ -205,6 +207,14 @@ section > .half-head:first-of-type { margin-top: .25rem; }
   border-inline-start: 4px solid var(--rub, var(--rule)); border-radius: var(--r);
   font-size: 1rem; max-width: none;
 }
+/* an "Also:" item with a small photo: photo beside the words when there is room,
+   photo above them when there is not */
+.brief-photo { display: flex; flex-wrap: wrap; gap: .75rem 1rem; align-items: flex-start; }
+.brief-photo figure { margin: 0; flex: 1 1 12rem; max-width: 16rem; }
+.brief-photo img { width: 100%; height: auto; border-radius: var(--r); display: block; }
+.brief-photo figcaption { font-size: .85rem; color: var(--ink-soft); margin-top: .25rem; }
+.brief-photo p { flex: 999 1 16rem; margin: 0; }
+
 /* card with a photo beside the words (stacks on a phone) */
 .media-card { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 0; padding: 0; overflow: hidden; }
 .media-card .card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -213,6 +223,25 @@ section > .half-head:first-of-type { margin-top: .25rem; }
   .media-card { grid-template-columns: minmax(0, 1fr); }
   .media-card .card-img { aspect-ratio: 4 / 3; height: auto; object-position: 50% 30%; }
 }
+
+/* ---------- welcome card: small people profiles ----------
+   Photo beside a name, role and one line. Three across when there is room, one per row
+   on a phone. A person without a photo yet gets a plain circle of the same size. */
+.people {
+  list-style: none; margin: .25rem 0 0; padding: 0;
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+}
+.person { display: flex; gap: .75rem; align-items: flex-start; }
+.person img, .person-ph {
+  flex: 0 0 4.5rem; width: 4.5rem; height: 4.5rem; border-radius: 50%;
+  object-fit: cover; object-position: 50% 30%;
+  border: 3px solid var(--rub, var(--teal)); background: var(--bg-alt);
+}
+.person > div { min-width: 0; display: flex; flex-direction: column; gap: .25rem; }
+.person p { font-size: 1rem; margin: 0; }
+.card .person-name { font-weight: 800; font-size: 1.05rem; line-height: 1.25; }
+.card .person-role { font-size: .9rem; color: var(--ink-soft); }
 
 /* ---------- real photographs ---------- */
 .lead-img {
@@ -258,6 +287,10 @@ section > .half-head:first-of-type { margin-top: .25rem; }
 .support-band { background: var(--surface); border-top: 4px solid var(--teal); padding: 2.5rem 0; margin-top: 2rem; }
 .support-band h2 { font-size: 1.4rem; margin-bottom: 1.25rem; text-align: center; }
 .support-list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+/* every link box is the same height, set by the tallest one, so the rows line up */
+.support-list { grid-auto-rows: 1fr; }
+.support-list li { display: flex; }
+.support-list li > a { flex: 1 1 auto; }
 .support-list a {
   display: flex; gap: .625rem; align-items: center; min-height: var(--tap);
   padding-block: .5rem; padding-inline: calc(var(--pad) - 5px) calc(var(--pad) - 1px);
