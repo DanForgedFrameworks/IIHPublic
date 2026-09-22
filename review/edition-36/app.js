@@ -51,13 +51,15 @@
     var live = car.querySelector('[data-live]');
     var i = 0;
     var dots = [];
+    /* "Photo" unless the carousel says otherwise, so the same code can carry quotes */
+    var label = car.dataset.itemLabel || 'Photo';
 
     if (dotwrap) {
       slides.forEach(function (_s, n) {
         var d = document.createElement('button');
         d.type = 'button';
         d.className = 'cdot';
-        d.innerHTML = '<span class="vh">Photo ' + (n + 1) + '</span>';
+        d.innerHTML = '<span class="vh">' + label + ' ' + (n + 1) + '</span>';
         d.addEventListener('click', function () { go(n); });
         dotwrap.appendChild(d);
         dots.push(d);
@@ -74,7 +76,7 @@
       if (count) count.textContent = (i + 1) + ' of ' + slides.length;
       if (prev) prev.disabled = (i === 0);
       if (next) next.disabled = (i === slides.length - 1);
-      if (live) live.textContent = 'Photo ' + (i + 1) + ' of ' + slides.length;
+      if (live) live.textContent = label + ' ' + (i + 1) + ' of ' + slides.length;
     }
 
     if (prev) prev.addEventListener('click', function () { go(i - 1); });

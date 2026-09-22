@@ -248,6 +248,16 @@ section > .half-head:first-of-type { margin-top: .25rem; }
 .card .person-name { font-weight: 800; font-size: 1.05rem; line-height: 1.25; }
 .card .person-role { font-size: .9rem; color: var(--ink-soft); }
 
+/* ---------- quotes on the same carousel as the photographs ----------
+   All three sit in one grid cell, so the box is as tall as the longest quote and
+   nothing jumps when you move between them. Hidden slides are hidden from screen
+   readers too, because visibility:hidden takes them out of the accessibility tree. */
+.quote-carousel .carousel-viewport { display: grid; background: var(--surface); }
+.quote-carousel .slide { display: block; grid-area: 1 / 1; visibility: hidden; }
+.quote-carousel .slide[data-active="true"] { visibility: visible; }
+.quote-carousel .pullquote { margin: 0; max-width: none; border-radius: 0; height: 100%; }
+.quote-carousel + .caption { font-size: .9rem; color: var(--ink-soft); }
+
 /* ---------- real photographs ---------- */
 .lead-img {
   display: block; width: 100%; height: auto;
