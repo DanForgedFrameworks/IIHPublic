@@ -1,0 +1,399 @@
+/* ==========================================================================
+   Heads Up! Edition 36 — the 1 + 4 hybrid
+   Direction 1 gives: a lead story, coloured rubric headers, a standing rail.
+   Direction 4 gives: photography as the spine, pinned cards, a pull quote.
+   Direction 3 gives: the circled icons and the spacing.
+   Loaded after style.css, which carries the tokens, themes and carousel.
+   ========================================================================== */
+
+.wrap-wide { width: 100%; max-width: 72rem; margin: 0 auto; padding: 0 1.25rem; }
+
+/* ---------- title band (teal is fixed in every theme) ---------- */
+.band { background: var(--teal); padding: 1.75rem 0 1.5rem; }
+.band .ttl { color: #12303A; }
+.band .issue { color: #12303A; opacity: .85; }
+
+/* ---------- one inner spacing step for every box (L5) ----------
+   Text starts 16px in from the OUTSIDE edge of every box, so a coloured
+   stripe counts towards the 16px rather than being added on top. */
+:root { --pad: 1rem; }
+
+/* ---------- page grid (L2) ----------
+   The page is a stack of rows. Each row is a news section, and where a standing
+   "every edition" item belongs with that section it sits beside it on a wide
+   screen, and straight after it on a phone. */
+.layout { padding: 2.25rem 0 1rem; }
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 19rem;
+  column-gap: 2.5rem;
+  align-items: start;
+}
+.row > .row-main { grid-column: 1; min-width: 0; }
+.side {
+  grid-column: 2;
+  position: sticky; top: 5rem;        /* stays in view while its section scrolls past */
+}
+/* line the side item up with its section heading, not with the gap above it */
+.row + .row > .side { margin-top: 2.75rem; }
+
+.lede { font-size: 1.2rem; margin-bottom: 1.75rem; max-width: 40rem; }
+
+/* ---------- section heading with circled icon ---------- */
+.sec-head { display: flex; gap: .875rem; align-items: center; margin: 2.75rem 0 1rem; }
+.sec-head h2 { font-size: clamp(1.4rem, 4.5vw, 1.8rem); font-weight: 800; letter-spacing: -.02em; }
+
+/* ---------- lead story ---------- */
+.lead {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-top: 5px solid var(--rub);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.lead-media {
+  aspect-ratio: 16 / 9;
+  background: var(--bg-alt);
+  border-bottom: 1px dashed var(--rule);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-soft); font-size: .8rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; text-align: center; padding: 1rem;
+}
+.lead-body { padding-block: 1.25rem 1.5rem; padding-inline: calc(var(--pad) - 1px); }
+.lead-body h2 { font-size: clamp(1.8rem, 6vw, 2.5rem); font-weight: 800; letter-spacing: -.03em; margin-bottom: .75rem; }
+.lead-body p { margin-bottom: 1rem; max-width: 40rem; }
+.gate {
+  background: var(--tint); border-inline-start: 5px solid var(--teal);
+  border-start-end-radius: var(--r); border-end-end-radius: var(--r);
+  padding-block: .875rem; padding-inline: calc(var(--pad) - 5px) var(--pad); margin: 1rem 0;
+}
+.gate p { margin: 0; }
+
+/* ---------- pinned cards ----------
+   (L1) Two across only when each card gets at least 17rem; otherwise one per row.
+   The cards decide from the room they actually have, not from the screen width. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, max(17rem, calc(50% - .5rem))), 1fr));
+  gap: 1rem;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--rub);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  padding-block: 1rem 1.25rem; padding-inline: calc(var(--pad) - 1px);
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.card-top { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.pin {
+  font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink); background: var(--bg-alt); border: 1px solid var(--rule);
+  border-radius: 4px; padding: .125rem .5rem; white-space: nowrap;
+}
+.card h3 { font-size: 1.3rem; font-weight: 800; letter-spacing: -.01em; line-height: 1.2; }
+.card p { font-size: 1rem; margin: 0; }
+.card .card-foot { margin-top: auto; padding-top: .5rem; }
+.icon.sm { width: 2.5rem; height: 2.5rem; }
+.icon.sm svg { width: 1.25rem; height: 1.25rem; }
+.card-placeholder p { color: var(--ink-soft); }
+
+/* ---------- pull quote strip ---------- */
+.quote-strip { margin: 2.75rem 0 0; }
+.quote-strip .pullquote { max-width: none; margin: 0; font-size: 1.4rem; }
+
+/* ---------- standing "every edition" items ---------- */
+.rail-title {
+  font-size: .8rem; font-weight: 800; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.rail-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-inline-start: 5px solid var(--rub);
+  border-radius: var(--r-lg);
+  padding-block: 1rem; padding-inline: calc(var(--pad) - 5px) calc(var(--pad) - 1px);
+  display: flex; flex-direction: column; gap: .5rem;
+}
+.rail-card h3 { font-size: 1.15rem; font-weight: 800; }
+.rail-card p { font-size: 1rem; margin: 0; }
+.rail-card ul { margin: 0; padding-inline-start: 1.1rem; font-size: 1rem; }
+.rail-card li { margin-bottom: .25rem; }
+.rail-card .btn { width: 100%; }
+
+/* ---------- link-type icons ----------
+   Every link that opens another website, and every link that opens an email app,
+   carries a small icon after its text, so nobody is surprised by where it goes.
+   Done in CSS so the §C support band markup stays byte-identical to the master.
+   The icon is decorative: the words already say it for screen readers, via the
+   hidden "(opens in a new tab)" / "(opens your email app)" text. */
+:root {
+  --ico-ext: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4h6v6'/%3E%3Cpath d='M20 4l-9 9'/%3E%3Cpath d='M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5'/%3E%3C/svg%3E");
+  --ico-mail: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='M3 7l9 6 9-6'/%3E%3C/svg%3E");
+}
+a[target="_blank"]::after,
+a[href^="mailto:"]::after,
+.linkkey .k::before {
+  content: "";
+  content: "" / "";
+  display: inline-block;
+  width: .85em; height: .85em;
+  margin-inline-start: .35em;
+  vertical-align: -.08em;
+  flex: 0 0 auto;
+  background-color: currentColor;
+  -webkit-mask: var(--ico) no-repeat center / contain;
+          mask: var(--ico) no-repeat center / contain;
+}
+a[target="_blank"]      { --ico: var(--ico-ext); }
+a[href^="mailto:"]      { --ico: var(--ico-mail); }
+.linkkey .k.ext         { --ico: var(--ico-ext); }
+.linkkey .k.mail        { --ico: var(--ico-mail); }
+.linkkey .k::before     { margin-inline-start: 0; margin-inline-end: .35em; }
+/* the "opens another website" arrow points out of the text, so it mirrors in right-to-left text */
+[dir="rtl"] a[target="_blank"]::after, [dir="rtl"] .linkkey .k.ext::before { transform: scaleX(-1); }
+/* inside running text, keep a short link and its icon on one line, so the icon
+   never wraps onto a line by itself */
+p a[target="_blank"], p a[href^="mailto:"] { white-space: nowrap; }
+/* the logo explains itself in its alt text; an icon beside it is clutter */
+.masthead a::after { content: none; }
+
+.linkkey {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.25rem;
+  font-size: .95rem; color: var(--ink-soft); margin: .75rem 0 0;
+}
+.linkkey .k { display: inline-flex; align-items: center; }
+
+/* ---------- review note and "can you supply this?" asks (team review only) ---------- */
+.review-note {
+  background: #FFF1C9; color: #3D2A00;
+  border: 2px solid #B7861A; border-radius: var(--r-lg);
+  padding-block: 1rem; padding-inline: calc(var(--pad) - 2px); margin-bottom: 1.75rem;
+}
+.review-note h2 { font-size: 1.15rem; margin-bottom: .375rem; color: #3D2A00; }
+.review-note p { margin: 0 0 .5rem; max-width: 42rem; }
+.review-note p:last-child { margin-bottom: 0; }
+.review-note a { color: #3D2A00; font-weight: 700; }
+.review-list { margin: 0 0 .75rem; padding-inline-start: 1.5rem; max-width: 42rem; }
+.review-list li { margin-bottom: .375rem; }
+.ask {
+  background: #FFF1C9; color: #3D2A00;
+  border: 1px dashed #B7861A; border-radius: var(--r);
+  padding-block: .5rem; padding-inline: calc(var(--pad) - 1px); font-size: .95rem;
+}
+.ask strong { display: block; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; }
+/* the yellow ask keeps its own dark ink in every theme, whatever card it sits in */
+.card .ask, .rail-card .ask { margin-top: .25rem; color: #3D2A00; }
+.soon {
+  font-size: .85rem; font-weight: 700; color: var(--ink-soft);
+}
+
+/* ---------- Edition 36 format: half-section headings, briefs, photo cards ---------- */
+/* "Happening now" / "Thank you" / "Coming up" / "What happened" */
+.half-head {
+  font-size: 1.05rem; font-weight: 800; color: var(--ink);
+  margin: 1.5rem 0 .75rem; padding-bottom: .375rem;
+  border-bottom: 2px solid var(--rub, var(--rule));
+}
+section > .half-head:first-of-type { margin-top: .25rem; }
+/* a lead item that spans the full row */
+.cards > .card.wide { grid-column: 1 / -1; }
+/* one-line "Also:" item under a section */
+.brief {
+  margin-top: 1rem; padding-block: .75rem; padding-inline: calc(var(--pad) - 4px) calc(var(--pad) - 1px);
+  background: var(--surface); border: 1px solid var(--rule);
+  border-inline-start: 4px solid var(--rub, var(--rule)); border-radius: var(--r);
+  font-size: 1rem; max-width: none;
+}
+/* a photo at the top of an ordinary card */
+.card-photo { margin: 0 0 .25rem; }
+.card-photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r); display: block; }
+.card-photo figcaption { font-size: .85rem; color: var(--ink-soft); margin-top: .25rem; }
+
+/* an "Also:" item with a small photo: photo beside the words when there is room,
+   photo above them when there is not */
+.brief-photo { display: flex; flex-wrap: wrap; gap: .75rem 1rem; align-items: flex-start; }
+.brief-photo figure { margin: 0; flex: 1 1 12rem; max-width: 16rem; }
+.brief-photo img { width: 100%; height: auto; border-radius: var(--r); display: block; }
+.brief-photo figcaption { font-size: .85rem; color: var(--ink-soft); margin-top: .25rem; }
+.brief-photo p { flex: 999 1 16rem; margin: 0; }
+
+/* card with a photo beside the words (stacks on a phone) */
+.media-card { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 0; padding: 0; overflow: hidden; }
+.media-card .card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.media-card .media-body { padding-block: 1rem 1.25rem; padding-inline: var(--pad) calc(var(--pad) - 1px); display: flex; flex-direction: column; gap: .5rem; }
+@media (max-width: 640px) {
+  .media-card { grid-template-columns: minmax(0, 1fr); }
+  .media-card .card-img { aspect-ratio: 4 / 3; height: auto; object-position: 50% 30%; }
+}
+
+/* ---------- welcome card: small people profiles ----------
+   Photo beside a name, role and one line. Three across when there is room, one per row
+   on a phone. A person without a photo yet gets a plain circle of the same size. */
+.people {
+  list-style: none; margin: .25rem 0 0; padding: 0;
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+}
+.person { display: flex; gap: .75rem; align-items: flex-start; }
+.person img, .person-ph {
+  flex: 0 0 4.5rem; width: 4.5rem; height: 4.5rem; border-radius: 50%;
+  object-fit: cover; object-position: 50% 30%;
+  border: 3px solid var(--rub, var(--teal)); background: var(--bg-alt);
+}
+.person > div { min-width: 0; display: flex; flex-direction: column; gap: .25rem; }
+.person p { font-size: 1rem; margin: 0; }
+.card .person-name { font-weight: 800; font-size: 1.05rem; line-height: 1.25; }
+.card .person-role { font-size: .9rem; color: var(--ink-soft); }
+
+/* ---------- quotes on the same carousel as the photographs ----------
+   All three sit in one grid cell, so the box is as tall as the longest quote and
+   nothing jumps when you move between them. Hidden slides are hidden from screen
+   readers too, because visibility:hidden takes them out of the accessibility tree. */
+.quote-carousel .carousel-viewport { display: grid; background: var(--surface); }
+.quote-carousel .slide { display: block; grid-area: 1 / 1; visibility: hidden; }
+.quote-carousel .slide[data-active="true"] { visibility: visible; }
+.quote-carousel .pullquote { margin: 0; max-width: none; border-radius: 0; height: 100%; }
+.quote-carousel + .caption { font-size: .9rem; color: var(--ink-soft); }
+
+/* ---------- real photographs ---------- */
+.lead-img {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: 16 / 9; object-fit: cover;
+  object-position: 50% 70%;          /* keep the audience, lose some ceiling */
+}
+/* the conference photos are 3:2, so the carousel frame matches them */
+.slide img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+/* (L4) never taller than the screen leaves room for: the Background bar above, and the
+   caption, arrows and dots below. On a short or zoomed screen the whole photo shrinks
+   and gets plain bands at the sides, so the photo and its buttons are seen together. */
+.slide img {
+  max-height: max(11rem, calc(100vh - 17rem));
+  max-height: max(11rem, calc(100svh - 17rem));
+  object-fit: contain; background: var(--bg-alt);
+}
+/* the one portrait photo is shown whole rather than cropped to a strip */
+.slide img.whole { object-fit: contain; background: var(--bg-alt); }
+
+/* ---------- support band with six IIH UK links: three across on wide screens ---------- */
+@media (min-width: 900px) {
+  .support-band .support-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- real logo in the masthead ---------- */
+.masthead .logo { width: 190px; height: auto; display: block; }
+
+/* ---------- an odd number of cards: the last one spans the row, so pulling
+   a card on the cut-off date never leaves a gap ---------- */
+.cards > .card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* ---------- a card or rail item that still needs its link or content ---------- */
+.todo {
+  display: inline-block; font-size: .75rem; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; background: #FFF1C9; color: #6B4A00;
+  border: 1px dashed #B7861A; border-radius: 4px; padding: .125rem .5rem;
+}
+.card .linkrow, .rail-card .linkrow { display: flex; flex-wrap: wrap; gap: .5rem; }
+.card .linkrow .btn, .rail-card .linkrow .btn { width: auto; flex: 1 1 10rem; }
+
+/* ---------- support band: canonical §C markup, copied verbatim from IIHPT017 ---------- */
+.support-band { background: var(--surface); border-top: 4px solid var(--teal); padding: 2.5rem 0; margin-top: 2rem; }
+.support-band h2 { font-size: 1.4rem; margin-bottom: 1.25rem; text-align: center; }
+.support-list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+/* every link box is the same height, set by the tallest one, so the rows line up */
+.support-list { grid-auto-rows: 1fr; }
+.support-list li { display: flex; }
+.support-list li > a { flex: 1 1 auto; }
+.support-list a {
+  display: flex; gap: .625rem; align-items: center; min-height: var(--tap);
+  padding-block: .5rem; padding-inline: calc(var(--pad) - 5px) calc(var(--pad) - 1px);
+  border: 1px solid var(--rule); border-inline-start: 5px solid var(--sp, var(--teal));
+  border-radius: var(--r); background: var(--bg-alt); color: var(--ink);
+  text-decoration: none; font-weight: 600; font-size: 1rem;
+}
+.support-list a:hover { background: var(--tint); color: var(--ink); }
+.sp-teal { --sp: #3CBBBA; } .sp-blue { --sp: #1D4ED8; } .sp-red { --sp: #C0392B; }
+.sp-green { --sp: #1E7A46; } .sp-indigo { --sp: #4338CA; } .sp-amber { --sp: #D4730A; }
+.sp-navy { --sp: #1A2B4A; } .sp-pink { --sp: #C13584; }
+.sp-ico { flex: 0 0 auto; width: 1.25rem; height: 1.25rem; }
+svg.sp-ico { display: block; }
+span.sp-ico { display: inline-flex; align-items: center; justify-content: center; font-size: 1.05rem; line-height: 1; }
+/* TikTok's mark is near-black and vanishes on a dark card */
+:root[data-mode="dark"] a.sp-navy svg.sp-ico { fill: #E6EDF3; }
+
+/* ---------- dark mode: coloured rubric text fails contrast on dark cards,
+   so the colour stays on borders and icons and the words go neutral ---------- */
+:root[data-mode="dark"] .rubric { color: var(--ink-soft); }
+:root[data-mode="dark"] .icon svg { stroke: var(--ink-soft); }
+
+/* ---------- print and the PDF download ----------
+   A PDF cannot be clicked through, so every photo and every quote is laid out in
+   full. Links stay live in the PDF. Controls that only make sense on screen go. */
+@page { size: A4; margin: 12mm; }
+@media print {
+  .controls, .ribbon, .skip-link, .review-note, .carousel-bar, .cdotwrap, [data-live] { display: none !important; }
+  /* the "download this edition" card is pointless inside the download itself */
+  .side:has(a[download]) { display: none !important; }
+  body { background: #fff !important; background-image: none !important; }
+  .side, .row + .row > .side { position: static; }
+  .lead-img { max-height: 90mm; }
+  /* photographs: two across, every one shown */
+  .carousel:not(.quote-carousel) .carousel-viewport { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; border: 0; background: none; }
+  .carousel:not(.quote-carousel) .slide { display: block !important; break-inside: avoid; }
+  .carousel:not(.quote-carousel) .slide img { max-height: none; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 4px; }
+  .carousel:not(.quote-carousel) .slide img.whole { object-fit: contain; }
+  .slide figcaption { font-size: 9pt; padding: 1mm 0 0; border: 0; background: none; }
+  /* quotes: stacked one under another */
+  .quote-carousel .carousel-viewport { display: block; border: 0; background: none; }
+  .quote-carousel .slide { visibility: visible !important; margin-bottom: 3mm; break-inside: avoid; }
+  .quote-carousel .pullquote { height: auto; border-radius: 0 var(--r) var(--r) 0; }
+  .screen-only { display: none; }
+  /* keep small boxes whole, and headings with what follows them. The full-width
+     cards are long, so they may split rather than leave half a page empty. */
+  .card:not(.wide), .rail-card, .brief, .pullquote, .fact, .support-list li,
+  .support-band, .foot { break-inside: avoid; }
+  .sec-head, .half-head, h2, h3, .rubric, .card-top { break-after: avoid; }
+  .people, .person, .card:has(.people) { break-inside: avoid; }
+}
+
+/* ---------- phone logo inside the teal band (L3) ----------
+   Hidden on wider screens, where the navy masthead carries the logo. */
+.band-logo { display: none; }
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 900px) {
+  .row { grid-template-columns: minmax(0, 1fr); }
+  .row > .row-main, .side { grid-column: 1; }
+  .side, .row + .row > .side { position: static; margin-top: 1.5rem; }
+}
+/* Phones: the navy masthead folds into the teal band, so the first screen reaches the
+   lead story. The charity numbers stay in the footer. */
+@media (max-width: 640px) {
+  .masthead { display: none; }
+  .band { padding: 1rem 0 1.25rem; }
+  .band-logo {
+    display: inline-block; background: var(--navy); border-radius: var(--r);
+    padding: .375rem .625rem; margin-bottom: .5rem;
+  }
+  .layout { padding-top: 1.25rem; }
+  .lede { margin-bottom: 1.25rem; }
+  .band-logo::after { content: none !important; }
+  .band-logo img { width: 150px; height: auto; display: block; }
+}
+/* Smallest phones: keep the three background buttons on one row. The label
+   stays available to screen readers, it just stops taking up a line. */
+@media (max-width: 400px) {
+  .controls-label {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+  .modebtn { padding: 0 .75rem; }
+}
+
+@media (max-width: 640px) {
+  .support-list { grid-template-columns: minmax(0, 1fr); }
+  .sec-head { margin-top: 2.25rem; }
+  .quote-strip .pullquote { font-size: 1.2rem; }
+}
