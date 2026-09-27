@@ -64,6 +64,14 @@ h1,h2,h3{line-height:1.15}
 .modebtn[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
 :root[data-mode="dark"] .modebtn[aria-pressed="true"]{background:var(--teal);color:#0B1117;border-color:var(--teal)}
 .modebtn:hover{border-color:var(--teal)}
+/* Back to the newsletter library. target="_top" on the link itself, so when this
+   newsletter is shown inside a window on iih.org.uk it replaces the whole page
+   rather than loading the library inside the window. */
+.libbtn{display:inline-flex;align-items:center;gap:.4rem;min-height:var(--tap);padding:0 .875rem;
+  margin-inline-start:auto;border-radius:999px;border:2px solid var(--teal);background:transparent;
+  color:var(--ink);font-size:.9rem;font-weight:700;text-decoration:none}
+.libbtn:hover,.libbtn:focus-visible{background:var(--teal);color:#0B1117}
+.foot-lib{display:inline-block;margin-top:.5rem}
 
 /* ---------- masthead ---------- */
 .masthead{background:var(--navy);border-bottom:4px solid var(--teal);padding:1.25rem 0}
